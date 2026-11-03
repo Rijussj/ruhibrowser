@@ -173,7 +173,7 @@ struct AddressBarView: View {
                     Button("History (⌘Y)", action: onOpenHistory)
                     Button("Clear Browsing Data... (⇧⌘⌫)", action: onOpenClearData)
                     Divider()
-                    Button("Ruhi Cloud Sync Account", action: onOpenAccount)
+                    Button("RUHI Account", action: onOpenAccount)
                     Button("Preferences / Settings... (⌘,)", action: onOpenSettings)
                 } label: {
                     Image(systemName: "ellipsis")

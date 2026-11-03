@@ -23,7 +23,7 @@ struct AccountSheetView: View {
         VStack(spacing: 0) {
             // Header
             HStack {
-                Text("Ruhi Cloud Account")
+                Text("RUHI Account")
                     .font(.headline)
                 Spacer()
                 Button(action: { dismiss() }) {

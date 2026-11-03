@@ -60,9 +60,9 @@ struct RuhiBrowserApp: App {
                 }
             }
 
-            // Account & Sync Menu
-            CommandMenu("Cloud Sync") {
-                Button("Supabase Cloud Account...") {
+            // Account Menu
+            CommandMenu("Account") {
+                Button("RUHI Account...") {
                     NotificationCenter.default.post(name: NSNotification.Name("RuhiShowAccount"), object: nil)
                 }
             }

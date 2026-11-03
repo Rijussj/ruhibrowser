@@ -1,7 +1,7 @@
 <Window x:Class="RuhiBrowser.Views.SyncAccountWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Ruhi Account" Height="540" Width="480"
+        Title="RUHI Account" Height="540" Width="480"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
         Background="{DynamicResource WindowBgBrush}" Foreground="{DynamicResource TextPrimaryBrush}"
         FontFamily="Segoe UI">
@@ -48,8 +48,8 @@
     <Grid Margin="24">
         <!-- NOT LOGGED IN PANEL -->
         <StackPanel x:Name="PanelAuth" Visibility="Visible">
-            <TextBlock Text="👤 Ruhi Account" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}"/>
-            <TextBlock Text="Seamlessly sync bookmarks, history, and open tabs across your Windows PC and Android phone." FontSize="13" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,6,0,20" TextWrapping="Wrap"/>
+            <TextBlock Text="👤 RUHI Account" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+            <TextBlock Text="Seamlessly sync bookmarks, history, and open tabs across your Windows PC, Android phone, and Mac." FontSize="13" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,6,0,20" TextWrapping="Wrap"/>
 
             <!-- Tab Switcher (Login vs Sign Up) -->
             <Border Background="{DynamicResource CardBgBrush}" CornerRadius="8" Padding="3" Margin="0,0,0,18" HorizontalAlignment="Left">
