@@ -1,12 +1,16 @@
 import SwiftUI
 import AppKit
 
-struct QuickShortcutItem: Identifiable, Codable {
+struct NewsArticleItem: Identifiable {
     var id: UUID = UUID()
     var title: String
+    var description: String
+    var source: String
+    var timeAgo: String
+    var category: String
     var url: String
-    var iconName: String
-    var colorHex: String
+    var bannerColors: [Color]
+    var emoji: String
 }
 
 struct HomeScreenView: View {
@@ -16,10 +20,8 @@ struct HomeScreenView: View {
     @ObservedObject var syncManager = SyncManager.shared
 
     @State private var searchInput: String = ""
-    @State private var clockTime: String = "12:00"
-    @State private var clockSeconds: String = ":00"
-    @State private var clockAmPm: String = "PM"
-    @State private var greetingText: String = "Good afternoon, Welcome to RUHI  •  📅 Tuesday, 3 Nov"
+    @State private var activeCategory: String = "top"
+    @State private var dateGlanceString: String = "🕒 4:30 PM  •  📅 Tuesday, 3 Nov"
     @State private var timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
 
     var onOpenAi: () -> Void
@@ -43,274 +45,381 @@ struct HomeScreenView: View {
         QuickShortcutItem(title: "WhatsApp", url: "https://web.whatsapp.com", iconName: "message.fill", colorHex: "#22C55E")
     ]
 
+    let sampleArticles: [NewsArticleItem] = [
+        NewsArticleItem(
+            title: "Next-Gen AI Systems Transform Web Browsing & Autonomous Workflows",
+            description: "New multimodal models bring on-device reasoning and privacy-first web navigation across platforms.",
+            source: "TechWire",
+            timeAgo: "15m ago",
+            category: "tech",
+            url: "https://news.google.com",
+            bannerColors: [Color(hex: "#0F172A"), Color(hex: "#0284C7")],
+            emoji: "💻"
+        ),
+        NewsArticleItem(
+            title: "Global Financial Markets Gain Momentum Amid Innovation Boom",
+            description: "Positive earnings and semiconductor manufacturing expansion drive technology sector rally.",
+            source: "Financial Times",
+            timeAgo: "28m ago",
+            category: "business",
+            url: "https://news.google.com",
+            bannerColors: [Color(hex: "#0B132B"), Color(hex: "#059669")],
+            emoji: "💼"
+        ),
+        NewsArticleItem(
+            title: "Deep Space Telescope Mission Relays First High-Resolution Telemetry",
+            description: "Astronomers discover unprecedented exoplanet atmosphere compositions in nearby star cluster.",
+            source: "Science Daily",
+            timeAgo: "42m ago",
+            category: "world",
+            url: "https://news.google.com",
+            bannerColors: [Color(hex: "#0F172A"), Color(hex: "#DC2626")],
+            emoji: "⚡"
+        ),
+        NewsArticleItem(
+            title: "International Championship Announces Venues & Tournament Schedule",
+            description: "World ranking teams finalize squads for upcoming international sporting competition.",
+            source: "Sports Central",
+            timeAgo: "1h ago",
+            category: "sports",
+            url: "https://news.google.com",
+            bannerColors: [Color(hex: "#1C1917"), Color(hex: "#D97706")],
+            emoji: "🏏"
+        ),
+        NewsArticleItem(
+            title: "Post-Quantum Security Standard Rolled Out to Global Web Networks",
+            description: "Leading security consortium enforces zero-trust encryption protocols across web infrastructure.",
+            source: "Cyber Defense",
+            timeAgo: "2h ago",
+            category: "tech",
+            url: "https://news.google.com",
+            bannerColors: [Color(hex: "#0F172A"), Color(hex: "#2563EB")],
+            emoji: "🛡️"
+        ),
+        NewsArticleItem(
+            title: "Blockbuster Cinematic Release Sets Global Streaming Records",
+            description: "Groundbreaking visual effects and original score achieve critical acclaim and record viewership.",
+            source: "Entertainment Weekly",
+            timeAgo: "3h ago",
+            category: "entertainment",
+            url: "https://news.google.com",
+            bannerColors: [Color(hex: "#1E1B4B"), Color(hex: "#C026D3")],
+            emoji: "🎬"
+        )
+    ]
+
+    var filteredArticles: [NewsArticleItem] {
+        if activeCategory == "top" {
+            return sampleArticles
+        }
+        return sampleArticles.filter { $0.category == activeCategory }
+    }
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: true) {
-            ZStack(alignment: .top) {
-                // Subtle Windows-style scenic ambient gradient background
-                LinearGradient(
-                    colors: [
-                        Color(hex: "#0B132B"),
-                        Color(hex: "#1C2541"),
-                        Color(hex: "#181818"),
-                        Color(hex: "#181818")
-                    ],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
+            VStack(spacing: 24) {
+                // Private / Incognito Banner (if active)
+                if tab.isIncognito {
+                    incognitoBanner
+                        .padding(.top, 16)
+                }
 
-                VStack(spacing: 20) {
-                    // Private / Incognito Banner (if active)
-                    if tab.isIncognito {
-                        incognitoBanner
-                            .padding(.top, 16)
-                    }
+                // Brand Header (Exact Windows SpHomeBrandHeader)
+                VStack(spacing: 6) {
+                    appIconView
+                        .frame(width: 72, height: 72)
+                        .padding(.bottom, 2)
 
-                    // Productive Header: Digital Clock, Live Seconds & Greeting Pill
-                    VStack(spacing: 6) {
-                        HStack(alignment: .bottom, spacing: 8) {
-                            Text(clockTime)
-                                .font(.system(size: 60, weight: .bold, design: .rounded))
-                                .foregroundColor(.white)
-
-                            VStack(alignment: .leading, spacing: 3) {
-                                Text(clockSeconds)
-                                    .font(.system(size: 13, weight: .bold, design: .monospaced))
-                                    .foregroundColor(Color(hex: "#38BDF8"))
-                                    .padding(.horizontal, 6)
-                                    .padding(.vertical, 2)
-                                    .background(Color(hex: "#383838"))
-                                    .cornerRadius(6)
-
-                                Text(clockAmPm)
-                                    .font(.system(size: 12.5, weight: .bold))
-                                    .foregroundColor(Color(hex: "#94A3B8"))
-                            }
-                            .padding(.bottom, 10)
-                        }
-
-                        // Greeting & Date Pill (Identical to Windows)
-                        HStack(spacing: 6) {
-                            Text(greetingText)
-                                .font(.system(size: 12.5, weight: .semibold))
-                                .foregroundColor(Color(hex: "#E2E8F0"))
-                        }
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 6)
-                        .background(Color(hex: "#141E33"))
-                        .cornerRadius(16)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color(hex: "#25354F"), lineWidth: 1)
-                        )
-
-                        // Motivational Focus Quote
-                        Text("“Focus on being productive instead of busy.”")
-                            .font(.system(size: 12))
-                            .italic()
-                            .foregroundColor(Color(hex: "#64748B"))
-                            .padding(.top, 2)
-                    }
-                    .padding(.top, tab.isIncognito ? 8 : 22)
-
-                    // Brand Header: App Icon + Title + Subtitle
-                    VStack(spacing: 4) {
-                        appIconView
-                            .frame(width: 64, height: 64)
-                            .padding(.bottom, 4)
-
-                        Text("RUHI Browser")
-                            .font(.system(size: 30, weight: .bold))
-                            .foregroundColor(.white)
-
-                        Text("Fast, Secure & Private Browsing")
-                            .font(.system(size: 13))
-                            .foregroundColor(Color(hex: "#94A3B8"))
-                    }
-
-                    // Windows-Style Big Central Search Bar
-                    HStack(spacing: 12) {
-                        Text("🔍")
-                            .font(.system(size: 14))
-                            .foregroundColor(Color(hex: "#64748B"))
-
-                        TextField("Search Google or enter URL...", text: $searchInput, onCommit: {
-                            performSearch()
-                        })
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .font(.system(size: 14))
+                    Text("RUHI Browser")
+                        .font(.system(size: 30, weight: .bold))
                         .foregroundColor(.white)
 
-                        Button(action: performSearch) {
-                            Text("Search")
-                                .font(.system(size: 13, weight: .semibold))
-                                .foregroundColor(.white)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 7)
-                                .background(Color(hex: "#2563EB"))
-                                .cornerRadius(16)
+                    Text("Fast, Secure & Private Browsing")
+                        .font(.system(size: 13))
+                        .foregroundColor(Color(hex: "#94A3B8"))
+                }
+                .padding(.top, tab.isIncognito ? 8 : 28)
+
+                // Big Central Search Bar (Exact Windows BorderHomeSearch)
+                HStack(spacing: 12) {
+                    Text("🔍")
+                        .font(.system(size: 14))
+                        .foregroundColor(Color(hex: "#64748B"))
+
+                    TextField("Search Google or enter URL...", text: $searchInput, onCommit: {
+                        performSearch()
+                    })
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .font(.system(size: 14))
+                    .foregroundColor(.white)
+
+                    Button(action: performSearch) {
+                        Text("Search")
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 7)
+                            .background(Color(hex: "#2563EB"))
+                            .cornerRadius(16)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+                .padding(.leading, 18)
+                .padding(.trailing, 6)
+                .padding(.vertical, 4)
+                .frame(width: 680, height: 48)
+                .background(Color(hex: "#202124"))
+                .cornerRadius(24)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 24)
+                        .stroke(Color(hex: "#3C4043"), lineWidth: 1)
+                )
+
+                // Shortcuts Section (Exact Windows WpShortcuts)
+                VStack(spacing: 10) {
+                    HStack {
+                        Text("Quick Shortcuts")
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundColor(Color(hex: "#94A3B8"))
+                        Spacer()
+                        Text("(Right-click shortcut to edit/delete)")
+                            .font(.system(size: 11))
+                            .foregroundColor(Color(hex: "#64748B"))
+                    }
+                    .frame(width: 680)
+
+                    LazyVGrid(columns: Array(repeating: GridItem(.fixed(110), spacing: 10), count: 4), spacing: 10) {
+                        ForEach(defaultShortcuts) { item in
+                            Button(action: {
+                                if let url = URL(string: item.url) {
+                                    onNavigate(url)
+                                }
+                            }) {
+                                VStack(spacing: 8) {
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color(hex: item.colorHex).opacity(0.18))
+                                            .frame(width: 36, height: 36)
+
+                                        Image(systemName: item.iconName)
+                                            .font(.system(size: 16, weight: .medium))
+                                            .foregroundColor(Color(hex: item.colorHex))
+                                    }
+
+                                    Text(item.title)
+                                        .font(.system(size: 12, weight: .medium))
+                                        .foregroundColor(.white)
+                                        .lineLimit(1)
+                                }
+                                .frame(width: 110, height: 86)
+                                .background(Color(hex: "#242424"))
+                                .cornerRadius(12)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color(hex: "#383838"), lineWidth: 1)
+                                    )
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                    }
+                    .frame(width: 680)
+                }
+
+                // Open Edge-Style MSN News Feed (Exact Windows BorderHomeNews)
+                VStack(spacing: 16) {
+                    // Category Navigation Pills + Live Date Glance
+                    HStack {
+                        // Category Pills
+                        HStack(spacing: 6) {
+                            categoryPill(title: "🔥 Top Stories", category: "top")
+                            categoryPill(title: "💻 Tech", category: "tech")
+                            categoryPill(title: "💼 Finance", category: "business")
+                            categoryPill(title: "🏏 Sports", category: "sports")
+                            categoryPill(title: "🎬 Entertainment", category: "entertainment")
+                            categoryPill(title: "⚡ Breaking", category: "world")
+                        }
+
+                        Spacer()
+
+                        // Right Glance: Date Briefing & Refresh
+                        HStack(spacing: 8) {
+                            HStack(spacing: 6) {
+                                Circle()
+                                    .fill(Color(hex: "#10B981"))
+                                    .frame(width: 7, height: 7)
+                                Text("LIVE")
+                                    .font(.system(size: 10, weight: .bold))
+                                    .foregroundColor(Color(hex: "#10B981"))
+                                Text(dateGlanceString)
+                                    .font(.system(size: 11.5, weight: .semibold))
+                                    .foregroundColor(Color(hex: "#E2E8F0"))
+                            }
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(Color(hex: "#141E33"))
+                            .cornerRadius(18)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 18)
+                                    .stroke(Color(hex: "#25354F"), lineWidth: 1)
+                            )
+
+                            Button(action: {
+                                updateDateGlance()
+                            }) {
+                                HStack(spacing: 4) {
+                                    Text("🔄")
+                                        .font(.system(size: 10))
+                                    Text("Refresh")
+                                        .font(.system(size: 11, weight: .semibold))
+                                }
+                                .foregroundColor(Color(hex: "#94A3B8"))
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 6)
+                                .background(Color(hex: "#1E293B"))
+                                .cornerRadius(14)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 14)
+                                        .stroke(Color(hex: "#334155"), lineWidth: 1)
+                                )
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                    }
+                    .frame(width: 680)
+
+                    // Hero Featured Article Card (Edge Hero Article)
+                    if let hero = filteredArticles.first {
+                        Button(action: {
+                            if let url = URL(string: hero.url) {
+                                onNavigate(url)
+                            }
+                        }) {
+                            HStack(spacing: 16) {
+                                // Left visual banner
+                                ZStack {
+                                    LinearGradient(colors: hero.bannerColors, startPoint: .topLeading, endPoint: .bottomTrailing)
+                                    Text(hero.emoji)
+                                        .font(.system(size: 40))
+                                }
+                                .frame(width: 220, height: 140)
+                                .cornerRadius(10)
+
+                                // Right story details
+                                VStack(alignment: .leading, spacing: 6) {
+                                    HStack {
+                                        Text("FEATURED STORY")
+                                            .font(.system(size: 10, weight: .bold))
+                                            .foregroundColor(Color(hex: "#38BDF8"))
+                                            .padding(.horizontal, 6)
+                                            .padding(.vertical, 2)
+                                            .background(Color(hex: "#0F2847"))
+                                            .cornerRadius(4)
+
+                                        Spacer()
+
+                                        Text("\(hero.source) • \(hero.timeAgo)")
+                                            .font(.system(size: 11))
+                                            .foregroundColor(Color(hex: "#64748B"))
+                                    }
+
+                                    Text(hero.title)
+                                        .font(.system(size: 15, weight: .bold))
+                                        .foregroundColor(.white)
+                                        .lineLimit(2)
+
+                                    Text(hero.description)
+                                        .font(.system(size: 12))
+                                        .foregroundColor(Color(hex: "#94A3B8"))
+                                        .lineLimit(2)
+
+                                    HStack(spacing: 4) {
+                                        Text("Read Full Coverage")
+                                            .font(.system(size: 11.5, weight: .semibold))
+                                            .foregroundColor(Color(hex: "#38BDF8"))
+                                        Image(systemName: "arrow.up.right")
+                                            .font(.system(size: 9))
+                                            .foregroundColor(Color(hex: "#38BDF8"))
+                                    }
+                                    .padding(.top, 2)
+                                }
+                                .padding(.trailing, 14)
+                            }
+                            .padding(10)
+                            .frame(width: 680, height: 160)
+                            .background(Color(hex: "#162032"))
+                            .cornerRadius(14)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 14)
+                                    .stroke(Color(hex: "#24334C"), lineWidth: 1)
+                            )
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
-                    .padding(.leading, 18)
-                    .padding(.trailing, 6)
-                    .padding(.vertical, 4)
-                    .frame(width: 680, height: 48)
-                    .background(Color(hex: "#202124"))
-                    .cornerRadius(24)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 24)
-                            .stroke(Color(hex: "#3C4043"), lineWidth: 1)
-                    )
 
-                    // Feature Hub & Quick Launch Workspace (From Windows BorderHomeProductiveTools)
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("⚡ Quick Launch Feature Hub")
-                            .font(.system(size: 12, weight: .semibold))
-                            .foregroundColor(Color(hex: "#94A3B8"))
+                    // 3-Column Articles Uniform Grid
+                    LazyVGrid(columns: Array(repeating: GridItem(.fixed(218), spacing: 13), count: 3), spacing: 13) {
+                        ForEach(filteredArticles.dropFirst()) { art in
+                            Button(action: {
+                                if let url = URL(string: art.url) {
+                                    onNavigate(url)
+                                }
+                            }) {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    // Card Banner
+                                    ZStack {
+                                        LinearGradient(colors: art.bannerColors, startPoint: .topLeading, endPoint: .bottomTrailing)
+                                        Text(art.emoji)
+                                            .font(.system(size: 24))
+                                    }
+                                    .frame(height: 70)
+                                    .cornerRadius(8)
 
-                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 4), spacing: 8) {
-                            featurePill(title: "🤖 AI Assistant", action: onOpenAi)
-                            featurePill(title: "🛡️ RUHI VPN", action: onOpenVpn)
-                            featurePill(title: "🔑 Password Vault", action: onOpenPasswords)
-                            featurePill(title: "🌐 Page Translator", action: onOpenTranslate)
-                            featurePill(title: "📑 PDF Tools", action: onOpenPdfTools)
-                            featurePill(title: "☁️ RUHI Account", action: onOpenAccount)
-                            featurePill(title: "🔖 Bookmarks", action: onOpenBookmarks)
-                            featurePill(title: "🕒 History", action: onOpenHistory)
+                                    Text(art.title)
+                                        .font(.system(size: 12.5, weight: .bold))
+                                        .foregroundColor(.white)
+                                        .lineLimit(2)
+
+                                    Text(art.description)
+                                        .font(.system(size: 11))
+                                        .foregroundColor(Color(hex: "#94A3B8"))
+                                        .lineLimit(2)
+
+                                    Spacer(minLength: 0)
+
+                                    HStack {
+                                        Text(art.source)
+                                            .font(.system(size: 10, weight: .semibold))
+                                            .foregroundColor(Color(hex: "#64748B"))
+                                        Spacer()
+                                        Text(art.timeAgo)
+                                            .font(.system(size: 10))
+                                            .foregroundColor(Color(hex: "#64748B"))
+                                    }
+                                }
+                                .padding(10)
+                                .frame(width: 218, height: 195)
+                                .background(Color(hex: "#242424"))
+                                .cornerRadius(12)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color(hex: "#383838"), lineWidth: 1)
+                                )
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
-                    .padding(14)
                     .frame(width: 680)
-                    .background(Color(hex: "#242424"))
-                    .cornerRadius(14)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 14)
-                            .stroke(Color(hex: "#383838"), lineWidth: 1)
-                    )
-
-                    // Shortcuts Section Header & Tiles (Identical to Windows WpShortcuts)
-                    VStack(spacing: 10) {
-                        HStack {
-                            Text("Quick Shortcuts")
-                                .font(.system(size: 13, weight: .semibold))
-                                .foregroundColor(Color(hex: "#94A3B8"))
-                            Spacer()
-                            Text("(Right-click shortcut to edit/delete)")
-                                .font(.system(size: 11))
-                                .foregroundColor(Color(hex: "#64748B"))
-                        }
-                        .frame(width: 680)
-
-                        // 8 Shortcuts in Windows Grid Layout
-                        LazyVGrid(columns: Array(repeating: GridItem(.fixed(110), spacing: 10), count: 4), spacing: 10) {
-                            ForEach(defaultShortcuts) { item in
-                                Button(action: {
-                                    if let url = URL(string: item.url) {
-                                        onNavigate(url)
-                                    }
-                                }) {
-                                    VStack(spacing: 8) {
-                                        ZStack {
-                                            Circle()
-                                                .fill(Color(hex: item.colorHex).opacity(0.18))
-                                                .frame(width: 36, height: 36)
-
-                                            Image(systemName: item.iconName)
-                                                .font(.system(size: 16, weight: .medium))
-                                                .foregroundColor(Color(hex: item.colorHex))
-                                        }
-
-                                        Text(item.title)
-                                            .font(.system(size: 12, weight: .medium))
-                                            .foregroundColor(.white)
-                                            .lineLimit(1)
-                                    }
-                                    .frame(width: 110, height: 86)
-                                    .background(Color(hex: "#242424"))
-                                    .cornerRadius(12)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .stroke(Color(hex: "#383838"), lineWidth: 1)
-                                    )
-                                }
-                                .buttonStyle(PlainButtonStyle())
-                            }
-                        }
-                        .frame(width: 680)
-                    }
-
-                    // Recent Visits Section (Identical to Windows BorderRecentVisits)
-                    if !historyManager.history.isEmpty && !tab.isIncognito {
-                        VStack(alignment: .leading, spacing: 10) {
-                            HStack {
-                                Text("Recent Visits")
-                                    .font(.system(size: 14, weight: .semibold))
-                                    .foregroundColor(Color(hex: "#94A3B8"))
-                                Spacer()
-                                Button("See All History", action: onOpenHistory)
-                                    .font(.system(size: 11))
-                                    .foregroundColor(Color(hex: "#38BDF8"))
-                                    .buttonStyle(PlainButtonStyle())
-                            }
-
-                            VStack(spacing: 6) {
-                                ForEach(historyManager.history.prefix(3)) { item in
-                                    Button(action: {
-                                        if let url = URL(string: item.url) {
-                                            onNavigate(url)
-                                        }
-                                    }) {
-                                        HStack(spacing: 12) {
-                                            Image(systemName: "globe")
-                                                .foregroundColor(Color(hex: "#64748B"))
-                                                .font(.system(size: 14))
-
-                                            VStack(alignment: .leading, spacing: 2) {
-                                                Text(item.title)
-                                                    .font(.system(size: 13, weight: .medium))
-                                                    .foregroundColor(.white)
-                                                    .lineLimit(1)
-                                                Text(item.url)
-                                                    .font(.system(size: 11))
-                                                    .foregroundColor(Color(hex: "#94A3B8"))
-                                                    .lineLimit(1)
-                                            }
-                                            Spacer()
-                                            Image(systemName: "chevron.right")
-                                                .font(.system(size: 10))
-                                                .foregroundColor(Color(hex: "#64748B"))
-                                        }
-                                        .padding(.vertical, 8)
-                                        .padding(.horizontal, 12)
-                                        .background(Color(hex: "#1C1C1C"))
-                                        .cornerRadius(8)
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                }
-                            }
-                        }
-                        .padding(16)
-                        .frame(width: 680)
-                        .background(Color(hex: "#242424"))
-                        .cornerRadius(12)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color(hex: "#383838"), lineWidth: 1)
-                        )
-                        .padding(.bottom, 24)
-                    }
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.bottom, 30)
+                .padding(.bottom, 36)
             }
+            .frame(maxWidth: .infinity)
         }
         .background(Color(hex: "#181818"))
         .onAppear {
-            updateClockAndGreeting()
+            updateDateGlance()
         }
         .onReceive(timer) { _ in
-            updateClockAndGreeting()
+            updateDateGlance()
         }
     }
 
@@ -323,31 +432,36 @@ struct HomeScreenView: View {
                     .aspectRatio(contentMode: .fit)
                     .cornerRadius(16)
             } else {
-                // High-fidelity vector fallback of the RUHI icon
                 ZStack {
                     RoundedRectangle(cornerRadius: 16)
                         .fill(LinearGradient(colors: [Color(hex: "#3B82F6"), Color(hex: "#1D4ED8")], startPoint: .topLeading, endPoint: .bottomTrailing))
                     Image(systemName: "globe.americas.fill")
-                        .font(.system(size: 34))
+                        .font(.system(size: 38))
                         .foregroundColor(.white)
                 }
             }
         }
     }
 
-    private func featurePill(title: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
+    private func categoryPill(title: String, category: String) -> some View {
+        let isSel = (activeCategory == category)
+        return Button(action: {
+            activeCategory = category
+        }) {
             Text(title)
-                .font(.system(size: 11.5, weight: .medium))
-                .foregroundColor(Color(hex: "#E2E8F0"))
-                .padding(.horizontal, 8)
-                .padding(.vertical, 6)
-                .frame(maxWidth: .infinity)
-                .background(Color(hex: "#1C1C1C"))
-                .cornerRadius(8)
+                .font(.system(size: 11, weight: isSel ? .bold : .semibold))
+                .foregroundColor(isSel ? .white : Color(hex: "#94A3B8"))
+                .padding(.horizontal, 9)
+                .padding(.vertical, 5)
+                .background(
+                    isSel ?
+                    AnyView(LinearGradient(colors: [Color(hex: "#1D4ED8"), Color(hex: "#2563EB")], startPoint: .leading, endPoint: .trailing)) :
+                    AnyView(Color(hex: "#141E33"))
+                )
+                .cornerRadius(12)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color(hex: "#383838"), lineWidth: 1)
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(isSel ? Color(hex: "#60A5FA") : Color(hex: "#25354F"), lineWidth: 1)
                 )
         }
         .buttonStyle(PlainButtonStyle())
@@ -376,31 +490,15 @@ struct HomeScreenView: View {
         .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color(hex: "#383838"), lineWidth: 1))
     }
 
-    private func updateClockAndGreeting() {
+    private func updateDateGlance() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm"
-        clockTime = formatter.string(from: Date())
+        formatter.dateFormat = "h:mm a"
+        let timePart = formatter.string(from: Date())
 
-        formatter.dateFormat = ":ss"
-        clockSeconds = formatter.string(from: Date())
+        formatter.dateFormat = "EEEE, d MMM"
+        let datePart = formatter.string(from: Date())
 
-        formatter.dateFormat = "a"
-        clockAmPm = formatter.string(from: Date())
-
-        let dateFmt = DateFormatter()
-        dateFmt.dateFormat = "EEEE, d MMM"
-        let datePart = dateFmt.string(from: Date())
-
-        let hour = Calendar.current.component(.hour, from: Date())
-        let greet: String
-        if hour < 12 {
-            greet = "Good morning, Welcome to RUHI"
-        } else if hour < 17 {
-            greet = "Good afternoon, Welcome to RUHI"
-        } else {
-            greet = "Good evening, Welcome to RUHI"
-        }
-        greetingText = "\(greet)  •  📅 \(datePart)"
+        dateGlanceString = "🕒 \(timePart)  •  📅 \(datePart)"
     }
 
     private func performSearch() {
