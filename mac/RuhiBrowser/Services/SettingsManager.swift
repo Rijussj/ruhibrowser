@@ -34,7 +34,10 @@ class SettingsManager: ObservableObject {
     }
 
     @Published var adBlockEnabled: Bool {
-        didSet { defaults.set(adBlockEnabled, forKey: keyAdBlockEnabled) }
+        didSet {
+            defaults.set(adBlockEnabled, forKey: keyAdBlockEnabled)
+            NotificationCenter.default.post(name: NSNotification.Name("RuhiAdBlockSettingsChanged"), object: nil)
+        }
     }
 
     @Published var syncEnabled: Bool {
@@ -53,12 +56,28 @@ class SettingsManager: ObservableObject {
         didSet { defaults.set(syncUserId, forKey: keySyncUserId) }
     }
 
+    // Encrypted in Apple Keychain
     @Published var syncAccessToken: String {
-        didSet { defaults.set(syncAccessToken, forKey: keySyncAccessToken) }
+        didSet {
+            if syncAccessToken.isEmpty {
+                KeychainHelper.shared.delete(key: "sync_access_token")
+            } else {
+                KeychainHelper.shared.save(key: "sync_access_token", value: syncAccessToken)
+            }
+            defaults.removeObject(forKey: keySyncAccessToken)
+        }
     }
 
+    // Encrypted in Apple Keychain
     @Published var syncRefreshToken: String {
-        didSet { defaults.set(syncRefreshToken, forKey: keySyncRefreshToken) }
+        didSet {
+            if syncRefreshToken.isEmpty {
+                KeychainHelper.shared.delete(key: "sync_refresh_token")
+            } else {
+                KeychainHelper.shared.save(key: "sync_refresh_token", value: syncRefreshToken)
+            }
+            defaults.removeObject(forKey: keySyncRefreshToken)
+        }
     }
 
     @Published var syncDeviceId: String {
@@ -83,8 +102,25 @@ class SettingsManager: ObservableObject {
         self.syncEmail = defaults.string(forKey: keySyncEmail) ?? ""
         self.syncDisplayName = defaults.string(forKey: keySyncDisplayName) ?? ""
         self.syncUserId = defaults.string(forKey: keySyncUserId) ?? ""
-        self.syncAccessToken = defaults.string(forKey: keySyncAccessToken) ?? ""
-        self.syncRefreshToken = defaults.string(forKey: keySyncRefreshToken) ?? ""
+
+        // Secure migration from UserDefaults to Apple Keychain
+        let keychainAccess = KeychainHelper.shared.read(key: "sync_access_token")
+        let legacyAccess = defaults.string(forKey: keySyncAccessToken) ?? ""
+        let resolvedAccess = keychainAccess ?? legacyAccess
+        self.syncAccessToken = resolvedAccess
+        if keychainAccess == nil && !legacyAccess.isEmpty {
+            KeychainHelper.shared.save(key: "sync_access_token", value: legacyAccess)
+            defaults.removeObject(forKey: keySyncAccessToken)
+        }
+
+        let keychainRefresh = KeychainHelper.shared.read(key: "sync_refresh_token")
+        let legacyRefresh = defaults.string(forKey: keySyncRefreshToken) ?? ""
+        let resolvedRefresh = keychainRefresh ?? legacyRefresh
+        self.syncRefreshToken = resolvedRefresh
+        if keychainRefresh == nil && !legacyRefresh.isEmpty {
+            KeychainHelper.shared.save(key: "sync_refresh_token", value: legacyRefresh)
+            defaults.removeObject(forKey: keySyncRefreshToken)
+        }
 
         var devId = defaults.string(forKey: keySyncDeviceId) ?? ""
         if devId.isEmpty {

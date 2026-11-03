@@ -38,7 +38,13 @@ class BrowserTab: Identifiable, ObservableObject {
         
         // Native Apple WebKit preferences
         config.preferences.javaScriptCanOpenWindowsAutomatically = true
+        config.preferences.isElementFullscreenEnabled = true
         config.defaultWebpagePreferences.allowsContentJavaScript = true
+        config.allowsAirPlayForMediaPlayback = true
+        config.mediaTypesRequiringUserActionForPlayback = []
+
+        // Apply Content Blocker / AdBlock
+        AdBlockManager.shared.apply(to: config)
 
         self.webView = WKWebView(frame: .zero, configuration: config)
         self.webView.allowsBackForwardNavigationGestures = true

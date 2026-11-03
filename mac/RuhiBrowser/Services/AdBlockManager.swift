@@ -4,13 +4,25 @@ import WebKit
 class AdBlockManager {
     static let shared = AdBlockManager()
 
-    private var contentRuleList: WKContentRuleList?
+    private(set) var contentRuleList: WKContentRuleList?
 
     private init() {
         compileRules()
     }
 
     func compileRules() {
+        // First check if cached compiled rules already exist
+        WKContentRuleListStore.default().lookUpContentRuleList(forIdentifier: "RuhiContentBlocker") { [weak self] list, error in
+            if let list = list {
+                self?.contentRuleList = list
+                NotificationCenter.default.post(name: NSNotification.Name("RuhiAdBlockRulesReady"), object: nil)
+            } else {
+                self?.compileFreshRules()
+            }
+        }
+    }
+
+    private func compileFreshRules() {
         // High-performance WebKit Content Blocker JSON rules
         let rules = """
         [
@@ -40,6 +52,7 @@ class AdBlockManager {
         ) { [weak self] list, error in
             if let list = list {
                 self?.contentRuleList = list
+                NotificationCenter.default.post(name: NSNotification.Name("RuhiAdBlockRulesReady"), object: nil)
             }
         }
     }
@@ -47,5 +60,13 @@ class AdBlockManager {
     func apply(to configuration: WKWebViewConfiguration) {
         guard SettingsManager.shared.adBlockEnabled, let ruleList = contentRuleList else { return }
         configuration.userContentController.add(ruleList)
+    }
+
+    func updateActiveController(_ controller: WKUserContentController) {
+        guard let ruleList = contentRuleList else { return }
+        controller.remove(ruleList)
+        if SettingsManager.shared.adBlockEnabled {
+            controller.add(ruleList)
+        }
     }
 }

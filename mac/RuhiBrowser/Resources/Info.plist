@@ -30,7 +30,9 @@
     <string>© 2026 RUHI Application. All rights reserved.</string>
     <key>NSAppTransportSecurity</key>
     <dict>
-        <key>NSAllowsArbitraryLoads</key>
+        <key>NSAllowsArbitraryLoadsInWebContent</key>
+        <true/>
+        <key>NSAllowsLocalNetworking</key>
         <true/>
     </dict>
     <key>CFBundleURLTypes</key>

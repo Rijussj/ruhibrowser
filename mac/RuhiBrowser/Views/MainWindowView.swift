@@ -12,6 +12,7 @@ struct MainWindowView: View {
     @State private var showBookmarksSheet = false
     @State private var showHistorySheet = false
     @State private var showSettingsSheet = false
+    @State private var showClearDataSheet = false
 
     var selectedTab: BrowserTab? {
         tabs.first(where: { $0.id == selectedTabId }) ?? tabs.first
@@ -82,6 +83,16 @@ struct MainWindowView: View {
         .sheet(isPresented: $showSettingsSheet) {
             SettingsSheetView()
         }
+        .sheet(isPresented: $showClearDataSheet) {
+            ClearDataSheetView()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowClearData"))) { _ in
+            showAccountSheet = false
+            showSettingsSheet = false
+            showBookmarksSheet = false
+            showHistorySheet = false
+            showClearDataSheet = true
+        }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowAccount"))) { _ in
             showSettingsSheet = false
             showBookmarksSheet = false
@@ -108,6 +119,11 @@ struct MainWindowView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiNewTab"))) { _ in
             addNewTab()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiNewTabWithUrl"))) { notif in
+            if let targetUrl = notif.object as? URL {
+                addNewTab(url: targetUrl)
+            }
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiNewPrivateTab"))) { _ in
             addNewTab(isIncognito: true)

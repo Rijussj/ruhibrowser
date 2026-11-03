@@ -73,6 +73,13 @@ struct RuhiBrowserApp: App {
                     NotificationCenter.default.post(name: NSNotification.Name("RuhiShowHistory"), object: nil)
                 }
                 .keyboardShortcut("y", modifiers: .command)
+
+                Divider()
+
+                Button("Clear Browsing Data...") {
+                    NotificationCenter.default.post(name: NSNotification.Name("RuhiShowClearData"), object: nil)
+                }
+                .keyboardShortcut(.delete, modifiers: [.command, .shift])
             }
         }
     }

@@ -8,10 +8,11 @@ struct WebViewContainer: NSViewRepresentable {
         tab.webView.navigationDelegate = context.coordinator
         tab.webView.uiDelegate = context.coordinator
 
-        // KVO observers for progress, title, url, canGoBack, canGoForward
         context.coordinator.setupObservers(for: tab.webView)
 
-        AdBlockManager.shared.apply(to: tab.webView.configuration)
+        // Apply Content Blocker
+        AdBlockManager.shared.updateActiveController(tab.webView.configuration.userContentController)
+
         return tab.webView
     }
 
@@ -26,10 +27,38 @@ struct WebViewContainer: NSViewRepresentable {
     class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
         var tab: BrowserTab
         private var observers: [NSKeyValueObservation] = []
+        private var notificationTokens: [NSObjectProtocol] = []
 
         init(tab: BrowserTab) {
             self.tab = tab
             super.init()
+
+            // Observe dynamic ad block toggling
+            let adToken1 = NotificationCenter.default.addObserver(
+                forName: NSNotification.Name("RuhiAdBlockSettingsChanged"),
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                AdBlockManager.shared.updateActiveController(self.tab.webView.configuration.userContentController)
+            }
+
+            let adToken2 = NotificationCenter.default.addObserver(
+                forName: NSNotification.Name("RuhiAdBlockRulesReady"),
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                AdBlockManager.shared.updateActiveController(self.tab.webView.configuration.userContentController)
+            }
+
+            notificationTokens = [adToken1, adToken2]
+        }
+
+        deinit {
+            for token in notificationTokens {
+                NotificationCenter.default.removeObserver(token)
+            }
         }
 
         func setupObservers(for webView: WKWebView) {
@@ -75,6 +104,50 @@ struct WebViewContainer: NSViewRepresentable {
             })
         }
 
+        // MARK: - Navigation & Download Handling
+
+        func webView(
+            _ webView: WKWebView,
+            decidePolicyFor navigationAction: WKNavigationAction,
+            decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+        ) {
+            if navigationAction.shouldPerformDownload {
+                decisionHandler(.download)
+                return
+            }
+            decisionHandler(.allow)
+        }
+
+        func webView(
+            _ webView: WKWebView,
+            decidePolicyFor navigationResponse: WKNavigationResponse,
+            decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
+        ) {
+            // Automatically download files that WebKit cannot render natively (PDF downloads, ZIP, APK, DMG, EXE, etc.)
+            if !navigationResponse.canShowMIMEType {
+                decisionHandler(.download)
+                return
+            }
+            decisionHandler(.allow)
+        }
+
+        func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome download: WKDownload) {
+            download.delegate = DownloadManager.shared
+        }
+
+        func webView(_ webView: WKWebView, navigationResponse: WKNavigationResponse, didBecome download: WKDownload) {
+            download.delegate = DownloadManager.shared
+        }
+
+        func webView(
+            _ webView: WKWebView,
+            didReceive challenge: URLAuthenticationChallenge,
+            completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
+        ) {
+            // Secure standard SSL certificate handling
+            completionHandler(.performDefaultHandling, nil)
+        }
+
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             if let url = webView.url?.absoluteString, !tab.isIncognito {
                 let title = webView.title ?? url
@@ -82,9 +155,21 @@ struct WebViewContainer: NSViewRepresentable {
             }
         }
 
-        func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        // MARK: - Popups & New Window Handling ("target=_blank")
+
+        func webView(
+            _ webView: WKWebView,
+            createWebViewWith configuration: WKWebViewConfiguration,
+            for navigationAction: WKNavigationAction,
+            windowFeatures: WKWindowFeatures
+        ) -> WKWebView? {
             if navigationAction.targetFrame == nil {
-                webView.load(navigationAction.request)
+                // Open new link in a clean, separate browser tab rather than hijacking the active tab
+                if let targetUrl = navigationAction.request.url {
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: NSNotification.Name("RuhiNewTabWithUrl"), object: targetUrl)
+                    }
+                }
             }
             return nil
         }

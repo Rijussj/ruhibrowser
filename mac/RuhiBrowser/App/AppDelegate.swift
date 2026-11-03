@@ -7,14 +7,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Automated UI Tour mode for testing & screenshots
         if CommandLine.arguments.contains("--tour") {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 NotificationCenter.default.post(name: NSNotification.Name("RuhiShowSettings"), object: nil)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
                 NotificationCenter.default.post(name: NSNotification.Name("RuhiShowBookmarks"), object: nil)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 12) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 11) {
                 NotificationCenter.default.post(name: NSNotification.Name("RuhiShowAccount"), object: nil)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
+                NotificationCenter.default.post(name: NSNotification.Name("RuhiShowClearData"), object: nil)
             }
         }
     }
