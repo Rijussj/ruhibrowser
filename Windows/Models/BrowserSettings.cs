@@ -6,11 +6,11 @@ namespace RuhiBrowser.Models
     {
         public string SearchEngine { get; set; } = "Google";
         public bool AdBlockEnabled { get; set; } = true;
-        public string Theme { get; set; } = "Dark";
+        public string Theme { get; set; } = "System";
         public string DownloadFolder { get; set; } = string.Empty;
 
         public string HomepageMode { get; set; } = "Home"; // "Home", "HomeSimple", "HomeNews", "HomeStandard", "HomeProductive", "HomeWallpaper", "Extension", "Google", "Blank", "Custom"
-        public string HomeScreenStyle { get; set; } = "Simple"; // "Simple", "News", "Standard", "Productive", "Wallpaper"
+        public string HomeScreenStyle { get; set; } = "News"; // "Simple", "News", "Standard", "Productive", "Wallpaper"
         public string CustomHomepageUrl { get; set; } = string.Empty;
         public string ActiveExtensionNewTabUrl { get; set; } = string.Empty;
         public string ActiveExtensionNewTabName { get; set; } = string.Empty;

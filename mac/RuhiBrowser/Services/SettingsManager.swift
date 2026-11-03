@@ -95,7 +95,7 @@ class SettingsManager: ObservableObject {
         let themeStr = defaults.string(forKey: keyTheme) ?? AppThemeMode.system.rawValue
         self.theme = AppThemeMode(rawValue: themeStr) ?? .system
 
-        self.homepageUrl = defaults.string(forKey: keyHomepage) ?? "https://www.google.com"
+        self.homepageUrl = defaults.string(forKey: keyHomepage) ?? "ruhi://home"
         self.adBlockEnabled = defaults.object(forKey: keyAdBlockEnabled) != nil ? defaults.bool(forKey: keyAdBlockEnabled) : true
 
         self.syncEnabled = defaults.bool(forKey: keySyncEnabled)

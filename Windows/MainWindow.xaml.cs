@@ -5678,7 +5678,7 @@ namespace RuhiBrowser
 
         private void ApplyHomeScreenStyle()
         {
-            var style = (_settings.HomeScreenStyle ?? "Simple").Trim();
+            var style = (_settings.HomeScreenStyle ?? "News").Trim();
             bool isDark = IsCurrentThemeDark();
 
             switch (style.ToLowerInvariant())

@@ -51,14 +51,23 @@ import com.ruhi.browser.data.repository.BookmarkRepository
 import com.ruhi.browser.data.repository.HistoryRepository
 import com.ruhi.browser.databinding.ActivityMainBinding
 import com.ruhi.browser.databinding.ViewHomeBinding
+import com.ruhi.browser.model.NewsArticle
 import com.ruhi.browser.model.Shortcut
 import com.ruhi.browser.tabs.Tab
 import com.ruhi.browser.tabs.TabAdapter
 import com.ruhi.browser.tabs.TabManager
 import com.ruhi.browser.ui.bookmarks.BookmarksActivity
 import com.ruhi.browser.ui.history.HistoryActivity
+import com.ruhi.browser.ui.home.NewsAdapter
 import com.ruhi.browser.ui.home.ShortcutAdapter
 import com.ruhi.browser.ui.menu.MenuBottomSheetDialogFragment
+import org.xmlpull.v1.XmlPullParser
+import org.xmlpull.v1.XmlPullParserFactory
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.Locale
 import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity(),
@@ -166,6 +175,12 @@ class MainActivity : AppCompatActivity(),
     // Recent Visits State
     private lateinit var recentVisitsAdapter: RecentVisitsAdapter
     private val recentVisitsList = mutableListOf<HistoryItem>()
+
+    // News Feed State
+    private lateinit var newsAdapter: NewsAdapter
+    private val allNewsArticles = mutableListOf<NewsArticle>()
+    private val displayedNewsArticles = mutableListOf<NewsArticle>()
+    private var activeNewsCategory: String = "top"
 
     // Tab Management
     val tabManager = TabManager()
@@ -321,6 +336,299 @@ class MainActivity : AppCompatActivity(),
         }
 
         loadRecentVisits()
+
+        // Setup News Feed (MSN / Edge style powered by live TaazaWire RSS)
+        newsAdapter = NewsAdapter(displayedNewsArticles) { article ->
+            loadUrl(article.url)
+        }
+        homeBinding.rvNewsArticles.layoutManager = LinearLayoutManager(this)
+        homeBinding.rvNewsArticles.adapter = newsAdapter
+
+        homeBinding.cardNewsHero.setOnClickListener {
+            val hero = displayedNewsArticles.firstOrNull()
+            if (hero != null) {
+                loadUrl(hero.url)
+            }
+        }
+
+        homeBinding.btnRefreshNews.setOnClickListener {
+            fetchTaazaWireNews(force = true)
+        }
+
+        setupNewsCategoryPills()
+        fetchTaazaWireNews()
+    }
+
+    private fun setupNewsCategoryPills() {
+        val pills = listOf(
+            homeBinding.chipTop to "top",
+            homeBinding.chipTech to "tech",
+            homeBinding.chipFinance to "business",
+            homeBinding.chipSports to "sports",
+            homeBinding.chipEntertainment to "entertainment",
+            homeBinding.chipBreaking to "world"
+        )
+
+        for ((chip, category) in pills) {
+            chip.setOnClickListener {
+                activeNewsCategory = category
+                updateCategoryPillsUi(category)
+                filterAndDisplayNews()
+            }
+        }
+    }
+
+    private fun updateCategoryPillsUi(selectedCat: String) {
+        val pills = listOf(
+            homeBinding.chipTop to "top",
+            homeBinding.chipTech to "tech",
+            homeBinding.chipFinance to "business",
+            homeBinding.chipSports to "sports",
+            homeBinding.chipEntertainment to "entertainment",
+            homeBinding.chipBreaking to "world"
+        )
+        val selectedBg = ContextCompat.getDrawable(this, R.drawable.bg_chip_selected)
+        val unselectedBg = ContextCompat.getDrawable(this, R.drawable.bg_chip_unselected)
+        val whiteColor = ContextCompat.getColor(this, android.R.color.white)
+
+        val typedValue = android.util.TypedValue()
+        theme.resolveAttribute(com.google.android.material.R.attr.colorOnSurfaceVariant, typedValue, true)
+        val unselectedTextColor = typedValue.data
+
+        for ((chip, category) in pills) {
+            val isSelected = category == selectedCat
+            chip.background = if (isSelected) selectedBg else unselectedBg
+            chip.setTextColor(if (isSelected) whiteColor else unselectedTextColor)
+        }
+    }
+
+    private fun fetchTaazaWireNews(force: Boolean = false) {
+        dbExecutor.execute {
+            try {
+                val url = URL("https://taazawire.in/feed/")
+                val conn = url.openConnection() as HttpURLConnection
+                conn.connectTimeout = 8000
+                conn.readTimeout = 8000
+                conn.setRequestProperty("User-Agent", "RUHI Browser Android/1.0")
+                conn.connect()
+
+                if (conn.responseCode == 200) {
+                    val articles = parseRssFeed(conn.inputStream)
+                    if (articles.isNotEmpty()) {
+                        runOnUiThread {
+                            allNewsArticles.clear()
+                            allNewsArticles.addAll(articles)
+                            filterAndDisplayNews()
+                        }
+                        return@execute
+                    }
+                }
+            } catch (e: Exception) {
+                // If offline or feed fails, fall back to default curated items
+            }
+
+            if (allNewsArticles.isEmpty()) {
+                val fallbackArticles = getDefaultNewsArticles()
+                runOnUiThread {
+                    allNewsArticles.clear()
+                    allNewsArticles.addAll(fallbackArticles)
+                    filterAndDisplayNews()
+                }
+            }
+        }
+    }
+
+    private fun parseRssFeed(inputStream: InputStream): List<NewsArticle> {
+        val result = mutableListOf<NewsArticle>()
+        try {
+            val factory = XmlPullParserFactory.newInstance()
+            factory.isNamespaceAware = false
+            val parser = factory.newPullParser()
+            parser.setInput(inputStream, "UTF-8")
+
+            var eventType = parser.eventType
+            var inItem = false
+            var currentTitle = ""
+            var currentLink = ""
+            var currentDesc = ""
+            var currentCategory = ""
+            var currentPubDate = ""
+
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                val tagName = parser.name
+                when (eventType) {
+                    XmlPullParser.START_TAG -> {
+                        if (tagName.equals("item", ignoreCase = true)) {
+                            inItem = true
+                            currentTitle = ""
+                            currentLink = ""
+                            currentDesc = ""
+                            currentCategory = ""
+                            currentPubDate = ""
+                        } else if (inItem) {
+                            when (tagName.lowercase(Locale.ROOT)) {
+                                "title" -> currentTitle = parser.nextText().trim()
+                                "link" -> currentLink = parser.nextText().trim()
+                                "description" -> currentDesc = cleanHtml(parser.nextText().trim())
+                                "category" -> {
+                                    val cat = parser.nextText().trim()
+                                    if (currentCategory.isEmpty()) currentCategory = cat
+                                }
+                                "pubdate" -> currentPubDate = parser.nextText().trim()
+                            }
+                        }
+                    }
+                    XmlPullParser.END_TAG -> {
+                        if (tagName.equals("item", ignoreCase = true) && inItem) {
+                            inItem = false
+                            if (currentTitle.isNotBlank() && currentLink.isNotBlank()) {
+                                val category = categorizeArticle(currentTitle, currentCategory)
+                                val timeAgo = formatTimeAgo(currentPubDate)
+                                val emoji = getCategoryEmoji(category)
+                                result.add(
+                                    NewsArticle(
+                                        title = cleanHtml(currentTitle),
+                                        description = currentDesc.take(150),
+                                        source = "TaazaWire",
+                                        timeAgo = timeAgo,
+                                        category = category,
+                                        url = currentLink,
+                                        emoji = emoji
+                                    )
+                                )
+                            }
+                        }
+                    }
+                }
+                eventType = parser.next()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            try { inputStream.close() } catch (_: Exception) {}
+        }
+        return result
+    }
+
+    private fun cleanHtml(html: String): String {
+        return html.replace(Regex("<[^>]*>"), "")
+            .replace("&nbsp;", " ")
+            .replace("&amp;", "&")
+            .replace("&quot;", "\"")
+            .replace("&#8217;", "'")
+            .replace("&#8220;", "\"")
+            .replace("&#8221;", "\"")
+            .replace("&#8211;", "-")
+            .trim()
+    }
+
+    private fun categorizeArticle(title: String, rawCategory: String): String {
+        val text = "$title $rawCategory".lowercase(Locale.ROOT)
+        return when {
+            text.contains("tech") || text.contains("ai ") || text.contains("apple") || text.contains("google") || text.contains("software") || text.contains("phone") || text.contains("chip") -> "tech"
+            text.contains("market") || text.contains("stock") || text.contains("economy") || text.contains("finance") || text.contains("bank") || text.contains("rupee") || text.contains("dollar") -> "business"
+            text.contains("cricket") || text.contains("match") || text.contains("football") || text.contains("sport") || text.contains("cup") || text.contains("game") -> "sports"
+            text.contains("movie") || text.contains("actor") || text.contains("cinema") || text.contains("bollywood") || text.contains("hollywood") || text.contains("song") -> "entertainment"
+            text.contains("war") || text.contains("world") || text.contains("summit") || text.contains("israel") || text.contains("ukraine") || text.contains("un ") -> "world"
+            else -> "top"
+        }
+    }
+
+    private fun getCategoryEmoji(category: String): String {
+        return when (category) {
+            "tech" -> "💻"
+            "business" -> "💼"
+            "sports" -> "🏏"
+            "entertainment" -> "🎬"
+            "world" -> "⚡"
+            else -> "🔥"
+        }
+    }
+
+    private fun formatTimeAgo(pubDateStr: String): String {
+        if (pubDateStr.isBlank()) return "Just now"
+        try {
+            val format = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH)
+            val date = format.parse(pubDateStr)
+            if (date != null) {
+                val diffMs = System.currentTimeMillis() - date.time
+                val diffHours = diffMs / (1000 * 60 * 60)
+                return when {
+                    diffHours < 1 -> "Just now"
+                    diffHours < 24 -> "${diffHours}h ago"
+                    else -> "${diffHours / 24}d ago"
+                }
+            }
+        } catch (_: Exception) {}
+        return "Recent"
+    }
+
+    private fun getDefaultNewsArticles(): List<NewsArticle> {
+        return listOf(
+            NewsArticle(
+                title = "India Accelerates AI Mission with Cutting-Edge Supercomputing Infrastructure",
+                description = "New investments in deep tech and domestic compute clusters empower startups and research labs nationwide.",
+                source = "TaazaWire Tech",
+                timeAgo = "1h ago",
+                category = "tech",
+                url = "https://taazawire.in",
+                emoji = "💻"
+            ),
+            NewsArticle(
+                title = "Markets Hit Fresh All-Time Highs Led by Banking and IT Rallies",
+                description = "Benchmark indices surged past milestones today following strong quarterly corporate earnings and positive global cues.",
+                source = "TaazaWire Markets",
+                timeAgo = "2h ago",
+                category = "business",
+                url = "https://taazawire.in",
+                emoji = "💼"
+            ),
+            NewsArticle(
+                title = "Cricket Championship Thriller: Stellar Century Propels Team to Decisive Victory",
+                description = "An extraordinary run chase in the final overs secured an unforgettable victory under floodlights.",
+                source = "TaazaWire Sports",
+                timeAgo = "3h ago",
+                category = "sports",
+                url = "https://taazawire.in",
+                emoji = "🏏"
+            ),
+            NewsArticle(
+                title = "Global Tech Leaders Unveil Next-Gen Generative AI Devices at Annual Summit",
+                description = "On-device intelligence and ultra-fast silicon redefine mobile experience for millions worldwide.",
+                source = "TaazaWire",
+                timeAgo = "4h ago",
+                category = "tech",
+                url = "https://taazawire.in",
+                emoji = "⚡"
+            )
+        )
+    }
+
+    private fun filterAndDisplayNews() {
+        val filtered = if (activeNewsCategory == "top") {
+            allNewsArticles
+        } else {
+            val matching = allNewsArticles.filter { it.category == activeNewsCategory }
+            if (matching.isEmpty()) allNewsArticles else matching
+        }
+
+        displayedNewsArticles.clear()
+        displayedNewsArticles.addAll(filtered)
+
+        val hero = displayedNewsArticles.firstOrNull()
+        if (hero != null) {
+            homeBinding.cardNewsHero.isVisible = true
+            homeBinding.tvHeroTitle.text = hero.title
+            homeBinding.tvHeroDescription.text = hero.description
+            homeBinding.tvHeroDescription.isVisible = hero.description.isNotBlank()
+            homeBinding.tvHeroSourceTime.text = "${hero.source} • ${hero.timeAgo}"
+
+            val listArticles = displayedNewsArticles.drop(1)
+            newsAdapter.updateData(listArticles)
+        } else {
+            homeBinding.cardNewsHero.isVisible = false
+            newsAdapter.updateData(emptyList())
+        }
     }
 
     private fun loadRecentVisits() {

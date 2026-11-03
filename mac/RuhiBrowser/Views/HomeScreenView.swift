@@ -22,6 +22,7 @@ struct NewsArticleItem: Identifiable {
 }
 
 struct HomeScreenView: View {
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var tab: BrowserTab
     @ObservedObject var settings = SettingsManager.shared
     @ObservedObject var historyManager = HistoryManager.shared
@@ -42,6 +43,42 @@ struct HomeScreenView: View {
     var onOpenBookmarks: () -> Void
     var onOpenHistory: () -> Void
     var onNavigate: (URL) -> Void
+
+    private var isDark: Bool { colorScheme == .dark }
+
+    private var homeBgColor: Color {
+        isDark ? Color(hex: "#181818") : Color(hex: "#F8FAFC")
+    }
+    private var textPrimaryColor: Color {
+        isDark ? .white : Color(hex: "#0F172A")
+    }
+    private var textSecondaryColor: Color {
+        isDark ? Color(hex: "#94A3B8") : Color(hex: "#64748B")
+    }
+    private var cardBgColor: Color {
+        isDark ? Color(hex: "#242424") : Color.white
+    }
+    private var cardBorderColor: Color {
+        isDark ? Color(hex: "#383838") : Color(hex: "#E2E8F0")
+    }
+    private var searchBgColor: Color {
+        isDark ? Color(hex: "#202124") : Color.white
+    }
+    private var searchBorderColor: Color {
+        isDark ? Color(hex: "#3C4043") : Color(hex: "#CBD5E1")
+    }
+    private var heroBgColor: Color {
+        isDark ? Color(hex: "#162032") : Color(hex: "#F1F5F9")
+    }
+    private var heroBorderColor: Color {
+        isDark ? Color(hex: "#24334C") : Color(hex: "#CBD5E1")
+    }
+    private var glanceBgColor: Color {
+        isDark ? Color(hex: "#141E33") : Color(hex: "#F1F5F9")
+    }
+    private var glanceBorderColor: Color {
+        isDark ? Color(hex: "#25354F") : Color(hex: "#E2E8F0")
+    }
 
     let defaultShortcuts: [QuickShortcutItem] = [
         QuickShortcutItem(title: "Google", url: "https://www.google.com", iconName: "magnifyingglass", colorHex: "#4285F4"),
@@ -79,11 +116,11 @@ struct HomeScreenView: View {
 
                     Text("RUHI Browser")
                         .font(.system(size: 30, weight: .bold))
-                        .foregroundColor(.white)
+                        .foregroundColor(textPrimaryColor)
 
                     Text("Fast, Secure & Private Browsing")
                         .font(.system(size: 13))
-                        .foregroundColor(Color(hex: "#94A3B8"))
+                        .foregroundColor(textSecondaryColor)
                 }
                 .padding(.top, tab.isIncognito ? 8 : 28)
 
@@ -98,7 +135,7 @@ struct HomeScreenView: View {
                     })
                     .textFieldStyle(PlainTextFieldStyle())
                     .font(.system(size: 14))
-                    .foregroundColor(.white)
+                    .foregroundColor(textPrimaryColor)
 
                     Button(action: performSearch) {
                         Text("Search")
@@ -115,11 +152,11 @@ struct HomeScreenView: View {
                 .padding(.trailing, 6)
                 .padding(.vertical, 4)
                 .frame(width: 680, height: 48)
-                .background(Color(hex: "#202124"))
+                .background(searchBgColor)
                 .cornerRadius(24)
                 .overlay(
                     RoundedRectangle(cornerRadius: 24)
-                        .stroke(Color(hex: "#3C4043"), lineWidth: 1)
+                        .stroke(searchBorderColor, lineWidth: 1)
                 )
 
                 // Shortcuts Section (Exact Windows WpShortcuts)
@@ -127,7 +164,7 @@ struct HomeScreenView: View {
                     HStack {
                         Text("Quick Shortcuts")
                             .font(.system(size: 13, weight: .semibold))
-                            .foregroundColor(Color(hex: "#94A3B8"))
+                            .foregroundColor(textSecondaryColor)
                         Spacer()
                         Text("(Right-click shortcut to edit/delete)")
                             .font(.system(size: 11))
@@ -155,16 +192,16 @@ struct HomeScreenView: View {
 
                                     Text(item.title)
                                         .font(.system(size: 12, weight: .medium))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(textPrimaryColor)
                                         .lineLimit(1)
                                 }
                                 .frame(width: 110, height: 86)
-                                .background(Color(hex: "#242424"))
+                                .background(cardBgColor)
                                 .cornerRadius(12)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .stroke(Color(hex: "#383838"), lineWidth: 1)
-                                    )
+                                        .stroke(cardBorderColor, lineWidth: 1)
+                                )
                             }
                             .buttonStyle(PlainButtonStyle())
                         }
@@ -199,15 +236,15 @@ struct HomeScreenView: View {
                                     .foregroundColor(Color(hex: "#10B981"))
                                 Text(dateGlanceString)
                                     .font(.system(size: 11.5, weight: .semibold))
-                                    .foregroundColor(Color(hex: "#E2E8F0"))
+                                    .foregroundColor(textPrimaryColor)
                             }
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
-                            .background(Color(hex: "#141E33"))
+                            .background(glanceBgColor)
                             .cornerRadius(18)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 18)
-                                    .stroke(Color(hex: "#25354F"), lineWidth: 1)
+                                    .stroke(glanceBorderColor, lineWidth: 1)
                             )
 
                             Button(action: {
@@ -222,14 +259,14 @@ struct HomeScreenView: View {
                                     Text("Refresh")
                                         .font(.system(size: 11, weight: .semibold))
                                 }
-                                .foregroundColor(Color(hex: "#94A3B8"))
+                                .foregroundColor(textSecondaryColor)
                                 .padding(.horizontal, 10)
                                 .padding(.vertical, 6)
-                                .background(Color(hex: "#1E293B"))
+                                .background(glanceBgColor)
                                 .cornerRadius(14)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 14)
-                                        .stroke(Color(hex: "#334155"), lineWidth: 1)
+                                        .stroke(glanceBorderColor, lineWidth: 1)
                                 )
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -262,7 +299,7 @@ struct HomeScreenView: View {
                                             .foregroundColor(Color(hex: "#38BDF8"))
                                             .padding(.horizontal, 6)
                                             .padding(.vertical, 2)
-                                            .background(Color(hex: "#0F2847"))
+                                            .background(isDark ? Color(hex: "#0F2847") : Color(hex: "#E0F2FE"))
                                             .cornerRadius(4)
 
                                         Spacer()
@@ -274,12 +311,12 @@ struct HomeScreenView: View {
 
                                     Text(hero.title)
                                         .font(.system(size: 15, weight: .bold))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(textPrimaryColor)
                                         .lineLimit(2)
 
                                     Text(hero.description)
                                         .font(.system(size: 12))
-                                        .foregroundColor(Color(hex: "#94A3B8"))
+                                        .foregroundColor(textSecondaryColor)
                                         .lineLimit(2)
 
                                     HStack(spacing: 4) {
@@ -296,11 +333,11 @@ struct HomeScreenView: View {
                             }
                             .padding(10)
                             .frame(width: 680, height: 160)
-                            .background(Color(hex: "#162032"))
+                            .background(heroBgColor)
                             .cornerRadius(14)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 14)
-                                    .stroke(Color(hex: "#24334C"), lineWidth: 1)
+                                    .stroke(heroBorderColor, lineWidth: 1)
                             )
                         }
                         .buttonStyle(PlainButtonStyle())
@@ -326,12 +363,12 @@ struct HomeScreenView: View {
 
                                     Text(art.title)
                                         .font(.system(size: 12.5, weight: .bold))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(textPrimaryColor)
                                         .lineLimit(2)
 
                                     Text(art.description)
                                         .font(.system(size: 11))
-                                        .foregroundColor(Color(hex: "#94A3B8"))
+                                        .foregroundColor(textSecondaryColor)
                                         .lineLimit(2)
 
                                     Spacer(minLength: 0)
@@ -348,11 +385,11 @@ struct HomeScreenView: View {
                                 }
                                 .padding(10)
                                 .frame(width: 218, height: 195)
-                                .background(Color(hex: "#242424"))
+                                .background(cardBgColor)
                                 .cornerRadius(12)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .stroke(Color(hex: "#383838"), lineWidth: 1)
+                                        .stroke(cardBorderColor, lineWidth: 1)
                                 )
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -364,7 +401,7 @@ struct HomeScreenView: View {
             }
             .frame(maxWidth: .infinity)
         }
-        .background(Color(hex: "#181818"))
+        .background(homeBgColor)
         .onAppear {
             updateDateGlance()
             Task {
@@ -403,18 +440,18 @@ struct HomeScreenView: View {
         }) {
             Text(title)
                 .font(.system(size: 11, weight: isSel ? .bold : .semibold))
-                .foregroundColor(isSel ? .white : Color(hex: "#94A3B8"))
+                .foregroundColor(isSel ? .white : textSecondaryColor)
                 .padding(.horizontal, 9)
                 .padding(.vertical, 5)
                 .background(
                     isSel ?
                     AnyView(LinearGradient(colors: [Color(hex: "#1D4ED8"), Color(hex: "#2563EB")], startPoint: .leading, endPoint: .trailing)) :
-                    AnyView(Color(hex: "#141E33"))
+                    AnyView(glanceBgColor)
                 )
                 .cornerRadius(12)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(isSel ? Color(hex: "#60A5FA") : Color(hex: "#25354F"), lineWidth: 1)
+                        .stroke(isSel ? Color(hex: "#60A5FA") : glanceBorderColor, lineWidth: 1)
                 )
         }
         .buttonStyle(PlainButtonStyle())
@@ -424,23 +461,23 @@ struct HomeScreenView: View {
         HStack(spacing: 12) {
             Image(systemName: "eyeglasses")
                 .font(.system(size: 24))
-                .foregroundColor(.white)
+                .foregroundColor(isDark ? .white : Color(hex: "#0F172A"))
 
             VStack(alignment: .leading, spacing: 2) {
                 Text("You've gone Incognito")
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(isDark ? .white : Color(hex: "#0F172A"))
                 Text("RUHI Browser won't save browsing history, cookies, or site data for this tab.")
                     .font(.caption)
-                    .foregroundColor(Color(hex: "#94A3B8"))
+                    .foregroundColor(textSecondaryColor)
             }
             Spacer()
         }
         .padding()
         .frame(width: 680)
-        .background(Color(hex: "#242424"))
+        .background(cardBgColor)
         .cornerRadius(12)
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color(hex: "#383838"), lineWidth: 1))
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(cardBorderColor, lineWidth: 1))
     }
 
     private func updateDateGlance() {
