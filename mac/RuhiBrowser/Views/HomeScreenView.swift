@@ -26,6 +26,7 @@ struct HomeScreenView: View {
     @ObservedObject var settings = SettingsManager.shared
     @ObservedObject var historyManager = HistoryManager.shared
     @ObservedObject var syncManager = SyncManager.shared
+    @ObservedObject var newsManager = NewsFeedManager.shared
 
     @State private var searchInput: String = ""
     @State private var activeCategory: String = "top"
@@ -53,74 +54,12 @@ struct HomeScreenView: View {
         QuickShortcutItem(title: "WhatsApp", url: "https://web.whatsapp.com", iconName: "message.fill", colorHex: "#22C55E")
     ]
 
-    let sampleArticles: [NewsArticleItem] = [
-        NewsArticleItem(
-            title: "Next-Gen AI Systems Transform Web Browsing & Autonomous Workflows",
-            description: "New multimodal models bring on-device reasoning and privacy-first web navigation across platforms.",
-            source: "TechWire",
-            timeAgo: "15m ago",
-            category: "tech",
-            url: "https://news.google.com",
-            bannerColors: [Color(hex: "#0F172A"), Color(hex: "#0284C7")],
-            emoji: "💻"
-        ),
-        NewsArticleItem(
-            title: "Global Financial Markets Gain Momentum Amid Innovation Boom",
-            description: "Positive earnings and semiconductor manufacturing expansion drive technology sector rally.",
-            source: "Financial Times",
-            timeAgo: "28m ago",
-            category: "business",
-            url: "https://news.google.com",
-            bannerColors: [Color(hex: "#0B132B"), Color(hex: "#059669")],
-            emoji: "💼"
-        ),
-        NewsArticleItem(
-            title: "Deep Space Telescope Mission Relays First High-Resolution Telemetry",
-            description: "Astronomers discover unprecedented exoplanet atmosphere compositions in nearby star cluster.",
-            source: "Science Daily",
-            timeAgo: "42m ago",
-            category: "world",
-            url: "https://news.google.com",
-            bannerColors: [Color(hex: "#0F172A"), Color(hex: "#DC2626")],
-            emoji: "⚡"
-        ),
-        NewsArticleItem(
-            title: "International Championship Announces Venues & Tournament Schedule",
-            description: "World ranking teams finalize squads for upcoming international sporting competition.",
-            source: "Sports Central",
-            timeAgo: "1h ago",
-            category: "sports",
-            url: "https://news.google.com",
-            bannerColors: [Color(hex: "#1C1917"), Color(hex: "#D97706")],
-            emoji: "🏏"
-        ),
-        NewsArticleItem(
-            title: "Post-Quantum Security Standard Rolled Out to Global Web Networks",
-            description: "Leading security consortium enforces zero-trust encryption protocols across web infrastructure.",
-            source: "Cyber Defense",
-            timeAgo: "2h ago",
-            category: "tech",
-            url: "https://news.google.com",
-            bannerColors: [Color(hex: "#0F172A"), Color(hex: "#2563EB")],
-            emoji: "🛡️"
-        ),
-        NewsArticleItem(
-            title: "Blockbuster Cinematic Release Sets Global Streaming Records",
-            description: "Groundbreaking visual effects and original score achieve critical acclaim and record viewership.",
-            source: "Entertainment Weekly",
-            timeAgo: "3h ago",
-            category: "entertainment",
-            url: "https://news.google.com",
-            bannerColors: [Color(hex: "#1E1B4B"), Color(hex: "#C026D3")],
-            emoji: "🎬"
-        )
-    ]
-
     var filteredArticles: [NewsArticleItem] {
         if activeCategory == "top" {
-            return sampleArticles
+            return newsManager.articles
         }
-        return sampleArticles.filter { $0.category == activeCategory }
+        let matching = newsManager.articles.filter { $0.category == activeCategory }
+        return matching.isEmpty ? newsManager.articles : matching
     }
 
     var body: some View {
@@ -273,6 +212,9 @@ struct HomeScreenView: View {
 
                             Button(action: {
                                 updateDateGlance()
+                                Task {
+                                    await newsManager.fetchTrendingNews(force: true)
+                                }
                             }) {
                                 HStack(spacing: 4) {
                                     Text("🔄")
@@ -425,6 +367,9 @@ struct HomeScreenView: View {
         .background(Color(hex: "#181818"))
         .onAppear {
             updateDateGlance()
+            Task {
+                await newsManager.fetchTrendingNews()
+            }
         }
         .onReceive(timer) { _ in
             updateDateGlance()
