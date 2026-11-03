@@ -192,11 +192,16 @@ private struct QuickButton: View {
         Button(action: action) {
             Text(title)
                 .font(.caption)
+                .fontWeight(.medium)
                 .padding(.horizontal, 10)
-                .padding(.vertical, 5)
-                .background(Color.purple.opacity(0.12))
+                .padding(.vertical, 6)
+                .background(Color.purple.opacity(0.15))
                 .foregroundColor(.purple)
                 .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.purple.opacity(0.3), lineWidth: 1)
+                )
         }
         .buttonStyle(.plain)
     }

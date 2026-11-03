@@ -156,13 +156,22 @@ struct PdfToolsSheetView: View {
     }
 
     private func loadInitialPdf() {
-        if let initial = initialPdfUrl, !initial.isEmpty {
-            if let url = URL(string: initial) {
-                if url.isFileURL, let doc = PDFDocument(url: url) {
-                    self.pdfDocument = doc
-                    self.pdfPath = url.lastPathComponent
-                    self.pageCount = doc.pageCount
-                    return
+        guard let initial = initialPdfUrl, !initial.isEmpty, let url = URL(string: initial) else { return }
+        if url.isFileURL {
+            if let doc = PDFDocument(url: url) {
+                self.pdfDocument = doc
+                self.pdfPath = url.lastPathComponent
+                self.pageCount = doc.pageCount
+            }
+        } else if url.pathExtension.lowercased() == "pdf" || initial.contains(".pdf") {
+            DispatchQueue.global(qos: .userInitiated).async {
+                if let doc = PDFDocument(url: url) {
+                    DispatchQueue.main.async {
+                        self.pdfDocument = doc
+                        self.pdfPath = url.lastPathComponent
+                        self.pageCount = doc.pageCount
+                        self.statusMessage = "Loaded web PDF"
+                    }
                 }
             }
         }

@@ -84,6 +84,11 @@ struct BookmarksWindowView: View {
                                     .foregroundColor(.secondary)
                                     .lineLimit(1)
                             }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                onSelectUrl(item.url)
+                                dismiss()
+                            }
 
                             Spacer()
 
@@ -96,11 +101,6 @@ struct BookmarksWindowView: View {
                             }
                             .buttonStyle(PlainButtonStyle())
                             .help("Delete bookmark")
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            onSelectUrl(item.url)
-                            dismiss()
                         }
                     }
                 }

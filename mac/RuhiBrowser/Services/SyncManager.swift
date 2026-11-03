@@ -334,7 +334,7 @@ class SyncManager: ObservableObject {
     func checkIncomingTabs() {
         guard isLoggedIn else { return }
         Task {
-            let path = "/rest/v1/ruhi_send_tabs?select=*&is_opened=eq.false&sender_device_id=neq.\(settings.syncDeviceId)"
+            let path = "/rest/v1/ruhi_send_tabs?select=*&is_opened=eq.false&user_id=eq.\(settings.syncUserId)&sender_device_id=neq.\(settings.syncDeviceId)"
             let (data, resp) = await sendRequest(path: path, method: "GET")
             guard let data = data, let http = resp, (200...299).contains(http.statusCode) else { return }
 

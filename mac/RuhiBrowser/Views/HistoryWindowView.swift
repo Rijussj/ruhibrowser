@@ -93,6 +93,11 @@ struct HistoryWindowView: View {
                                     .foregroundColor(.secondary)
                                     .lineLimit(1)
                             }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                onSelectUrl(item.url)
+                                dismiss()
+                            }
 
                             Spacer()
 
@@ -108,11 +113,6 @@ struct HistoryWindowView: View {
                                     .foregroundColor(.secondary)
                             }
                             .buttonStyle(PlainButtonStyle())
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            onSelectUrl(item.url)
-                            dismiss()
                         }
                     }
                 }
