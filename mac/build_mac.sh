@@ -35,6 +35,9 @@ chmod +x "$RELEASE_DIR/$APP_NAME.app/Contents/MacOS/RuhiBrowser"
 
 echo ">> Installing Info.plist and Entitlements..."
 cp "RuhiBrowser/Resources/Info.plist" "$RELEASE_DIR/$APP_NAME.app/Contents/Info.plist"
+if [ -f "RuhiBrowser/Resources/app_icon.png" ]; then
+    cp "RuhiBrowser/Resources/app_icon.png" "$RELEASE_DIR/$APP_NAME.app/Contents/Resources/app_icon.png"
+fi
 echo "APPL????" > "$RELEASE_DIR/$APP_NAME.app/Contents/PkgInfo"
 
 echo ">> Creating DMG Installer..."
