@@ -112,7 +112,7 @@ struct VpnSheetView: View {
             .padding(14)
             .background(Color(NSColor.windowBackgroundColor))
         }
-        .frame(width: 480, minHeight: 460, maxHeight: 540)
+        .frame(minWidth: 480, maxWidth: 480, minHeight: 460, maxHeight: 540)
     }
 
     private func exportConfig() {

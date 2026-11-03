@@ -303,8 +303,6 @@ struct MainWindowView: View {
         tabs.append(tab)
         selectedTabId = tab.id
     }
-        selectedTabId = tab.id
-    }
 
     private func closeTab(id: UUID) {
         guard let index = tabs.firstIndex(where: { $0.id == id }) else { return }
