@@ -1,21 +1,33 @@
-name: Build macOS App
+name: Build macOS App (RUHI Browser)
+
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
-  workflow_dispatch:
 
 jobs:
   build-mac:
+    name: Build Native macOS App (.dmg)
     runs-on: macos-14
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Build Universal DMG
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode.app
+
+      - name: Build and Package App
+        working-directory: mac
         run: |
-          cd mac
           chmod +x build_mac.sh
           ./build_mac.sh
-      - name: Upload DMG Artifact
+
+      - name: Upload DMG Installer Artifact
         uses: actions/upload-artifact@v4
         with:
           name: RuhiBrowser_macOS
-          path: mac/build/RuhiBrowser.dmg
+          path: |
+            mac/RuhiBrowser_macOS.dmg
+            mac/Release_App
+          if-no-files-found: warn
