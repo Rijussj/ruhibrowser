@@ -5,7 +5,6 @@ echo "=================================================="
 echo "      RUHI BROWSER - MACOS APP BUILD SCRIPT       "
 echo "=================================================="
 
-# 1. Configuration
 APP_NAME="RUHI Browser"
 BUNDLE_ID="com.ruhi.browser.mac"
 BUILD_DIR=".build"
@@ -18,10 +17,20 @@ mkdir -p "$RELEASE_DIR/$APP_NAME.app/Contents/MacOS"
 mkdir -p "$RELEASE_DIR/$APP_NAME.app/Contents/Resources"
 
 echo ">> Compiling Swift binary (Universal: Apple Silicon & Intel)..."
-swift build -c release --arch arm64 --arch x86_64
+swift build -c release --arch arm64 --arch x86_64 || swift build -c release
 
-echo ">> Copying executable..."
-cp "$BUILD_DIR/apple/Products/Release/RuhiBrowser" "$RELEASE_DIR/$APP_NAME.app/Contents/MacOS/RuhiBrowser"
+echo ">> Locating compiled executable..."
+BINARY_PATH=""
+if [ -f "$BUILD_DIR/apple/Products/Release/RuhiBrowser" ]; then
+    BINARY_PATH="$BUILD_DIR/apple/Products/Release/RuhiBrowser"
+elif [ -f "$BUILD_DIR/release/RuhiBrowser" ]; then
+    BINARY_PATH="$BUILD_DIR/release/RuhiBrowser"
+else
+    BINARY_PATH=$(find "$BUILD_DIR" -type f -name "RuhiBrowser" ! -name "*.dSYM*" | head -n 1)
+fi
+
+echo ">> Found binary at: $BINARY_PATH"
+cp "$BINARY_PATH" "$RELEASE_DIR/$APP_NAME.app/Contents/MacOS/RuhiBrowser"
 chmod +x "$RELEASE_DIR/$APP_NAME.app/Contents/MacOS/RuhiBrowser"
 
 echo ">> Installing Info.plist and Entitlements..."
