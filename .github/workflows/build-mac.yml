@@ -23,30 +23,18 @@ jobs:
           chmod +x build_mac.sh
           ./build_mac.sh
 
-      - name: Launch App & Capture Live Screenshot
+      - name: Launch App & Capture Multi-Screen Screenshots
+        working-directory: mac
         run: |
-          echo ">> Launching RUHI Browser on macOS Cloud Runner..."
-          open "mac/Release_App/RUHI Browser.app" || true
-          
-          echo ">> Waiting 6 seconds for UI and WebKit to render..."
-          sleep 6
-          
-          if pgrep -f "RuhiBrowser" > /dev/null; then
-            echo ">> SUCCESS: RUHI Browser process is active and running!"
-          else
-            echo ">> Notice: Checking screen capture..."
-          fi
-          
-          echo ">> Taking screenshot of macOS screen..."
-          screencapture -x mac_browser_live_test.png
-          echo ">> Screenshot saved to mac_browser_live_test.png"
+          chmod +x take_screenshots.sh
+          ./take_screenshots.sh
 
-      - name: Upload Artifacts (DMG & Live Screenshot)
+      - name: Upload Artifacts (DMG & Screenshots Bundle)
         uses: actions/upload-artifact@v4
         with:
           name: RuhiBrowser_macOS_Test_Bundle
           path: |
             mac/RuhiBrowser_macOS.dmg
             mac/Release_App
-            mac_browser_live_test.png
+            mac/screenshots/*.png
           if-no-files-found: warn
