@@ -6,6 +6,7 @@ struct MainWindowView: View {
     @StateObject private var settings = SettingsManager.shared
 
     @State private var tabs: [BrowserTab] = []
+    @State private var tabGroups: [TabGroup] = []
     @State private var selectedTabId: UUID = UUID()
 
     @State private var showAccountSheet = false
@@ -14,18 +15,49 @@ struct MainWindowView: View {
     @State private var showSettingsSheet = false
     @State private var showClearDataSheet = false
 
+    // New Supercharged Feature Sheets
+    @State private var showAiSheet = false
+    @State private var showTranslateSheet = false
+    @State private var showVpnSheet = false
+    @State private var showPasswordsSheet = false
+    @State private var showPdfToolsSheet = false
+    @State private var editingGroup: TabGroup = TabGroup()
+    @State private var showRenameGroupSheet = false
+
     var selectedTab: BrowserTab? {
         tabs.first(where: { $0.id == selectedTabId }) ?? tabs.first
     }
 
     var body: some View {
         VStack(spacing: 0) {
-            // Tabs Bar
+            // Tabs Bar with Tab Groups
             TabStripView(
                 tabs: $tabs,
+                tabGroups: $tabGroups,
                 selectedTabId: $selectedTabId,
                 onNewTab: { addNewTab() },
-                onCloseTab: { id in closeTab(id: id) }
+                onCloseTab: { id in closeTab(id: id) },
+                onAddTabToGroup: { tabId, groupId in
+                    if let idx = tabs.firstIndex(where: { $0.id == tabId }) {
+                        if let gid = groupId {
+                            if !tabGroups.contains(where: { $0.id == gid }) {
+                                let newG = TabGroup(
+                                    id: gid,
+                                    title: "Group \(tabGroups.count + 1)",
+                                    colorHex: TabGroup.presetColors[tabGroups.count % TabGroup.presetColors.count].hex
+                                )
+                                tabGroups.append(newG)
+                            }
+                            tabs[idx].groupId = gid
+                        } else {
+                            tabs[idx].groupId = nil
+                        }
+                    }
+                },
+                onEditGroup: { group in
+                    editingGroup = group
+                    showRenameGroupSheet = true
+                }
             )
 
             // Address & Toolbar
@@ -41,7 +73,13 @@ struct MainWindowView: View {
                             _ = await syncManager.sendTabToDevice(targetDeviceId: nil, url: activeTab.urlString, title: activeTab.title)
                             showAccountSheet = true
                         }
-                    }
+                    },
+                    onOpenAi: { showAiSheet = true },
+                    onOpenTranslate: { showTranslateSheet = true },
+                    onOpenVpn: { showVpnSheet = true },
+                    onOpenPasswords: { showPasswordsSheet = true },
+                    onOpenPdfTools: { showPdfToolsSheet = true },
+                    onOpenClearData: { showClearDataSheet = true }
                 )
 
                 // Active Web View
@@ -64,6 +102,7 @@ struct MainWindowView: View {
             }
         }
         .frame(minWidth: 800, minHeight: 600)
+        // Dialogs & Sheets
         .sheet(isPresented: $showAccountSheet) {
             AccountSheetView(
                 currentTabTitle: selectedTab?.title ?? "",
@@ -86,36 +125,76 @@ struct MainWindowView: View {
         .sheet(isPresented: $showClearDataSheet) {
             ClearDataSheetView()
         }
+        .sheet(isPresented: $showAiSheet) {
+            AiAssistantSheetView(
+                pageTitle: selectedTab?.title ?? "",
+                pageUrl: selectedTab?.urlString ?? ""
+            )
+        }
+        .sheet(isPresented: $showTranslateSheet) {
+            TranslateSheetView(
+                activeUrlString: selectedTab?.urlString ?? "",
+                onTranslate: { targetUrl in
+                    selectedTab?.webView.load(URLRequest(url: targetUrl))
+                }
+            )
+        }
+        .sheet(isPresented: $showVpnSheet) {
+            VpnSheetView()
+        }
+        .sheet(isPresented: $showPasswordsSheet) {
+            PasswordsSheetView()
+        }
+        .sheet(isPresented: $showPdfToolsSheet) {
+            PdfToolsSheetView(initialPdfUrl: selectedTab?.urlString)
+        }
+        .sheet(isPresented: $showRenameGroupSheet) {
+            RenameGroupDialogView(group: $editingGroup) { updated in
+                if let idx = tabGroups.firstIndex(where: { $0.id == updated.id }) {
+                    tabGroups[idx] = updated
+                }
+            }
+        }
+        // Notification Listeners
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowClearData"))) { _ in
-            showAccountSheet = false
-            showSettingsSheet = false
-            showBookmarksSheet = false
-            showHistorySheet = false
+            closeAllSheets()
             showClearDataSheet = true
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowAccount"))) { _ in
-            showSettingsSheet = false
-            showBookmarksSheet = false
-            showHistorySheet = false
+            closeAllSheets()
             showAccountSheet = true
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowSettings"))) { _ in
-            showAccountSheet = false
-            showBookmarksSheet = false
-            showHistorySheet = false
+            closeAllSheets()
             showSettingsSheet = true
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowBookmarks"))) { _ in
-            showAccountSheet = false
-            showSettingsSheet = false
-            showHistorySheet = false
+            closeAllSheets()
             showBookmarksSheet = true
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowHistory"))) { _ in
-            showAccountSheet = false
-            showSettingsSheet = false
-            showBookmarksSheet = false
+            closeAllSheets()
             showHistorySheet = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowAi"))) { _ in
+            closeAllSheets()
+            showAiSheet = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowTranslate"))) { _ in
+            closeAllSheets()
+            showTranslateSheet = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowVpn"))) { _ in
+            closeAllSheets()
+            showVpnSheet = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowPasswords"))) { _ in
+            closeAllSheets()
+            showPasswordsSheet = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowPdfTools"))) { _ in
+            closeAllSheets()
+            showPdfToolsSheet = true
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiNewTab"))) { _ in
             addNewTab()
@@ -149,6 +228,20 @@ struct MainWindowView: View {
                 }
             }
         }
+    }
+
+    private func closeAllSheets() {
+        showAccountSheet = false
+        showBookmarksSheet = false
+        showHistorySheet = false
+        showSettingsSheet = false
+        showClearDataSheet = false
+        showAiSheet = false
+        showTranslateSheet = false
+        showVpnSheet = false
+        showPasswordsSheet = false
+        showPdfToolsSheet = false
+        showRenameGroupSheet = false
     }
 
     private func addNewTab(url: URL? = nil, isIncognito: Bool = false) {

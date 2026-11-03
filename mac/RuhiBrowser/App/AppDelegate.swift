@@ -7,17 +7,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Automated UI Tour mode for testing & screenshots
         if CommandLine.arguments.contains("--tour") {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                NotificationCenter.default.post(name: NSNotification.Name("RuhiShowSettings"), object: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                NotificationCenter.default.post(name: NSNotification.Name("RuhiShowAi"), object: nil)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
-                NotificationCenter.default.post(name: NSNotification.Name("RuhiShowBookmarks"), object: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                NotificationCenter.default.post(name: NSNotification.Name("RuhiShowTranslate"), object: nil)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                NotificationCenter.default.post(name: NSNotification.Name("RuhiShowVpn"), object: nil)
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 11) {
-                NotificationCenter.default.post(name: NSNotification.Name("RuhiShowAccount"), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name("RuhiShowPasswords"), object: nil)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
-                NotificationCenter.default.post(name: NSNotification.Name("RuhiShowClearData"), object: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 14) {
+                NotificationCenter.default.post(name: NSNotification.Name("RuhiShowPdfTools"), object: nil)
             }
         }
     }

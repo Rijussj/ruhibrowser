@@ -13,6 +13,7 @@ class BrowserTab: Identifiable, ObservableObject {
     @Published var canGoBack: Bool = false
     @Published var canGoForward: Bool = false
     let isIncognito: Bool
+    @Published var groupId: UUID? = nil
     
     let webView: WKWebView
 
@@ -21,6 +22,7 @@ class BrowserTab: Identifiable, ObservableObject {
         title: String = "New Tab",
         initialUrl: URL? = nil,
         isIncognito: Bool = false,
+        groupId: UUID? = nil,
         configuration: WKWebViewConfiguration? = nil
     ) {
         self.id = id
@@ -28,6 +30,7 @@ class BrowserTab: Identifiable, ObservableObject {
         self.url = initialUrl
         self.urlString = initialUrl?.absoluteString ?? ""
         self.isIncognito = isIncognito
+        self.groupId = groupId
 
         let config = configuration ?? WKWebViewConfiguration()
         if isIncognito {

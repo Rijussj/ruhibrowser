@@ -13,6 +13,12 @@ struct AddressBarView: View {
     var onOpenHistory: () -> Void
     var onOpenSettings: () -> Void
     var onSendTab: () -> Void
+    var onOpenAi: () -> Void
+    var onOpenTranslate: () -> Void
+    var onOpenVpn: () -> Void
+    var onOpenPasswords: () -> Void
+    var onOpenPdfTools: () -> Void
+    var onOpenClearData: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -94,6 +100,24 @@ struct AddressBarView: View {
                         .stroke(isAddressBarFocused ? Color.accentColor : Color.secondary.opacity(0.2), lineWidth: 1)
                 )
 
+                // AI Assistant Button (✨)
+                Button(action: onOpenAi) {
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundColor(.purple)
+                }
+                .buttonStyle(ToolbarIconButtonStyle())
+                .help("RUHI AI Assistant")
+
+                // Page Translator Button (🌐)
+                Button(action: onOpenTranslate) {
+                    Image(systemName: "globe.asia.australia.fill")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundColor(.blue)
+                }
+                .buttonStyle(ToolbarIconButtonStyle())
+                .help("Translate Webpage")
+
                 // Send to Phone / Devices (📱)
                 Button(action: onSendTab) {
                     Image(systemName: "iphone.and.arrow.forward")
@@ -129,11 +153,28 @@ struct AddressBarView: View {
 
                 // Menu (3-dots)
                 Menu {
-                    Button("Bookmarks (⌘B)", action: onOpenBookmarks)
+                    Button(action: onOpenAi) {
+                        Label("AI Assistant", systemImage: "sparkles")
+                    }
+                    Button(action: onOpenTranslate) {
+                        Label("Translate Webpage...", systemImage: "globe.asia.australia.fill")
+                    }
+                    Button(action: onOpenVpn) {
+                        Label("RUHI VPN & WireGuard...", systemImage: "shield.lefthalf.filled.badge.checkmark")
+                    }
+                    Button(action: onOpenPasswords) {
+                        Label("Password Vault...", systemImage: "key.fill")
+                    }
+                    Button(action: onOpenPdfTools) {
+                        Label("PDF Tools...", systemImage: "doc.richtext.fill")
+                    }
+                    Divider()
+                    Button("Bookmarks (⌥⌘B)", action: onOpenBookmarks)
                     Button("History (⌘Y)", action: onOpenHistory)
-                    Button("Settings...", action: onOpenSettings)
+                    Button("Clear Browsing Data... (⇧⌘⌫)", action: onOpenClearData)
                     Divider()
                     Button("Ruhi Cloud Sync Account", action: onOpenAccount)
+                    Button("Preferences / Settings... (⌘,)", action: onOpenSettings)
                 } label: {
                     Image(systemName: "ellipsis")
                         .font(.system(size: 14, weight: .bold))

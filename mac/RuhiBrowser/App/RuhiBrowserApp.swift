@@ -81,6 +81,34 @@ struct RuhiBrowserApp: App {
                 }
                 .keyboardShortcut(.delete, modifiers: [.command, .shift])
             }
+
+            // Tools Menu
+            CommandMenu("Tools") {
+                Button("AI Assistant...") {
+                    NotificationCenter.default.post(name: NSNotification.Name("RuhiShowAi"), object: nil)
+                }
+                .keyboardShortcut("a", modifiers: [.command, .shift])
+
+                Button("Translate Webpage...") {
+                    NotificationCenter.default.post(name: NSNotification.Name("RuhiShowTranslate"), object: nil)
+                }
+                .keyboardShortcut("l", modifiers: [.command, .shift])
+
+                Button("RUHI VPN & WireGuard...") {
+                    NotificationCenter.default.post(name: NSNotification.Name("RuhiShowVpn"), object: nil)
+                }
+                .keyboardShortcut("v", modifiers: [.command, .shift])
+
+                Button("Password Vault...") {
+                    NotificationCenter.default.post(name: NSNotification.Name("RuhiShowPasswords"), object: nil)
+                }
+                .keyboardShortcut("p", modifiers: [.command, .shift])
+
+                Button("PDF Tools...") {
+                    NotificationCenter.default.post(name: NSNotification.Name("RuhiShowPdfTools"), object: nil)
+                }
+                .keyboardShortcut("d", modifiers: [.command, .shift])
+            }
         }
     }
 
