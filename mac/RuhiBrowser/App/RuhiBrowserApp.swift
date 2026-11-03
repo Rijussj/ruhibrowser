@@ -53,6 +53,22 @@ struct RuhiBrowserApp: App {
                 .keyboardShortcut("b", modifiers: [.command, .option])
             }
 
+            // Account & Sync Menu
+            CommandMenu("Account") {
+                Button("Supabase Cloud Sync...") {
+                    NotificationCenter.default.post(name: NSNotification.Name("RuhiShowAccount"), object: nil)
+                }
+                .keyboardShortcut("u", modifiers: [.command, .shift])
+            }
+
+            // Settings Menu
+            CommandMenu("Settings") {
+                Button("Preferences / Settings...") {
+                    NotificationCenter.default.post(name: NSNotification.Name("RuhiShowSettings"), object: nil)
+                }
+                .keyboardShortcut(",", modifiers: .command)
+            }
+
             // History Menu
             CommandMenu("History") {
                 Button("Show All History...") {

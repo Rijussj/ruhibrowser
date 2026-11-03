@@ -81,6 +81,41 @@ struct MainWindowView: View {
         .sheet(isPresented: $showSettingsSheet) {
             SettingsSheetView()
         }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowAccount"))) { _ in
+            showSettingsSheet = false
+            showBookmarksSheet = false
+            showHistorySheet = false
+            showAccountSheet = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowSettings"))) { _ in
+            showAccountSheet = false
+            showBookmarksSheet = false
+            showHistorySheet = false
+            showSettingsSheet = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowBookmarks"))) { _ in
+            showAccountSheet = false
+            showSettingsSheet = false
+            showHistorySheet = false
+            showBookmarksSheet = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiShowHistory"))) { _ in
+            showAccountSheet = false
+            showSettingsSheet = false
+            showBookmarksSheet = false
+            showHistorySheet = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiNewTab"))) { _ in
+            addNewTab()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiNewPrivateTab"))) { _ in
+            addNewTab(isIncognito: true)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiCloseTab"))) { _ in
+            if let activeId = selectedTabId {
+                closeTab(id: activeId)
+            }
+        }
         .onAppear {
             if tabs.isEmpty {
                 let initialUrl = URL(string: settings.homepageUrl)

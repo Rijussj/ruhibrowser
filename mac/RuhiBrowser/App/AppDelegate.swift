@@ -4,6 +4,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         // Configure native AppKit appearance if needed
         NSWindow.allowsAutomaticWindowTabbing = false
+
+        // Automated UI Tour mode for testing & screenshots
+        if CommandLine.arguments.contains("--tour") {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                NotificationCenter.default.post(name: NSNotification.Name("RuhiShowSettings"), object: nil)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                NotificationCenter.default.post(name: NSNotification.Name("RuhiShowBookmarks"), object: nil)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 12) {
+                NotificationCenter.default.post(name: NSNotification.Name("RuhiShowAccount"), object: nil)
+            }
+        }
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
