@@ -282,7 +282,8 @@ struct HomeScreenView: View {
             targetUrl = URL(string: "https://\(query)") ?? URL(string: "https://www.google.com/search?q=\(query)")!
         } else {
             let encoded = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? query
-            let engineUrl = settings.searchEngine.searchUrl(query: encoded)
+            let template = settings.searchEngine.searchUrlTemplate
+            let engineUrl = String(format: template, encoded)
             targetUrl = URL(string: engineUrl) ?? URL(string: "https://www.google.com/search?q=\(encoded)")!
         }
         onNavigate(targetUrl)
