@@ -1,6 +1,14 @@
 import SwiftUI
 import AppKit
 
+struct QuickShortcutItem: Identifiable, Codable {
+    var id: UUID = UUID()
+    var title: String
+    var url: String
+    var iconName: String
+    var colorHex: String
+}
+
 struct NewsArticleItem: Identifiable {
     var id: UUID = UUID()
     var title: String
