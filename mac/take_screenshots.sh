@@ -2,24 +2,24 @@
 
 mkdir -p screenshots
 
-echo ">> Launching RUHI Browser with --tour mode..."
-open -a "Release_App/RUHI Browser.app" --args --tour 2>/dev/null || open "Release_App/RUHI Browser.app" --args --tour 2>/dev/null || ./Release_App/RUHI\ Browser.app/Contents/MacOS/RuhiBrowser --tour &
+echo ">> Launching RUHI Browser in tour mode..."
+open "Release_App/RUHI Browser.app" --args --tour || true
 
 echo ">> Capturing 1: Main Browser..."
 sleep 3
-screencapture -x screenshots/1_main_browser.png
+screencapture -x screenshots/1_main_browser.png || true
 
-echo ">> Capturing 2: Settings Window..."
+echo ">> Capturing 2: Settings..."
 sleep 4
-screencapture -x screenshots/2_settings_window.png
+screencapture -x screenshots/2_settings_window.png || true
 
-echo ">> Capturing 3: Bookmarks Manager..."
+echo ">> Capturing 3: Bookmarks..."
 sleep 4
-screencapture -x screenshots/3_bookmarks_window.png
+screencapture -x screenshots/3_bookmarks_window.png || true
 
-echo ">> Capturing 4: Supabase Cloud Sync Dialog..."
+echo ">> Capturing 4: Cloud Sync..."
 sleep 4
-screencapture -x screenshots/4_supabase_sync_account.png
+screencapture -x screenshots/4_supabase_sync_account.png || true
 
-echo ">> Done! Generated Screenshots:"
+echo ">> Completed! Files in screenshots:"
 ls -la screenshots
