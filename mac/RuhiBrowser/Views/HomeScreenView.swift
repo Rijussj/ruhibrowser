@@ -85,7 +85,6 @@ struct HomeScreenView: View {
                                 Text(clockAmPm)
                                     .font(.system(size: 12.5, weight: .bold))
                                     .foregroundColor(Color(hex: "#94A3B8"))
-                                    .frame(maxWidth: .infinity, alignment: .center)
                             }
                             .padding(.bottom, 10)
                         }
@@ -164,6 +163,32 @@ struct HomeScreenView: View {
                             .stroke(Color(hex: "#3C4043"), lineWidth: 1)
                     )
 
+                    // Feature Hub & Quick Launch Workspace (From Windows BorderHomeProductiveTools)
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("⚡ Quick Launch Feature Hub")
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundColor(Color(hex: "#94A3B8"))
+
+                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 4), spacing: 8) {
+                            featurePill(title: "🤖 AI Assistant", action: onOpenAi)
+                            featurePill(title: "🛡️ RUHI VPN", action: onOpenVpn)
+                            featurePill(title: "🔑 Password Vault", action: onOpenPasswords)
+                            featurePill(title: "🌐 Page Translator", action: onOpenTranslate)
+                            featurePill(title: "📑 PDF Tools", action: onOpenPdfTools)
+                            featurePill(title: "☁️ RUHI Account", action: onOpenAccount)
+                            featurePill(title: "🔖 Bookmarks", action: onOpenBookmarks)
+                            featurePill(title: "🕒 History", action: onOpenHistory)
+                        }
+                    }
+                    .padding(14)
+                    .frame(width: 680)
+                    .background(Color(hex: "#242424"))
+                    .cornerRadius(14)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 14)
+                            .stroke(Color(hex: "#383838"), lineWidth: 1)
+                    )
+
                     // Shortcuts Section Header & Tiles (Identical to Windows WpShortcuts)
                     VStack(spacing: 10) {
                         HStack {
@@ -214,32 +239,6 @@ struct HomeScreenView: View {
                         }
                         .frame(width: 680)
                     }
-
-                    // Feature Hub & Quick Launch Workspace (From Windows BorderHomeProductiveTools)
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("⚡ Quick Launch Feature Hub")
-                            .font(.system(size: 12, weight: .semibold))
-                            .foregroundColor(Color(hex: "#94A3B8"))
-
-                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 4), spacing: 8) {
-                            featurePill(title: "🤖 AI Assistant", action: onOpenAi)
-                            featurePill(title: "🛡️ RUHI VPN", action: onOpenVpn)
-                            featurePill(title: "🔑 Password Vault", action: onOpenPasswords)
-                            featurePill(title: "🌐 Page Translator", action: onOpenTranslate)
-                            featurePill(title: "📑 PDF Tools", action: onOpenPdfTools)
-                            featurePill(title: "☁️ RUHI Account", action: onOpenAccount)
-                            featurePill(title: "🔖 Bookmarks", action: onOpenBookmarks)
-                            featurePill(title: "🕒 History", action: onOpenHistory)
-                        }
-                    }
-                    .padding(14)
-                    .frame(width: 680)
-                    .background(Color(hex: "#242424"))
-                    .cornerRadius(14)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 14)
-                            .stroke(Color(hex: "#383838"), lineWidth: 1)
-                    )
 
                     // Recent Visits Section (Identical to Windows BorderRecentVisits)
                     if !historyManager.history.isEmpty && !tab.isIncognito {
