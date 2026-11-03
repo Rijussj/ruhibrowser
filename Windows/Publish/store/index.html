@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RUHI Add-On-Store - Extensions & Add-ons</title>
+  <meta name="description" content="Discover great apps, games, extensions and themes for RUHI Browser.">
+  <link rel="icon" type="image/png" href="../Assets/app_icon.png">
+  <style>
+/* ==========================================================================
+   RUHI Web Store - Official Google Chrome Web Store (Material 3) Theme
+   Engineered for maximum fidelity, human-crafted minimalism, and zero AI artifacts.
+   ========================================================================== */
+
+:root {
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Google Sans", "Helvetica Neue", Arial, sans-serif;
+  
+  /* Google Chrome Web Store - Dark Mode (Default) */
+  --bg-app: #131314;
+  --bg-header: #1E1F20;
+  --bg-surface: #28292A;
+  --bg-surface-variant: #333537;
+  --bg-surface-hover: #37393B;
+  --border-color: rgba(255, 255, 255, 0.09);
+  --border-focus: #A8C7FA;
+  
+  --text-primary: #E3E3E3;
+  --text-secondary: #C4C7C5;
+  --text-tertiary: #8E918F;
+  
+  --google-blue: #A8C7FA;
+  --google-blue-text: #062E6F;
+  --google-blue-hover: #D3E3FD;
+  --google-blue-solid: #1A73E8;
+  
+  --chip-bg: #28292A;
+  --chip-border: #444746;
+  --chip-active-bg: #004A77;
+  --chip-active-text: #C2E7FF;
+  --chip-active-border: #004A77;
+  
+  --success: #6DD58C;
+  --warning: #FDD663;
+  --danger: #F28B82;
+  
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+  
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover: 0 4px 14px rgba(0, 0, 0, 0.5);
+  --shadow-modal: 0 16px 32px rgba(0, 0, 0, 0.65);
+}
+
+[data-theme="light"] {
+  --bg-app: #F8F9FA;
+  --bg-header: #FFFFFF;
+  --bg-surface: #FFFFFF;
+  --bg-surface-variant: #F1F3F4;
+  --bg-surface-hover: #F8F9FA;
+  --border-color: #E0E2E5;
+  --border-focus: #0B57D0;
+  
+  --text-primary: #1F1F1F;
+  --text-secondary: #444746;
+  --text-tertiary: #747775;
+  
+  --google-blue: #0B57D0;
+  --google-blue-text: #FFFFFF;
+  --google-blue-hover: #0842A0;
+  --google-blue-solid: #0B57D0;
+  
+  --chip-bg: #FFFFFF;
+  --chip-border: #C4C7C5;
+  --chip-active-bg: #C2E7FF;
+  --chip-active-text: #001D35;
+  --chip-active-border: #C2E7FF;
+  
+  --success: #137333;
+  --warning: #B06000;
+  --danger: #C5221F;
+  
+  --shadow-card: 0 1px 2px rgba(60, 64, 67, 0.15), 0 1px 3px 1px rgba(60, 64, 67, 0.1);
+  --shadow-card-hover: 0 4px 12px rgba(60, 64, 67, 0.2);
+  --shadow-modal: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+.store-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--bg-header);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 24px;
+}
+
+.header-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.brand-logo-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-title {
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-title strong {
+  font-weight: 600;
+}
+
+.brand-store-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--bg-surface-variant);
+  color: var(--text-secondary);
+  padding: 2px 7px;
+  border-radius: var(--radius-xs);
+}
+
+/* Search Bar (Chrome Web Store Style) */
+.header-search {
+  flex: 1;
+  max-width: 580px;
+}
+
+.search-input-wrap {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-surface-variant);
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  padding: 0 16px;
+  height: 44px;
+  transition: all 0.2s ease;
+}
+
+.search-input-wrap:focus-within {
+  background-color: var(--bg-surface);
+  border-color: var(--border-focus);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--text-tertiary);
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.search-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.search-clear-btn {
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.search-clear-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-surface-variant);
+}
+
+/* Header Action Buttons */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.btn-header-action {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.btn-header-secondary {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.btn-header-secondary:hover {
+  background: var(--bg-surface-variant);
+}
+
+.btn-header-primary {
+  background: var(--google-blue);
+  color: var(--google-blue-text);
+  border: none;
+  font-weight: 600;
+}
+
+.btn-header-primary:hover {
+  background: var(--google-blue-hover);
+}
+
+.btn-icon-round {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon-round:hover {
+  background: var(--bg-surface-variant);
+}
+
+.btn-icon-round svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* ==========================================================================
+   HERO EDITORIAL SPOTLIGHT
+   ========================================================================== */
+.hero-spotlight {
+  max-width: 1320px;
+  margin: 28px auto 0;
+  padding: 0 24px;
+}
+
+.spotlight-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 36px 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-info {
+  max-width: 620px;
+}
+
+.spotlight-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--google-blue);
+  background: rgba(168, 199, 250, 0.12);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
+}
+
+.spotlight-title {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 8px;
+  letter-spacing: -0.3px;
+}
+
+.spotlight-desc {
+  font-size: 0.98rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.spotlight-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.spotlight-graphic {
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+}
+
+.spotlight-graphic svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   CATEGORY TABS (CHROME WEB STORE CHIPS)
+   ========================================================================== */
+.main-wrapper {
+  max-width: 1320px;
+  margin: 28px auto 48px;
+  padding: 0 24px;
+  flex: 1;
+  width: 100%;
+}
+
+.category-chips-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+  scrollbar-width: thin;
+}
+
+.category-chip {
+  background: var(--chip-bg);
+  border: 1px solid var(--chip-border);
+  color: var(--text-primary);
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.category-chip:hover {
+  background: var(--bg-surface-variant);
+}
+
+.category-chip.active {
+  background: var(--chip-active-bg);
+  color: var(--chip-active-text);
+  border-color: var(--chip-active-border);
+  font-weight: 600;
+}
+
+/* Section Header Bar */
+.section-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+.section-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sort-select {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* ==========================================================================
+   EXTENSION CARDS GRID (CHROME WEB STORE TILES)
+   ========================================================================== */
+.extensions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+.extension-tile {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.extension-tile:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.tile-top {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.tile-icon-wrap {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tile-icon-wrap svg {
+  width: 48px;
+  height: 48px;
+  display: block;
+}
+
+.tile-title-box {
+  flex: 1;
+  min-width: 0;
+}
+
+.tile-name {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.35;
+  margin-bottom: 2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tile-developer {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.verified-badge-icon {
+  width: 14px;
+  height: 14px;
+  fill: #38BDF8;
+  flex-shrink: 0;
+}
+
+.tile-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  margin-bottom: 10px;
+}
+
+.tile-stars {
+  color: #FDD663;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 600;
+}
+
+.tile-stars svg {
+  width: 13px;
+  height: 13px;
+  fill: #FDD663;
+}
+
+.tile-users {
+  margin-left: auto;
+  font-size: 0.78rem;
+}
+
+.tile-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tile-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+  gap: 8px;
+}
+
+.tile-category-tag {
+  font-size: 0.74rem;
+  color: var(--text-tertiary);
+  background: var(--bg-surface-variant);
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+}
+
+.btn-download-primary {
+  height: 34px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: var(--google-blue);
+  color: var(--google-blue-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.btn-download-primary:hover {
+  background: var(--google-blue-hover);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   EXTENSION DETAILS MODAL (CHROME WEB STORE PAGE VIEW)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-dialog {
+  background: var(--bg-header);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 760px;
+  max-height: min(88vh, 680px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-modal);
+  transform: translateY(12px);
+  transition: transform 0.2s ease;
+  overflow: hidden;
+  margin: auto;
+}
+
+.modal-overlay.active .modal-dialog {
+  transform: translateY(0);
+}
+
+.modal-top-bar {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.modal-hero-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.modal-hero-icon {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+}
+
+.modal-hero-icon svg {
+  width: 56px;
+  height: 56px;
+}
+
+.modal-hero-text h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 3px;
+  color: var(--text-primary);
+}
+
+.modal-dev-line {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.modal-close-round {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.modal-close-round:hover {
+  background: var(--bg-surface-variant);
+  color: var(--text-primary);
+}
+
+/* Modal Content Tabs */
+.modal-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.modal-nav-tabs {
+  display: flex;
+  gap: 20px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 18px;
+}
+
+.modal-nav-tab {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 6px 2px 12px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.modal-nav-tab:hover {
+  color: var(--text-primary);
+}
+
+.modal-nav-tab.active {
+  color: var(--google-blue);
+  border-bottom-color: var(--google-blue);
+  font-weight: 600;
+}
+
+.modal-tab-pane {
+  display: none;
+}
+
+.modal-tab-pane.active {
+  display: block;
+}
+
+.modal-desc-text {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  white-space: pre-line;
+  margin-bottom: 20px;
+}
+
+.modal-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.stat-box-label {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  margin-bottom: 4px;
+}
+
+.stat-box-val {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.permissions-list-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.permission-row {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Modal Bottom Action Bar */
+.modal-bottom-bar {
+  padding: 14px 24px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-header);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.verified-store-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.btn-modal-download-primary {
+  height: 42px;
+  padding: 0 24px;
+  border-radius: var(--radius-pill);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: var(--google-blue);
+  color: var(--google-blue-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.btn-modal-download-primary:hover {
+  background: var(--google-blue-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(168, 199, 250, 0.25);
+}
+
+/* ==========================================================================
+   CUSTOM EXTENSION MODAL
+   ========================================================================== */
+.input-field-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.text-input-field {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  font-family: inherit;
+}
+
+.text-input-field:focus {
+  border-color: var(--border-focus);
+}
+
+.drop-panel {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 32px 20px;
+  text-align: center;
+  background: var(--bg-surface);
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.drop-panel:hover {
+  border-color: var(--google-blue);
+}
+
+.drop-panel-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.drop-panel-sub {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATION (MATERIAL 3 SNACKBAR)
+   ========================================================================== */
+.toast-shelf {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.snackbar {
+  background: #323232;
+  color: #FFFFFF;
+  border-radius: var(--radius-xs);
+  padding: 12px 20px;
+  font-size: 0.88rem;
+  font-weight: 400;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: auto;
+  max-width: 380px;
+  animation: slideUp 0.2s ease;
+}
+
+[data-theme="light"] .snackbar {
+  background: #1F1F1F;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.store-footer {
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-header);
+  padding: 32px 24px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  margin-top: auto;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 12px;
+}
+
+.footer-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-link:hover {
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .spotlight-card {
+    flex-direction: column;
+    padding: 24px;
+    text-align: center;
+  }
+  .spotlight-graphic {
+    display: none;
+  }
+  .spotlight-actions {
+    justify-content: center;
+  }
+  .modal-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+</style>
+</head>
+<body>
+
+  <!-- Google Chrome Web Store Navbar -->
+  <header class="store-header">
+    <div class="header-container">
+      <!-- Brand Logo -->
+      <div class="brand-section" onclick="resetFilters()">
+        <div class="brand-logo-icon">
+          <!-- Sleek RUHI Chrome-style Vector Logo -->
+          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="18" r="16" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+            <path d="M18 6C11.37 6 6 11.37 6 18H18V6Z" fill="#3B82F6"/>
+            <path d="M18 18H30C30 11.37 24.63 6 18 6V18Z" fill="#6366F1"/>
+            <path d="M18 18V30C24.63 30 30 24.63 30 18H18Z" fill="#06B6D4"/>
+            <path d="M18 18H6C6 24.63 11.37 30 18 30V18Z" fill="#10B981"/>
+            <circle cx="18" cy="18" r="6" fill="#FFFFFF"/>
+          </svg>
+        </div>
+        <div class="brand-title">
+          <span>RUHI</span> <strong>Add-On-Store</strong>
+        </div>
+      </div>
+
+      <!-- Google Search Bar -->
+      <div class="header-search">
+        <div class="search-input-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24">
+            <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z"/>
+          </svg>
+          <input type="text" id="storeSearchInput" class="search-input" placeholder="Search extensions and add-ons" autocomplete="off">
+          <button id="searchClearBtn" class="search-clear-btn" title="Clear" aria-label="Clear"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+        </div>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" class="btn-icon-round" title="Switch Theme">
+          <span id="themeToggleIcon">
+            <svg viewBox="0 0 24 24"><path d="M12 7C9.24 7 7 9.24 7 12C7 14.76 9.24 17 12 17C14.76 17 17 14.76 17 12C17 9.24 14.76 7 12 7ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z"/></svg>
+          </span>
+        </button>
+
+        <!-- Manage Extensions -->
+        <a id="manageExtBtn" href="ruhi://extension" class="btn-header-action btn-header-primary" title="Manage Extensions" onclick="openExtensionsManager(event)" style="text-decoration:none;">
+          <span>Manage Extensions</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Editorial Spotlight (Google Style Featured Banner) -->
+  <section class="hero-spotlight">
+    <div class="spotlight-card">
+      <div class="spotlight-info">
+        <div class="spotlight-pill">
+          <span>Featured Add-on</span>
+        </div>
+        <h1 class="spotlight-title">uBlock Origin</h1>
+        <p class="spotlight-desc">
+          An efficient, high-performance content blocker. Out of the box, uBlock Origin blocks ads, trackers, and malicious domains without taxing your CPU and system memory.
+        </p>
+        <div class="spotlight-actions">
+          <button class="btn-header-action btn-header-primary" onclick="installExtension('cjpalhdlnbpafiamejdnhcphjbkeiagm')">
+            <span>Add to RUHI</span>
+          </button>
+          <button class="btn-header-action btn-header-secondary" onclick="openModal('cjpalhdlnbpafiamejdnhcphjbkeiagm')">
+            <span>Overview</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="spotlight-graphic">
+        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" rx="28" fill="#800000"/>
+          <path d="M60 20L28 32V60C28 78 42 95 60 100C78 95 92 78 92 60V32L60 20Z" fill="#B91C1C" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round"/>
+          <text x="60" y="70" fill="#FFFFFF" font-size="34" font-weight="bold" font-family="Arial, sans-serif" text-anchor="middle">µB</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Store Feed -->
+  <main class="main-wrapper">
+    <!-- Category Filter Chips -->
+    <div class="category-chips-bar">
+      <button class="category-chip active" data-category="all">All</button>
+      <button class="category-chip" data-category="privacy">Privacy & Security</button>
+      <button class="category-chip" data-category="productivity">Productivity</button>
+      <button class="category-chip" data-category="themes">Appearance</button>
+      <button class="category-chip" data-category="developer">Developer Tools</button>
+      <button class="category-chip" data-category="media">Entertainment</button>
+      <button class="category-chip" data-category="ai">AI & Smart Tools</button>
+      <button class="category-chip" data-category="utilities">Utilities</button>
+    </div>
+
+    <!-- Section Bar -->
+    <div class="section-header-bar">
+      <h2 id="resultsCount" class="section-title">Recommended extensions</h2>
+      <div class="section-controls">
+        <select id="sortSelect" class="sort-select">
+          <option value="featured">Featured</option>
+          <option value="popular">Most popular</option>
+          <option value="rating">Highest rated</option>
+          <option value="name">Name (A - Z)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Extension Tiles Grid -->
+    <div id="extensionsGrid" class="extensions-grid">
+      <!-- Populated dynamically by app.js -->
+    </div>
+  </main>
+
+  <!-- Extension Details Page Modal -->
+  <div id="modalOverlay" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-top-bar">
+        <div class="modal-hero-left">
+          <div id="modalExtIcon" class="modal-hero-icon"></div>
+          <div class="modal-hero-text">
+            <h2 id="modalExtTitle">Extension</h2>
+            <div class="modal-dev-line">
+              <span id="modalExtDev">Developer</span>
+              <span>&bull;</span>
+              <span id="modalExtCategory">Category</span>
+            </div>
+          </div>
+        </div>
+        <button id="modalCloseBtn" class="modal-close-round" title="Close" aria-label="Close"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Navigation Tabs -->
+        <div class="modal-nav-tabs">
+          <button class="modal-nav-tab active" data-tab="tab-overview">Overview</button>
+          <button class="modal-nav-tab" data-tab="tab-privacy">Privacy Practices</button>
+          <button class="modal-nav-tab" data-tab="tab-details">Details</button>
+        </div>
+
+        <!-- Tab 1: Overview -->
+        <div id="tab-overview" class="modal-tab-pane active">
+          <!-- Metadata Stats Bar -->
+          <div class="modal-stats-grid">
+            <div>
+              <div class="stat-box-label">Rating</div>
+              <div id="modalExtRating" class="stat-box-val">4.9 &#9733;</div>
+            </div>
+            <div>
+              <div class="stat-box-label">Users</div>
+              <div id="modalExtUsers" class="stat-box-val">10M+</div>
+            </div>
+            <div>
+              <div class="stat-box-label">Version</div>
+              <div id="modalExtVersion" class="stat-box-val">v1.0</div>
+            </div>
+            <div>
+              <div class="stat-box-label">Size</div>
+              <div id="modalExtSize" class="stat-box-val">1.2 MB</div>
+            </div>
+          </div>
+
+          <p id="modalExtDescription" class="modal-desc-text"></p>
+        </div>
+
+        <!-- Tab 2: Privacy Practices -->
+        <div id="tab-privacy" class="modal-tab-pane">
+          <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:16px;">
+            The developer has disclosed that it may collect and request the following browser permissions:
+          </p>
+          <div id="modalPermissionsList" class="permissions-list-wrap"></div>
+        </div>
+
+        <!-- Tab 3: Details -->
+        <div id="tab-details" class="modal-tab-pane">
+          <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:16px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:0.85rem;">
+              <span style="color:var(--text-tertiary)">Last updated:</span>
+              <span id="modalExtUpdated" style="font-weight:500; color:var(--text-primary)">2026</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:0.85rem;">
+              <span style="color:var(--text-tertiary)">Identifier:</span>
+              <span id="modalExtId" style="font-family:monospace; color:var(--text-primary)">id</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-bottom-bar">
+        <div class="verified-store-tag">
+          <svg style="width:16px;height:16px;fill:#38BDF8;" viewBox="0 0 24 24"><path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM10 16L6 12L7.41 10.59L10 13.17L16.59 6.58L18 8L10 16Z"/></svg>
+          <span>Verified package for RUHI Browser</span>
+        </div>
+        <button id="modalDownloadBtn" class="btn-modal-download-primary" onclick="downloadActiveModalExtension()" title="Download extension file">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          <span>Download</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Material 3 Snackbar Container -->
+  <div id="toastShelf" class="toast-shelf"></div>
+
+  <!-- Store Footer -->
+  <footer class="store-footer">
+    <div class="footer-nav">
+      <a href="ruhi://extension" class="footer-link" onclick="openExtensionsManager(event)">Extensions Manager</a>
+      <a href="javascript:void(0)" class="footer-link" onclick="toggleTheme()">Appearance</a>
+    </div>
+    <div>
+      RUHI Add-On-Store © 2026 RUHI Application.
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
+

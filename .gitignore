@@ -1,0 +1,31 @@
+# Visual Studio / .NET
+.vs/
+**/bin/
+**/obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.pdb
+**/*.WebView2/
+**/EBWebView/
+
+# Android
+**/.gradle/
+**/build/
+local.properties
+.idea/
+*.iml
+.cxx/
+captures/
+
+# macOS / Swift
+**/.build/
+DerivedData/
+*.xcuserstate
+.DS_Store
+
+# Temporary & cache
+*.log
+*.tmp
+thumbs.db

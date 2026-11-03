@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions — RUHI Browser</title>
+  <meta name="description" content="Answers to common questions about RUHI Browser for Windows and Android. Learn about privacy features, installation, built-in AdBlock, and performance.">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .faq-page-hero {
+      padding: 130px 0 60px;
+      text-align: center;
+      background: radial-gradient(circle at 50% 20%, rgba(255, 27, 45, 0.18), transparent 70%);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .faq-page-hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .faq-search-box {
+      max-width: 620px;
+      margin: 28px auto 0;
+      position: relative;
+    }
+    .faq-search-input {
+      width: 100%;
+      padding: 16px 22px 16px 50px;
+      font-size: 1rem;
+      border-radius: 14px;
+      background: rgba(18, 22, 34, 0.85);
+      border: 1px solid var(--card-border);
+      color: #ffffff;
+      outline: none;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      transition: var(--transition);
+    }
+    .faq-search-input:focus {
+      border-color: var(--opera-red);
+      box-shadow: 0 0 0 3px rgba(255, 27, 45, 0.25);
+    }
+    .faq-search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      opacity: 0.6;
+    }
+    .faq-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+    .faq-tab-btn {
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: rgba(24, 26, 38, 0.6);
+      border: 1px solid var(--card-border);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .faq-tab-btn:hover, .faq-tab-btn.active {
+      background: var(--accent-gradient);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 4px 14px var(--glow-red);
+    }
+    .faq-page-content {
+      max-width: 860px;
+      margin: 50px auto 100px;
+      padding: 0 20px;
+    }
+    .faq-category-heading {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 45px 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #ff4d61;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 10px;
+    }
+    .faq-help-cta {
+      background: linear-gradient(135deg, rgba(24, 26, 38, 0.8), rgba(12, 13, 19, 0.95));
+      border: 1px solid rgba(255, 27, 45, 0.3);
+      border-radius: 18px;
+      padding: 36px 30px;
+      text-align: center;
+      margin-top: 60px;
+    }
+    .faq-help-cta h3 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+    .faq-help-cta p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="nav-brand">
+        <img src="assets/icon.png" alt="RUHI Browser Logo">
+        <span>RUHI Browser</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="index.html#android">Android</a></li>
+        <li><a href="faq.html" style="color: var(--primary); font-weight: 600;">FAQ</a></li>
+        <li><a href="help.html">Help</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="https://apps.microsoft.com/detail/9PCV98GBMJ68" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 8px 18px; font-size: 0.9rem;">
+          Get from Store
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- FAQ Hero -->
+  <section class="faq-page-hero">
+    <div class="container">
+      <div class="badge-pill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        Answers &amp; Guidance
+      </div>
+      <h1>Frequently Asked Questions</h1>
+      <p class="section-subtitle" style="margin: 0 auto; max-width: 650px;">
+        Everything you need to know about RUHI Browser across Windows and Android platforms.
+      </p>
+
+      <div class="faq-search-box">
+        <span class="faq-search-icon" style="display: flex; align-items: center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </span>
+        <input type="text" id="faq-search" class="faq-search-input" placeholder="Type a keyword to filter questions..." autocomplete="off">
+      </div>
+
+      <div class="faq-tabs">
+        <button class="faq-tab-btn active" data-filter="all">All Questions</button>
+        <button class="faq-tab-btn" data-filter="general">General</button>
+        <button class="faq-tab-btn" data-filter="windows">Windows</button>
+        <button class="faq-tab-btn" data-filter="android">Android</button>
+        <button class="faq-tab-btn" data-filter="privacy">Privacy &amp; Security</button>
+        <button class="faq-tab-btn" data-filter="performance">AdBlock &amp; Speed</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion List -->
+  <main class="faq-page-content">
+
+    <!-- Section 1: General -->
+    <div class="faq-group" data-category="general">
+      <h2 class="faq-category-heading">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+        </svg>
+        General Questions
+      </h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Is RUHI Browser completely free to use?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Yes! RUHI Browser is 100% free with no in-app purchases, paid subscriptions, or paywalled features. All privacy, ad-blocking, and performance tools are fully unlocked for all users on both Windows and Android.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Who develops and publishes RUHI Browser?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            RUHI Browser is developed by independent software engineer <strong>Saikh Sufian</strong> and published officially under <strong>RUHI Applications</strong>.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What rendering engine powers RUHI Browser?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            RUHI Browser is engineered on the industry-standard Chromium rendering core. On Windows, it leverages Microsoft WebView2 runtime with hardware GPU acceleration. On Android, it utilizes high-efficiency Chromium/WebKit mobile rendering.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How do I receive the latest browser updates?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Because RUHI Browser is distributed via official app stores (Microsoft Store on Windows and Google Play Store on Android), new updates and security patches install automatically in the background without needing manual file downloads.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 2: Windows Experience -->
+    <div class="faq-group" data-category="windows">
+      <h2 class="faq-category-heading">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+        Windows Desktop Experience
+      </h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Which versions of Windows are supported?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            RUHI Browser supports 64-bit (x64) editions of <strong>Windows 11</strong> and <strong>Windows 10</strong> (Build 1809 or later).
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How do I install RUHI Browser on Windows?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Simply click the <strong>GET IT FROM Microsoft Store</strong> button on our website or open the Windows Microsoft Store app, search for <em>RUHI Browser</em>, and click "Get". Windows handles installation and setup seamlessly.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Does RUHI Browser support built-in PDF viewing and printing?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Yes. RUHI Browser includes an integrated, lightweight PDF viewer. You can open any PDF document, search inside the document, zoom, and print directly by pressing <kbd>Ctrl</kbd> + <kbd>P</kbd>.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can I import my bookmarks from Chrome, Edge, or Firefox?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Yes. Open <em>Settings &rarr; Bookmarks &rarr; Import Bookmarks</em>, choose your exported HTML bookmarks file from any other web browser, and your bookmarks will be imported instantly.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 3: Android App -->
+    <div class="faq-group" data-category="android">
+      <h2 class="faq-category-heading">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+        Android Mobile App
+      </h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What are the system requirements for Android?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            RUHI Browser for Android requires <strong>Android 6.0 (Marshmallow)</strong> or higher. The app package is ultra-lightweight (under 6 MB) and runs smoothly on both entry-level and flagship devices.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How does the AMOLED Pure Black Mode work?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Unlike standard dark modes that use dark gray tones, RUHI Mobile features true pitch-black (hex #000000) styling. On OLED and AMOLED screens, black pixels are completely turned off, drastically saving battery life during browsing sessions.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Does RUHI Mobile run background tracking services?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            No. RUHI Mobile does not start any background telemetry daemons, persistent notification push services, or analytics loggers. When you close the app, it stops consuming CPU and memory immediately.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 4: Privacy & Security -->
+    <div class="faq-group" data-category="privacy">
+      <h2 class="faq-category-heading">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <polyline points="9 12 11 14 15 10"></polyline>
+        </svg>
+        Privacy &amp; Security
+      </h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Does RUHI Browser collect, track, or sell my personal browsing data?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Strictly NO. RUHI Browser was designed from inception with a <strong>Zero-Telemetry architecture</strong>. We do NOT log, collect, transmit, or monetize your URLs, search queries, browsing history, or IP address. Everything stays stored strictly on your local device.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How are my saved passwords and credentials protected?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            On Windows, your saved credentials are encrypted using <strong>Windows DPAPI</strong> (Data Protection API) tied cryptographically to your Windows user account and hardware profile. On Android, data is protected by native OS sandboxing and keystore encryption.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What happens in Private / Incognito Mode?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            In Private Mode (open with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>), RUHI Browser runs in a separate, memory-only session. Once you close the private window, all history, session cookies, and temporary site data from that session are wiped completely.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How can I clear my browsing history and cache?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Delete</kbd> on Windows or open <em>Settings &rarr; Privacy &rarr; Clear Data</em> on Android. You can choose to purge cached images, cookies, or history for any timeframe.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 5: AdBlock & Performance -->
+    <div class="faq-group" data-category="performance">
+      <h2 class="faq-category-heading">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        AdBlock &amp; Performance
+      </h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How does the built-in intelligent AdBlock work?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            RUHI Browser features native network-level filtering rules that prevent banner advertisements, intrusive pop-ups, pre-roll video ads, and cross-site tracking scripts from ever downloading. This results in up to 3x faster webpage loads and significantly lower bandwidth usage.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can I disable AdBlock for a specific website?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Yes. Click the shield icon in the browser toolbar and toggle the AdBlock switch to "Off" for that specific domain if the website requires ads to view its content.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Why is RUHI Browser faster and lighter than traditional browsers?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Most commercial browsers bundle gigabytes of telemetry reporters, AI data-harvesting tools, news feeds, and sponsored extensions. RUHI Browser strips away all that bloat, keeping only essential Chromium browsing rendering, local hardware acceleration, and AdBlock.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Help Center CTA -->
+    <div class="faq-help-cta">
+      <h3>Didn't find your answer?</h3>
+      <p>Visit our comprehensive Help Center for in-depth user guides, keyboard shortcut reference, and direct developer contact.</p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="help.html" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          Visit Help &amp; Support Center
+        </a>
+        <a href="mailto:myjawla@gmail.com" class="btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          Email Support (myjawla@gmail.com)
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col-brand">
+          <h3>
+            <img src="assets/icon.png" alt="Logo" style="width: 24px; height: 24px; border-radius: 6px;">
+            RUHI Browser
+          </h3>
+          <p>A high-performance, privacy-first web browser designed for pure simplicity, zero telemetry, and maximum security on Windows and Android.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#privacy">Privacy</a></li>
+            <li><a href="index.html#android">Android</a></li>
+            <li><a href="index.html#download">Download</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="help.html">Help Center</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal &amp; Policy</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="help.html">Help &amp; Support</a></li>
+            <li><a href="mailto:myjawla@gmail.com">Contact Developer</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year">2026</span> RUHI Applications. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script>
+    // Tab Category Filtering
+    const tabBtns = document.querySelectorAll('.faq-tab-btn');
+    const groups = document.querySelectorAll('.faq-group');
+    const searchInput = document.getElementById('faq-search');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+
+        groups.forEach(group => {
+          if (filter === 'all' || group.getAttribute('data-category') === filter) {
+            group.style.display = '';
+          } else {
+            group.style.display = 'none';
+          }
+        });
+
+        if (searchInput) searchInput.value = '';
+      });
+    });
+
+    // Real-Time Search Filtering
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        const items = document.querySelectorAll('.faq-item');
+
+        items.forEach(item => {
+          const text = item.textContent.toLowerCase();
+          if (text.includes(query)) {
+            item.style.display = '';
+            if (query.length > 2) {
+              item.classList.add('active'); // auto open matching question
+            }
+          } else {
+            item.style.display = query ? 'none' : '';
+          }
+        });
+
+        // Hide group if no visible items
+        groups.forEach(group => {
+          const visible = group.querySelectorAll('.faq-item:not([style*="display: none"])');
+          if (query && visible.length === 0) {
+            group.style.display = 'none';
+          } else {
+            group.style.display = '';
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>

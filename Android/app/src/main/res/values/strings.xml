@@ -1,0 +1,145 @@
+<resources>
+    <string name="app_name">RUHI Browser</string>
+    <string name="search_hint">Search or type web address</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_bookmarks">Bookmarks</string>
+    <string name="nav_tabs">Tabs</string>
+    <string name="nav_menu">Menu</string>
+
+    <!-- Navigation Controls -->
+    <string name="action_back">Back</string>
+    <string name="action_forward">Forward</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_stop">Stop</string>
+    <string name="secure_connection">Secure connection (HTTPS)</string>
+    <string name="insecure_connection">Insecure connection (HTTP)</string>
+    <string name="external_intent_error">No application found to handle this link</string>
+
+    <!-- Error State -->
+    <string name="error_page_title">Unable to load page</string>
+    <string name="error_page_message">Check your internet connection or URL and try again.</string>
+    <string name="error_ssl_message">Security warning: Secure connection could not be established. Navigation was cancelled for your safety.</string>
+    <string name="action_retry">Retry</string>
+
+    <!-- Home Screen -->
+    <string name="brand_subtitle">Fast, private, modern browsing</string>
+    <string name="shortcuts_title">Shortcuts</string>
+    <string name="recent_sites_title">Recent visits</string>
+    <string name="recent_sites_empty">No recent visits yet. Your browsing history will appear here once enabled.</string>
+
+    <!-- Menu Items -->
+    <string name="menu_new_tab">New tab</string>
+    <string name="menu_new_incognito_tab">New incognito tab</string>
+    <string name="menu_bookmarks">Bookmarks</string>
+    <string name="menu_history">History</string>
+    <string name="menu_downloads">Downloads</string>
+    <string name="menu_desktop_site">Desktop site</string>
+    <string name="menu_find_in_page">Find in page</string>
+    <string name="menu_ai_assistant">AI Assistant</string>
+    <string name="menu_vpn">VPN</string>
+    <string name="menu_settings">Settings</string>
+
+    <!-- Status Badges -->
+    <string name="status_coming_soon">Coming soon</string>
+    <string name="status_not_configured">Not configured</string>
+    <string name="feature_unavailable_toast">This feature is currently unavailable.</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+    
+    <!-- Settings Categories -->
+    <string name="settings_cat_appearance">Appearance</string>
+    <string name="settings_cat_search">Search</string>
+    <string name="settings_cat_privacy">Privacy &amp; Security</string>
+    <string name="settings_cat_downloads">Downloads &amp; Storage</string>
+    <string name="settings_cat_ai_advanced">AI &amp; Advanced</string>
+    <string name="settings_cat_about">About</string>
+
+    <!-- Settings Subtitles -->
+    <string name="setting_theme_title">Theme</string>
+    <string name="setting_theme_desc">System default, Light, Dark</string>
+    <string name="setting_search_engine_title">Search engine</string>
+    <string name="setting_search_engine_desc">Google (Default)</string>
+    <string name="setting_clear_data_title">Clear browsing data</string>
+    <string name="setting_clear_data_desc">Clear cache, cookies, and history</string>
+    <string name="setting_adblock_title">Ad &amp; tracker filtering</string>
+    <string name="setting_adblock_desc">On-device ad &amp; tracker filtering</string>
+    <string name="setting_download_loc_title">Download location</string>
+    <string name="setting_download_loc_desc">Default downloads folder</string>
+    <string name="setting_ai_title">AI Assistant</string>
+    <string name="setting_ai_desc">Requires backend provider configuration</string>
+    <string name="setting_vpn_title">VPN Integration</string>
+    <string name="setting_vpn_desc">Requires verified VPN provider backend</string>
+    <string name="setting_about_title">About RUHI Browser</string>
+    <string name="setting_about_desc">Version 1.0.0 • Engine, features &amp; developer details</string>
+    <string name="setting_version_title">Version</string>
+    <string name="setting_version_desc">1.0.0 (Official Release)</string>
+    <string name="setting_privacy_policy_title">Privacy Policy</string>
+    <string name="setting_privacy_policy_desc">Read our commitment to zero tracking &amp; privacy</string>
+    <string name="setting_licenses_title">Open Source Licenses</string>
+    <string name="setting_licenses_desc">Third-party open source libraries &amp; links</string>
+    
+    <!-- Theme Dialog -->
+    <string name="theme_system">System default</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+
+    <!-- Phase 6: Voice Search -->
+    <string name="voice_search">Voice search</string>
+    <string name="voice_search_prompt">Speak now to search</string>
+    <string name="voice_search_unsupported">Voice search is not supported on this device</string>
+    <string name="voice_search_permission_required">Microphone permission is required for voice search</string>
+
+    <!-- Phase 6: Find in Page -->
+    <string name="find_in_page_hint">Find in page</string>
+    <string name="find_in_page_prev">Previous match</string>
+    <string name="find_in_page_next">Next match</string>
+    <string name="find_in_page_close">Close search</string>
+
+    <!-- Phase 6: Shortcuts -->
+    <string name="add_shortcut">Add shortcut</string>
+    <string name="edit_shortcut">Edit shortcut</string>
+    <string name="remove_shortcut">Remove</string>
+    <string name="move_left">Move earlier</string>
+    <string name="move_right">Move later</string>
+    <string name="shortcut_name">Name</string>
+    <string name="shortcut_url">URL</string>
+    <string name="shortcut_empty_error">Name and URL cannot be empty</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+
+    <!-- Phase 7: AI Assistant -->
+    <string name="ai_assistant_title">AI Assistant</string>
+    <string name="ai_assistant_disclaimer">AI-generated content may be inaccurate. Consent required before sending page summaries.</string>
+    <string name="ai_send">Send</string>
+    <string name="ai_hint">Ask anything or ask about current page...</string>
+    <string name="ai_include_page">Include current page summary</string>
+    <string name="ai_setup_required">API token not configured. Please add your Hugging Face API token in Settings.</string>
+    <string name="ai_configure_btn">Configure in Settings</string>
+    <string name="ai_generated_label">AI Generated</string>
+    <string name="ai_consent_dialog_title">AI Data Processing Consent</string>
+    <string name="ai_consent_dialog_message">Sending page summaries transmits truncated text from the current webpage to your configured AI endpoint. No private or incognito data is sent without your explicit action. Do you wish to proceed?</string>
+    <string name="ai_consent_agree">I Agree</string>
+    <string name="ai_consent_decline">Decline</string>
+    <string name="ai_setting_token_title">Hugging Face API Token</string>
+    <string name="ai_setting_endpoint_title">Model Endpoint URL</string>
+
+    <!-- Phase 7: VPN Integration -->
+    <string name="vpn_screen_title">WireGuard VPN</string>
+    <string name="vpn_status_disconnected">Disconnected</string>
+    <string name="vpn_status_connecting">Connecting…</string>
+    <string name="vpn_status_connected">Connected (Tunnel Active)</string>
+    <string name="vpn_status_error">Configuration Error</string>
+    <string name="vpn_connect">Connect</string>
+    <string name="vpn_disconnect">Disconnect</string>
+    <string name="vpn_profile_title">WireGuard Server Profile</string>
+    <string name="vpn_edit_profile">Configure Profile</string>
+    <string name="vpn_server_endpoint">Server Endpoint (Host / IP)</string>
+    <string name="vpn_server_port">Port (e.g. 51820)</string>
+    <string name="vpn_client_ip">Client Address (e.g. 10.0.0.2)</string>
+    <string name="vpn_dns">DNS Server (e.g. 1.1.1.1)</string>
+    <string name="vpn_public_key">Server Public Key</string>
+    <string name="vpn_private_key">Client Private Key</string>
+    <string name="vpn_privacy_notice">Traffic Disclosure: When active, device network traffic routes through your designated WireGuard server. RUHI Browser does not operate or log this server. Ensure you trust the server operator.</string>
+    <string name="vpn_not_configured_msg">Please configure your WireGuard server address and public key before connecting.</string>
+</resources>

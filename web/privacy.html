@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — RUHI Browser</title>
+  <meta name="description" content="Official Privacy Policy for RUHI Browser across Windows and Android platforms. Learn how RUHI Applications protects your digital privacy with 100% on-device local storage and zero telemetry.">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .legal-content {
+      max-width: 860px;
+      margin: 60px auto 100px;
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 55px 45px;
+      box-shadow: var(--card-shadow);
+    }
+    .legal-content h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      color: #121316;
+    }
+    .legal-date {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .legal-content h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 36px 0 14px;
+      color: var(--opera-red);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .legal-content p, .legal-content li {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+    .legal-content ul {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+    .legal-content strong {
+      color: #121316;
+    }
+    .contact-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 26px 30px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="nav-brand">
+        <img src="assets/icon.png" alt="RUHI Browser Logo">
+        <span>RUHI Browser</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="index.html#android">Android</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="help.html">Help</a></li>
+        <li><a href="privacy.html" style="color: var(--primary); font-weight: 600;">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="https://apps.microsoft.com/detail/9PCV98GBMJ68" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 8px 18px; font-size: 0.9rem;">
+          Get from Store
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="legal-content">
+      <h1>RUHI Browser Privacy Policy</h1>
+      <div class="legal-date">
+        <strong>Effective Date:</strong> October 23, 2026 &bull; <strong>Publisher:</strong> RUHI Applications &bull; <strong>Platforms:</strong> Windows 10/11 &amp; Android 6.0+
+      </div>
+
+      <p>
+        At <strong>RUHI Applications</strong>, we believe that privacy is a fundamental human right, not an optional setting. <strong>RUHI Browser</strong> was engineered from its foundation with a strict <strong>Zero-Telemetry Architecture</strong>. This Privacy Policy discloses our privacy standards, on-device data storage practices, and global regulatory compliance across both our Windows desktop application and our Android mobile application.
+      </p>
+
+      <h2>1. Zero Remote Telemetry &amp; No Data Harvesting</h2>
+      <p>
+        RUHI Browser does <strong>NOT</strong> collect, harvest, monitor, log, sell, rent, or transmit your personal data, web activity, or search queries to RUHI Applications or any third-party marketing brokers. Specifically:
+      </p>
+      <ul>
+        <li><strong>No URL / Browsing History Logging:</strong> We do not track or record which websites, URLs, or domains you visit.</li>
+        <li><strong>No Search Query Interception:</strong> We do not capture, record, or profile search keywords you enter into the address bar or search engines.</li>
+        <li><strong>No Behavioral Analytics or Trackers:</strong> We do not embed analytics SDKs (such as Google Firebase Analytics, AppsFlyer, or Facebook Pixel) in our binaries.</li>
+        <li><strong>No Telemetry Beacons:</strong> No background daemons or background pingbacks run to report your application usage or device location.</li>
+      </ul>
+
+      <h2>2. 100% On-Device Local Storage</h2>
+      <p>
+        All operational browser state—including Bookmarks, Browsing History, Saved Cookies, Cache, and User Preferences—is stored exclusively on your local device:
+      </p>
+      <ul>
+        <li><strong>On Windows:</strong> Files are stored in your secure Windows profile directory (<code>%APPDATA%\RuhiBrowser</code> or within the isolated MSIX package app-container).</li>
+        <li><strong>On Android:</strong> Files are stored in the application's internal sandboxed storage directory (<code>/data/data/com.ruhi.browser/</code>), inaccessible to any other app on the device.</li>
+      </ul>
+      <p>
+        None of this information is transmitted or synced to cloud servers. When you clear your browser data or uninstall the application, all local files are completely removed.
+      </p>
+
+      <h2>3. Hardware-Grade Password Encryption</h2>
+      <p>
+        When you choose to save web login credentials in RUHI Browser:
+      </p>
+      <ul>
+        <li><strong>On Windows:</strong> Credentials are cryptographically encrypted using the <strong>Windows Data Protection API (DPAPI)</strong>. The decryption keys are tied to your specific Windows user profile and hardware security module (TPM), preventing extraction by unauthorized external software.</li>
+        <li><strong>On Android:</strong> Security is enforced via the native Android Keystore system and OS-level private sandbox isolation.</li>
+      </ul>
+      <p>
+        RUHI Applications has no technical capability to view, access, or restore your saved passwords.
+      </p>
+
+      <h2>4. Web Permissions (Camera, Microphone, Geolocation)</h2>
+      <p>
+        When a website requests access to your device hardware (such as your microphone, camera, or geographic location), RUHI Browser acts purely as a secure intermediary:
+      </p>
+      <ul>
+        <li>Hardware permissions are <strong>never granted automatically</strong>. A clear system authorization dialog is always presented for your explicit approval.</li>
+        <li>RUHI Browser does not record, stream, or retain any audio, video, or location data passing through web sessions.</li>
+        <li>You can revoke web permissions at any time via Browser Settings.</li>
+      </ul>
+
+      <h2>5. Integrated AdBlocker &amp; Network Filtering</h2>
+      <p>
+        RUHI Browser includes a native, client-side content filter that blocks intrusive advertisements, third-party trackers, and tracking beacons:
+      </p>
+      <ul>
+        <li>All filtering rules and domain matching take place <strong>100% locally on your processor</strong>.</li>
+        <li>No list of visited websites or blocked advertisements is ever uploaded to any server.</li>
+      </ul>
+
+      <h2>6. InPrivate / Incognito Browsing</h2>
+      <p>
+        When you browse in an InPrivate window:
+      </p>
+      <ul>
+        <li>Browsing history, search records, form auto-fill data, and download logs are not saved.</li>
+        <li>Session cookies and cache are maintained solely in temporary volatile RAM and are permanently wiped immediately upon closing the private session.</li>
+      </ul>
+
+      <h2>7. Optional AI Assistant Queries</h2>
+      <p>
+        If you voluntarily choose to use the RUHI AI Assistant features (such as webpage summarization or language translation):
+      </p>
+      <ul>
+        <li>Your requested prompt is sent directly via encrypted HTTPS to the configured inference API endpoint solely to generate your response.</li>
+        <li>RUHI Applications does not log, analyze, sell, or retain your AI prompts.</li>
+      </ul>
+
+      <h2>8. Children's Online Privacy Protection (COPPA Compliance)</h2>
+      <p>
+        RUHI Browser is a general-audience web browsing application. We do not knowingly collect, store, or solicit personal information from children under the age of 13 (or under 16 in the European Union). Because RUHI Browser operates under a strict Zero-Telemetry model, no children's data is gathered, profiled, or processed.
+      </p>
+
+      <h2>9. Global Compliance: GDPR, CCPA / CPRA &amp; App Store Policies</h2>
+      <p>
+        Our architecture aligns fully with the highest international data privacy regulations:
+      </p>
+      <ul>
+        <li><strong>European Union GDPR:</strong> We collect zero personal data, respecting the principles of Data Minimization (Article 5) and Privacy by Design (Article 25).</li>
+        <li><strong>California Consumer Privacy Act (CCPA / CPRA):</strong> We do not sell, share, or monetize consumer personal information.</li>
+        <li><strong>Microsoft Store Policy (Section 10.5.1):</strong> Full compliance regarding transparency and personal data protection.</li>
+        <li><strong>Google Play Store Developer Policy:</strong> Full compliance with Google Play's User Data Policy, prominence disclosures, and minimal permission requirements.</li>
+      </ul>
+
+      <h2>10. User Control &amp; Data Erasure</h2>
+      <p>
+        You have absolute control over your digital footprint. At any time, you can purge your browsing history, cookies, cache, and passwords by pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Delete</kbd> on Windows or tapping <em>Settings &rarr; Clear Data</em> on Android.
+      </p>
+
+      <h2>11. Updates to this Policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time to reflect feature enhancements or regulatory changes. Any modifications will be posted directly to this URL with an updated "Effective Date".
+      </p>
+
+      <div class="contact-box">
+        <h3 style="color: #121316; margin-bottom: 8px; font-size: 1.2rem; font-weight: 700;">Official Privacy Contact</h3>
+        <p style="margin-bottom: 0;">
+          For inquiries, verification, or questions regarding this Privacy Policy or RUHI Applications privacy practices, please contact:<br><br>
+          <strong>Developer &amp; Maintainer:</strong> Saikh Sufian<br>
+          <strong>Publisher:</strong> RUHI Applications<br>
+          <strong>Official Support Email:</strong> <a href="mailto:myjawla@gmail.com" style="color: var(--opera-red); text-decoration: none; font-weight: 600;">myjawla@gmail.com</a><br>
+          <strong>Website:</strong> <a href="https://ruhibrowser.netlify.app" style="color: var(--opera-red); text-decoration: none; font-weight: 600;">https://ruhibrowser.netlify.app</a>
+        </p>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col-brand">
+          <h3>
+            <img src="assets/icon.png" alt="Logo" style="width: 24px; height: 24px; border-radius: 6px;">
+            RUHI Browser
+          </h3>
+          <p>A high-performance, privacy-first web browser designed for pure simplicity, zero telemetry, and maximum security on Windows and Android.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#privacy">Privacy</a></li>
+            <li><a href="index.html#android">Android</a></li>
+            <li><a href="index.html#download">Download</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="help.html">Help Center</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal &amp; Policy</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="help.html">Help &amp; Support</a></li>
+            <li><a href="mailto:myjawla@gmail.com">Contact Developer</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year">2026</span> RUHI Applications. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

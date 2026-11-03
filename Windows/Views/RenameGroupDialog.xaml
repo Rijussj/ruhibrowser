@@ -1,0 +1,65 @@
+﻿<Window x:Class="RuhiBrowser.Views.RenameGroupDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Tab Group" Height="270" Width="390"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        ShowInTaskbar="False" Background="#181818" Foreground="#FFFFFF"
+        FontFamily="Segoe UI" KeyDown="OnWindowKeyDown">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="WindowBgBrush" Color="#181818"/>
+        <SolidColorBrush x:Key="CardBgBrush" Color="#242424"/>
+        <SolidColorBrush x:Key="BorderBrushColor" Color="#383838"/>
+        <SolidColorBrush x:Key="TextPrimaryBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#94A3B8"/>
+        <SolidColorBrush x:Key="InputBgBrush" Color="#181818"/>
+        <SolidColorBrush x:Key="InputBorderBrush" Color="#3C4043"/>
+        <SolidColorBrush x:Key="InputTextBrush" Color="#FFFFFF"/>
+    </Window.Resources>
+
+    <Border Background="{DynamicResource WindowBgBrush}" Padding="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/> <!-- Title -->
+                <RowDefinition Height="Auto"/> <!-- Name Input -->
+                <RowDefinition Height="Auto"/> <!-- Color Picker -->
+                <RowDefinition Height="*"/>    <!-- Spacer -->
+                <RowDefinition Height="Auto"/> <!-- Buttons -->
+            </Grid.RowDefinitions>
+
+            <!-- Title -->
+            <TextBlock Grid.Row="0" Text="🏷️ Tab Group Settings" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,14"/>
+
+            <!-- Name Input -->
+            <StackPanel Grid.Row="1" Margin="0,0,0,14">
+                <TextBlock Text="Group Name" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6"/>
+                <Border Background="{DynamicResource InputBgBrush}" BorderBrush="{DynamicResource InputBorderBrush}" BorderThickness="1" CornerRadius="6" Padding="6,2">
+                    <TextBox x:Name="TbGroupName" Background="Transparent" Foreground="{DynamicResource InputTextBrush}"
+                             BorderThickness="0" FontSize="13" Padding="4"/>
+                </Border>
+            </StackPanel>
+
+            <!-- Color Palette -->
+            <StackPanel Grid.Row="2" Margin="0,0,0,16">
+                <TextBlock Text="Group Color" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,8"/>
+                <StackPanel x:Name="PanelColors" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <!-- Populated dynamically with Chrome color palette -->
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Buttons -->
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Cancel" Background="Transparent" Foreground="{DynamicResource TextSecondaryBrush}"
+                        BorderThickness="0" Padding="14,6" Margin="0,0,8,0" Cursor="Hand" Click="OnCancelClicked"/>
+                <Button Content="Save Group" Background="#2563EB" Foreground="#FFFFFF" FontWeight="Bold"
+                        BorderThickness="0" Padding="18,6" Cursor="Hand" Click="OnSaveClicked">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="6"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

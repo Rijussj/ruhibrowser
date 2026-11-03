@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RUHI Browser Privacy Policy"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Effective Date: October 2026 | Developer: RUHI Application"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="RUHI Application (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) operates the RUHI Browser mobile application. We are committed to protecting your privacy and ensuring you have complete transparency regarding how your information is handled. This Privacy Policy explains our data practices in full compliance with Google Play Developer Policies and applicable data protection regulations."
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textColor="?attr/colorOnSurface" />
+
+        <!-- 1. Zero Telemetry & No Remote Data Collection -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="1. Zero Remote Tracking &amp; No Data Collection"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="We believe your web browsing activity is private and belongs strictly to you. RUHI Browser does NOT collect, harvest, store, sell, monetize, or transmit any Personally Identifiable Information (PII), browsing history, search terms, IP addresses, or device identifiers to any remote telemetry or advertising servers."
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <!-- 2. On-Device Local Storage Only -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="2. 100% On-Device Local Storage"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="All user data—including Bookmarks, Browsing History, Recent Visits, Shortcuts, and Settings preferences—is stored exclusively on your local device within an app-private, sandboxed SQLite database. None of this data is ever backed up or synchronized to any external cloud service by RUHI Browser."
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <!-- 3. Incognito Mode & Data Destruction -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="3. Incognito Mode &amp; Ephemeral Sessions"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="When browsing in Incognito Mode, browsing history is completely disabled. Session cookies, cache, and temporary DOM storage are held in volatile memory and are purged and destroyed automatically when the incognito session or tabs are closed."
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <!-- 4. Device Permissions Justification -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="4. Permissions &amp; Hardware Access Justification"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="In adherence to Google Play Limited Use Requirements, RUHI Browser only requests permissions strictly essential for core user-initiated actions:\n\n• Microphone (RECORD_AUDIO): Activated solely when you tap the voice search icon. Voice audio is streamed directly to Android's native SpeechRecognizer service and is never recorded or stored by RUHI Browser.\n\n• Notifications (POST_NOTIFICATIONS): Used strictly on Android 13+ to show download progress in the status bar.\n\n• Storage / Downloads: Utilizes the system DownloadManager to save user-requested file downloads directly to your device storage.\n\n• Network Access (INTERNET / ACCESS_NETWORK_STATE): Necessary to load web pages and detect network connectivity."
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <!-- 5. Third-Party Websites & Search Engines -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="5. Third-Party Websites &amp; Search Engines"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="RUHI Browser functions as a gateway to the World Wide Web. When you visit third-party websites or submit queries to search engines (e.g. Google, DuckDuckGo, Bing, Yahoo), your interactions are governed by the respective privacy policies of those third-party providers. We encourage you to review their policies."
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <!-- 6. Optional User-Configured Services (AI & VPN) -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="6. Optional AI Assistant &amp; VPN Services"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="• AI Assistant: Optional. Web page context is sent to your designated Hugging Face endpoint only upon your explicit confirmation per request.\n\n• WireGuard VPN: Optional. Connects exclusively to user-specified servers via Android's VpnService. RUHI Browser does not run, intermediate, log, or sell VPN traffic."
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <!-- 7. User Data Control & Deletion -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="7. User Data Control &amp; Deletion"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="You retain 100% control over all data stored on your device. You can erase your browsing history, cookies, cache, shortcuts, and bookmarks at any moment by navigating to Settings &gt; Clear Browsing Data, or by clearing the app storage in Android System Settings."
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <!-- 8. Children's Privacy -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="8. Children's Privacy"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="RUHI Browser does not knowingly collect any personal information from children under the age of 13. As a general-purpose web browser, parental supervision is recommended when children access the internet."
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <!-- 9. Contact Information -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="9. Contact Information &amp; Support"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="If you have any questions, suggestions, or concerns regarding this Privacy Policy or our data practices, please contact us directly at:\n\n• Developer: RUHI Application\n• Contact Person: Saikh Sufian\n• Official Email: myjawla@gmail.com\n• Website / App: RUHI Browser for Android"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+    </LinearLayout>
+</ScrollView>
