@@ -58,7 +58,6 @@ struct RuhiBrowserApp: App {
                 Button("Settings...") {
                     NotificationCenter.default.post(name: NSNotification.Name("RuhiShowSettings"), object: nil)
                 }
-                .keyboardShortcut(",", modifiers: .command)
             }
 
             // Account & Sync Menu

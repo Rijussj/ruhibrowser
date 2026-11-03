@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 struct MainWindowView: View {
     @StateObject private var syncManager = SyncManager.shared
