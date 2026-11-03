@@ -41,7 +41,9 @@ class BrowserTab: Identifiable, ObservableObject {
         
         // Native Apple WebKit preferences
         config.preferences.javaScriptCanOpenWindowsAutomatically = true
-        config.preferences.isElementFullscreenEnabled = true
+        if #available(macOS 12.3, *) {
+            config.preferences.isElementFullscreenEnabled = true
+        }
         config.defaultWebpagePreferences.allowsContentJavaScript = true
         config.allowsAirPlayForMediaPlayback = true
         config.mediaTypesRequiringUserActionForPlayback = []
