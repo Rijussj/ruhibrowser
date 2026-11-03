@@ -113,9 +113,7 @@ struct MainWindowView: View {
             addNewTab(isIncognito: true)
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiCloseTab"))) { _ in
-            if let activeId = selectedTabId {
-                closeTab(id: activeId)
-            }
+            closeTab(id: selectedTabId)
         }
         .onAppear {
             if tabs.isEmpty {
