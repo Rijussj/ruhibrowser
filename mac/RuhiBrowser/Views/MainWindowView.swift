@@ -196,6 +196,28 @@ struct MainWindowView: View {
             closeAllSheets()
             showPdfToolsSheet = true
         }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiCloseAllSheets"))) { _ in
+            closeAllSheets()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiDemoGroups"))) { _ in
+            let gWork = TabGroup(title: "Work", colorHex: "#3B82F6")
+            let gMedia = TabGroup(title: "Media", colorHex: "#EF4444")
+            tabGroups = [gWork, gMedia]
+            if let first = tabs.first { first.groupId = gWork.id }
+            let secondTab = BrowserTab(
+                title: "Google Gemini",
+                initialUrl: URL(string: "https://gemini.google.com"),
+                groupId: gMedia.id
+            )
+            tabs.append(secondTab)
+
+            // Populate sample history for tour if empty
+            if HistoryManager.shared.history.isEmpty {
+                HistoryManager.shared.recordVisit(title: "Google Search", url: "https://www.google.com")
+                HistoryManager.shared.recordVisit(title: "GitHub - RUHI Browser Repository", url: "https://github.com/ruhidev321/ruhi-browser")
+                HistoryManager.shared.recordVisit(title: "Wikipedia: The Free Encyclopedia", url: "https://www.wikipedia.org")
+            }
+        }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RuhiNewTab"))) { _ in
             addNewTab()
         }

@@ -2,28 +2,53 @@
 
 mkdir -p screenshots
 
-echo ">> Launching RUHI Browser in tour mode..."
+echo ">> Launching RUHI Browser in automated tour mode..."
 open "Release_App/RUHI Browser.app" --args --tour || true
 
-echo ">> Capturing 1: AI Assistant..."
+echo ">> Waiting 3s for browser window to render..."
 sleep 3
-screencapture -x screenshots/1_ai_assistant.png || true
+echo ">> Capturing 01: Main Browser & Tab Groups..."
+screencapture -x screenshots/01_main_browser_tab_groups.png || true
 
-echo ">> Capturing 2: Page Translator..."
-sleep 3
-screencapture -x screenshots/2_translator.png || true
+sleep 4
+echo ">> Capturing 02: AI Assistant (Gemini)..."
+screencapture -x screenshots/02_ai_assistant.png || true
 
-echo ">> Capturing 3: VPN & WireGuard..."
-sleep 3
-screencapture -x screenshots/3_vpn_wireguard.png || true
+sleep 4
+echo ">> Capturing 03: Page Translator..."
+screencapture -x screenshots/03_page_translator.png || true
 
-echo ">> Capturing 4: Password Vault..."
-sleep 3
-screencapture -x screenshots/4_password_vault.png || true
+sleep 4
+echo ">> Capturing 04: RUHI VPN & WireGuard..."
+screencapture -x screenshots/04_vpn_wireguard.png || true
 
-echo ">> Capturing 5: PDF Tools..."
-sleep 3
-screencapture -x screenshots/5_pdf_tools.png || true
+sleep 4
+echo ">> Capturing 05: Password Vault..."
+screencapture -x screenshots/05_password_vault.png || true
 
-echo ">> Completed! Files in screenshots:"
+sleep 4
+echo ">> Capturing 06: PDF Tools & Viewer..."
+screencapture -x screenshots/06_pdf_tools.png || true
+
+sleep 4
+echo ">> Capturing 07: RUHI Account & Cloud Sync..."
+screencapture -x screenshots/07_ruhi_account_sync.png || true
+
+sleep 4
+echo ">> Capturing 08: Bookmarks Manager..."
+screencapture -x screenshots/08_bookmarks_manager.png || true
+
+sleep 4
+echo ">> Capturing 09: Browsing History..."
+screencapture -x screenshots/09_browsing_history.png || true
+
+sleep 4
+echo ">> Capturing 10: Clear Browsing Data Dialog..."
+screencapture -x screenshots/10_clear_browsing_data.png || true
+
+sleep 4
+echo ">> Capturing 11: Browser Settings..."
+screencapture -x screenshots/11_browser_settings.png || true
+
+echo ">> Automated tour completed! All screenshots captured:"
 ls -la screenshots
