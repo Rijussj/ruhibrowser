@@ -14,6 +14,7 @@ class BrowserTab: Identifiable, ObservableObject {
     @Published var canGoForward: Bool = false
     let isIncognito: Bool
     @Published var groupId: UUID? = nil
+    @Published var isHome: Bool = false
     
     let webView: WKWebView
 
@@ -57,8 +58,11 @@ class BrowserTab: Identifiable, ObservableObject {
         // Set standard modern Safari desktop User Agent
         self.webView.customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15 RuhiBrowser/1.0"
         
-        if let initialUrl = initialUrl {
+        if let initialUrl = initialUrl, initialUrl.absoluteString != "ruhi://home" {
             self.webView.load(URLRequest(url: initialUrl))
+        } else {
+            self.isHome = true
+            self.urlString = "ruhi://home"
         }
     }
 }

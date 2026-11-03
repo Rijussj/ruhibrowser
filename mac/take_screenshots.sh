@@ -5,10 +5,10 @@ mkdir -p screenshots
 echo ">> Launching RUHI Browser in automated tour mode..."
 open "Release_App/RUHI Browser.app" --args --tour || true
 
-echo ">> Waiting 3s for browser window to render..."
+echo ">> Waiting 3s for Home Screen to render..."
 sleep 3
-echo ">> Capturing 01: Main Browser & Tab Groups..."
-screencapture -x screenshots/01_main_browser_tab_groups.png || true
+echo ">> Capturing 01: Home Screen with All Features & Tab Groups..."
+screencapture -x screenshots/01_home_screen_all_features.png || true
 
 sleep 4
 echo ">> Capturing 02: AI Assistant (Gemini)..."

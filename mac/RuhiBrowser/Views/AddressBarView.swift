@@ -55,6 +55,18 @@ struct AddressBarView: View {
                 .buttonStyle(ToolbarIconButtonStyle())
                 .help("Reload (⌘R)")
 
+                // Home Screen Button
+                Button(action: {
+                    tab.isHome = true
+                    tab.urlString = "ruhi://home"
+                    tab.title = "New Tab"
+                }) {
+                    Image(systemName: "house")
+                        .font(.system(size: 13, weight: .semibold))
+                }
+                .buttonStyle(ToolbarIconButtonStyle())
+                .help("Home Screen (⌥⌘H)")
+
                 // Unified Smart Address & Search Field
                 HStack(spacing: 6) {
                     // Security lock or shield icon
@@ -216,6 +228,13 @@ struct AddressBarView: View {
         var query = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !query.isEmpty else { return }
 
+        if query == "ruhi://home" || query == "about:home" || query == "about:newtab" {
+            tab.isHome = true
+            tab.urlString = "ruhi://home"
+            tab.title = "New Tab"
+            return
+        }
+
         if !query.contains("://") && !query.hasPrefix("about:") {
             if query.contains(".") && !query.contains(" ") {
                 query = "https://" + query
@@ -227,6 +246,7 @@ struct AddressBarView: View {
         }
 
         if let targetUrl = URL(string: query) {
+            tab.isHome = false
             tab.webView.load(URLRequest(url: targetUrl))
         }
     }

@@ -75,7 +75,11 @@ struct WebViewContainer: NSViewRepresentable {
             observers.append(webView.observe(\.url, options: .new) { [weak self] wv, _ in
                 DispatchQueue.main.async {
                     self?.tab.url = wv.url
-                    self?.tab.urlString = wv.url?.absoluteString ?? ""
+                    let str = wv.url?.absoluteString ?? ""
+                    self?.tab.urlString = str
+                    if !str.isEmpty && str != "about:blank" && str != "ruhi://home" {
+                        self?.tab.isHome = false
+                    }
                 }
             })
 

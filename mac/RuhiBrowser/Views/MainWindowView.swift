@@ -82,12 +82,31 @@ struct MainWindowView: View {
                     onOpenClearData: { showClearDataSheet = true }
                 )
 
-                // Active Web View
+                // Active Web View or Home Screen
                 ZStack {
                     ForEach(tabs) { tab in
                         WebViewContainer(tab: tab)
-                            .opacity(tab.id == selectedTabId ? 1.0 : 0.0)
-                            .allowsHitTesting(tab.id == selectedTabId)
+                            .opacity((tab.id == selectedTabId && !tab.isHome) ? 1.0 : 0.0)
+                            .allowsHitTesting(tab.id == selectedTabId && !tab.isHome)
+                    }
+
+                    if let activeTab = selectedTab, activeTab.isHome {
+                        HomeScreenView(
+                            tab: activeTab,
+                            onOpenAi: { showAiSheet = true },
+                            onOpenTranslate: { showTranslateSheet = true },
+                            onOpenVpn: { showVpnSheet = true },
+                            onOpenPasswords: { showPasswordsSheet = true },
+                            onOpenPdfTools: { showPdfToolsSheet = true },
+                            onOpenAccount: { showAccountSheet = true },
+                            onOpenBookmarks: { showBookmarksSheet = true },
+                            onOpenHistory: { showHistorySheet = true },
+                            onNavigate: { targetUrl in
+                                activeTab.isHome = false
+                                activeTab.urlString = targetUrl.absoluteString
+                                activeTab.webView.load(URLRequest(url: targetUrl))
+                            }
+                        )
                     }
                 }
             } else {
@@ -203,7 +222,12 @@ struct MainWindowView: View {
             let gWork = TabGroup(title: "Work", colorHex: "#3B82F6")
             let gMedia = TabGroup(title: "Media", colorHex: "#EF4444")
             tabGroups = [gWork, gMedia]
-            if let first = tabs.first { first.groupId = gWork.id }
+            if let first = tabs.first {
+                first.groupId = gWork.id
+                first.isHome = true
+                first.title = "New Tab"
+                first.urlString = "ruhi://home"
+            }
             let secondTab = BrowserTab(
                 title: "Google Gemini",
                 initialUrl: URL(string: "https://gemini.google.com"),
@@ -234,8 +258,7 @@ struct MainWindowView: View {
         }
         .onAppear {
             if tabs.isEmpty {
-                let initialUrl = URL(string: settings.homepageUrl)
-                let firstTab = BrowserTab(title: "Home", initialUrl: initialUrl)
+                let firstTab = BrowserTab(title: "New Tab", initialUrl: nil)
                 tabs.append(firstTab)
                 selectedTabId = firstTab.id
             }
@@ -267,13 +290,19 @@ struct MainWindowView: View {
     }
 
     private func addNewTab(url: URL? = nil, isIncognito: Bool = false) {
-        let targetUrl = url ?? URL(string: settings.homepageUrl)
+        let isHomeTab = (url == nil)
         let tab = BrowserTab(
             title: isIncognito ? "Private Tab" : "New Tab",
-            initialUrl: targetUrl,
+            initialUrl: url,
             isIncognito: isIncognito
         )
+        if isHomeTab {
+            tab.isHome = true
+            tab.urlString = "ruhi://home"
+        }
         tabs.append(tab)
+        selectedTabId = tab.id
+    }
         selectedTabId = tab.id
     }
 
