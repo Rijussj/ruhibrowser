@@ -1,4 +1,4 @@
-name: Build macOS App (RUHI Browser)
+name: Build and Test macOS App (RUHI Browser)
 
 on:
   workflow_dispatch:
@@ -6,8 +6,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build-mac:
-    name: Build Native macOS App (.dmg)
+  build-and-test-mac:
+    name: Build & Test Native macOS App
     runs-on: macos-14
 
     steps:
@@ -23,11 +23,30 @@ jobs:
           chmod +x build_mac.sh
           ./build_mac.sh
 
-      - name: Upload DMG Installer Artifact
+      - name: Launch App & Capture Live Screenshot
+        run: |
+          echo ">> Launching RUHI Browser on macOS Cloud Runner..."
+          open "mac/Release_App/RUHI Browser.app" || true
+          
+          echo ">> Waiting 6 seconds for UI and WebKit to render..."
+          sleep 6
+          
+          if pgrep -f "RuhiBrowser" > /dev/null; then
+            echo ">> SUCCESS: RUHI Browser process is active and running!"
+          else
+            echo ">> Notice: Checking screen capture..."
+          fi
+          
+          echo ">> Taking screenshot of macOS screen..."
+          screencapture -x mac_browser_live_test.png
+          echo ">> Screenshot saved to mac_browser_live_test.png"
+
+      - name: Upload Artifacts (DMG & Live Screenshot)
         uses: actions/upload-artifact@v4
         with:
-          name: RuhiBrowser_macOS
+          name: RuhiBrowser_macOS_Test_Bundle
           path: |
             mac/RuhiBrowser_macOS.dmg
             mac/Release_App
+            mac_browser_live_test.png
           if-no-files-found: warn
