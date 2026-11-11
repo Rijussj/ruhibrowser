@@ -19,6 +19,8 @@ struct AddressBarView: View {
     var onOpenPasswords: () -> Void
     var onOpenPdfTools: () -> Void
     var onOpenClearData: () -> Void
+    var onNewTab: () -> Void = {}
+    var onNewPrivateTab: () -> Void = {}
 
     var body: some View {
         VStack(spacing: 0) {
@@ -165,6 +167,9 @@ struct AddressBarView: View {
 
                 // Menu (3-dots)
                 Menu {
+                    Button("New Tab (⌘T)", action: onNewTab)
+                    Button("New Private Window (⌘⇧N)", action: onNewPrivateTab)
+                    Divider()
                     Button(action: onOpenAi) {
                         Label("AI Assistant", systemImage: "sparkles")
                     }
@@ -183,10 +188,18 @@ struct AddressBarView: View {
                     Divider()
                     Button("Bookmarks (⌥⌘B)", action: onOpenBookmarks)
                     Button("History (⌘Y)", action: onOpenHistory)
+                    Button("Downloads (⌘J)") {
+                        if let downloadsUrl = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first {
+                            NSWorkspace.shared.open(downloadsUrl)
+                        }
+                    }
                     Button("Clear Browsing Data... (⇧⌘⌫)", action: onOpenClearData)
                     Divider()
                     Button("RUHI Account", action: onOpenAccount)
                     Button("Preferences / Settings... (⌘,)", action: onOpenSettings)
+                    Button("About RUHI Browser") {
+                        NSApplication.shared.orderFrontStandardAboutPanel(nil)
+                    }
                 } label: {
                     Image(systemName: "ellipsis")
                         .font(.system(size: 14, weight: .bold))

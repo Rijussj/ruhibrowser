@@ -79,7 +79,9 @@ struct MainWindowView: View {
                     onOpenVpn: { showVpnSheet = true },
                     onOpenPasswords: { showPasswordsSheet = true },
                     onOpenPdfTools: { showPdfToolsSheet = true },
-                    onOpenClearData: { showClearDataSheet = true }
+                    onOpenClearData: { showClearDataSheet = true },
+                    onNewTab: { addNewTab() },
+                    onNewPrivateTab: { addNewTab(isIncognito: true) }
                 )
 
                 // Active Web View or Home Screen

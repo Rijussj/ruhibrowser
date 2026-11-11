@@ -39,6 +39,10 @@ class HistoryRepositoryTest {
             return if (list.removeIf { it.id == id }) 1 else 0
         }
 
+        override fun deleteByUrl(url: String): Int {
+            return if (list.removeIf { it.url == url }) 1 else 0
+        }
+
         override fun clearAll(): Int {
             val size = list.size
             list.clear()

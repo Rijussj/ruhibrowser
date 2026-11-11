@@ -33,4 +33,35 @@ document.addEventListener('DOMContentLoaded', () => {
   if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
   }
+
+  // 4. Automatic OS Detection & Platform Isolation
+  const detectedOS = detectClientOS();
+  setPlatformView(detectedOS);
 });
+
+// OS Detection Function
+function detectClientOS() {
+  const ua = navigator.userAgent || navigator.vendor || window.opera || '';
+  const platform = navigator.platform || '';
+
+  if (/android/i.test(ua)) return 'android';
+  if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return 'android';
+  if (/Macintosh|MacIntel|MacPPC|Mac68K|Mac OS X/i.test(ua) || /Mac/i.test(platform)) return 'mac';
+  if (/Win32|Win64|Windows|WinCE/i.test(ua) || /Win/i.test(platform)) return 'windows';
+  return 'windows';
+}
+
+// Switch Platform Presentation Dynamically (Complete Separation by OS)
+window.setPlatformView = function(os) {
+  if (!['windows', 'android', 'mac'].includes(os)) {
+    os = 'windows';
+  }
+
+  // 1. Set dataset on body (triggers CSS isolation instantaneously)
+  document.body.dataset.platform = os;
+
+  // 2. Sync All Platform Tabs
+  document.querySelectorAll('.platform-tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-os') === os);
+  });
+};

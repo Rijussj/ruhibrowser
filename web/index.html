@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RUHI Browser — Pure Simplicity. Zero Telemetry. Maximum Speed.</title>
-  <meta name="description" content="RUHI Browser is a next-generation, privacy-first Windows web browser powered by the Chromium engine. Zero telemetry, built-in AdBlock, AI Assistant, and PDF editor.">
+  <meta name="description" content="RUHI Browser is a next-generation, privacy-first web browser available for Windows, Android, and macOS. Zero telemetry, built-in intelligent AdBlock, and on-device encryption.">
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body data-platform="windows">
 
   <div class="ambient-glow"></div>
 
@@ -22,15 +22,23 @@
       <ul class="nav-links">
         <li><a href="#features">Features</a></li>
         <li><a href="#privacy">Privacy</a></li>
-        <li><a href="#android">Android</a></li>
+        <li class="platform-only-windows"><a href="#showcase">Desktop View</a></li>
+        <li class="platform-only-android"><a href="#showcase">Mobile View</a></li>
+        <li class="platform-only-mac"><a href="#showcase">Mac Native</a></li>
+        <li><a href="#download">Download</a></li>
         <li><a href="faq.html">FAQ</a></li>
-        <li><a href="help.html">Help</a></li>
         <li><a href="privacy.html">Privacy Policy</a></li>
         <li><a href="terms.html">Terms</a></li>
       </ul>
       <div class="nav-cta">
-        <a href="https://apps.microsoft.com/detail/9PCV98GBMJ68" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 8px 18px; font-size: 0.9rem;">
-          Get from Store
+        <a href="#download" class="btn-primary platform-only-windows" style="padding: 8px 18px; font-size: 0.9rem;">
+          Download for Windows
+        </a>
+        <a href="#download" class="btn-primary platform-only-android" style="padding: 8px 18px; font-size: 0.9rem;">
+          Get on Google Play
+        </a>
+        <a href="#download" class="btn-primary platform-only-mac" style="padding: 8px 18px; font-size: 0.9rem;">
+          Download for Mac
         </a>
       </div>
     </div>
@@ -39,54 +47,143 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="container">
-      <h1 class="hero-title">
-        The web browser built for <span class="gradient-text">pure simplicity &amp; zero tracking.</span>
-      </h1>
-      <p class="hero-subtitle">
-        RUHI Browser gives you lightning-fast Chromium browsing with zero telemetry, built-in intelligent AdBlock, on-device encryption, and AI-powered productivity tools.
-      </p>
-      <div class="hero-actions">
-        <!-- Windows Microsoft Store Badge -->
-        <a href="https://apps.microsoft.com/detail/9PCV98GBMJ68" target="_blank" rel="noopener noreferrer" class="btn-ms-store">
-          <svg class="ms-store-icon" viewBox="0 0 24 24" fill="none">
-            <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
-            <rect x="13" y="1" width="10" height="10" fill="#7fba00"/>
-            <rect x="1" y="13" width="10" height="10" fill="#00a4ef"/>
-            <rect x="13" y="13" width="10" height="10" fill="#ffb900"/>
-          </svg>
-          <div class="ms-store-text">
-            <span class="ms-store-sub">GET IT FROM</span>
-            <span class="ms-store-title">Microsoft Store</span>
-          </div>
-        </a>
-
-        <!-- Android Google Play Store Badge -->
-        <a href="https://play.google.com/store/apps/details?id=com.ruhi.browser" target="_blank" rel="noopener noreferrer" class="btn-play-store">
-          <svg class="play-store-icon" viewBox="0 0 24 24" fill="none">
-            <path d="M3.6 1.8l11.4 10.2L3.6 22.2c-.3-.2-.6-.6-.6-1.1V2.9c0-.5.3-.9.6-1.1z" fill="#00e5ff"/>
-            <path d="M15 12L3.6 1.8c.2-.1.4-.2.7-.1l12.8 7.3L15 12z" fill="#00e676"/>
-            <path d="M15 12l2.1 3-12.8 7.3c-.3.1-.5 0-.7-.1L15 12z" fill="#ff1744"/>
-            <path d="M19.8 10.7l-2.7-1.7L15 12l2.1 3 2.7-1.7c.8-.5.8-1.7 0-2.2l-.0-.4z" fill="#ffea00"/>
-          </svg>
-          <div class="play-store-text">
-            <span class="play-store-sub">GET IT FROM</span>
-            <span class="play-store-title">Google Play</span>
-          </div>
-        </a>
-
-      </div>
-      <p class="hero-version-tag">Available for Windows 10/11 (64-bit) &amp; Android 6.0+ • 100% Free &amp; Private</p>
-
-      <!-- Desktop Browser Screenshot Showcase -->
-      <div class="browser-mockup-wrapper">
-        <div class="browser-screenshot-card">
-          <img src="assets/desktop-screenshot.png" alt="RUHI Browser Desktop on Windows 11" class="browser-screenshot-img" loading="eager">
+      <!-- Platform Selector Switcher -->
+      <div style="text-align: center;">
+        <div class="platform-tabs-nav">
+          <button type="button" class="platform-tab-btn active" data-os="windows" onclick="setPlatformView('windows')">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.949-1.801"/></svg>
+            Windows
+          </button>
+          <button type="button" class="platform-tab-btn" data-os="android" onclick="setPlatformView('android')">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993.0001.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.4128 13.8533 8.081 12 8.081s-3.5902.3318-5.1367.8682L4.841 5.4467a.4161.4161 0 00-.5677-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3435-4.1021-2.6892-7.5743-6.1185-9.4396"/></svg>
+            Android
+          </button>
+          <button type="button" class="platform-tab-btn" data-os="mac" onclick="setPlatformView('mac')">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.64 1.35-.56.65-1.06 1.71-.92 2.73 1.01.08 2.03-.49 2.64-1.23z"/></svg>
+            macOS
+          </button>
         </div>
       </div>
+
+      <!-- ==================== WINDOWS HERO ==================== -->
+      <div class="platform-only-windows">
+        <h1 class="hero-title">
+          The Windows browser built for <span class="gradient-text">pure speed &amp; hardware privacy.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Experience lightning-fast desktop browsing powered by Microsoft WebView2 (Chromium Evergreen). Built-in offline PDF editor, Windows DPAPI hardware-encrypted vault, split-screen dual tabs, and zero telemetry tracking on Windows 11 &amp; 10.
+        </p>
+        <div class="hero-actions" style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; align-items: center;">
+          <a href="downloads/RuhiBrowserSetup.exe" class="btn-primary" style="height: 52px; padding: 0 24px; font-weight: 600; display: inline-flex; align-items: center; gap: 10px;" download>
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Download for Windows (.exe)</span>
+          </a>
+
+          <a href="https://apps.microsoft.com/detail/9PCV98GBMJ68" target="_blank" rel="noopener noreferrer" class="btn-ms-store">
+            <svg class="ms-store-icon" viewBox="0 0 24 24" fill="none">
+              <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
+              <rect x="13" y="1" width="10" height="10" fill="#7fba00"/>
+              <rect x="1" y="13" width="10" height="10" fill="#00a4ef"/>
+              <rect x="13" y="13" width="10" height="10" fill="#ffb900"/>
+            </svg>
+            <div class="ms-store-text">
+              <span class="ms-store-sub">GET IT FROM</span>
+              <span class="ms-store-title">Microsoft Store</span>
+            </div>
+          </a>
+        </div>
+        <p class="hero-version-tag">For Windows 11 &amp; Windows 10 (64-Bit x64) • 100% Free &amp; Private</p>
+
+        <div class="browser-mockup-wrapper">
+          <div class="browser-screenshot-card">
+            <img src="assets/desktop-screenshot.png" alt="RUHI Browser for Windows" class="browser-screenshot-img" loading="eager">
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== ANDROID HERO ==================== -->
+      <div class="platform-only-android">
+        <h1 class="hero-title">
+          The lightweight Android browser built for <span class="gradient-text">instant speed &amp; AMOLED battery saving.</span>
+        </h1>
+        <p class="hero-subtitle">
+          At just 5.4 MB, RUHI for Android installs in seconds. Enjoy true pitch-black AMOLED dark mode, built-in mobile AdBlocker, data saver for 4G/5G, one-handed bottom omnibox, and 100% on-device privacy with zero background tracking.
+        </p>
+        <div class="hero-actions" style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; align-items: center;">
+          <a href="https://play.google.com/store/apps/details?id=com.ruhi.browser" target="_blank" rel="noopener noreferrer" class="btn-play-store">
+            <svg class="play-store-icon" viewBox="0 0 24 24" fill="none">
+              <path d="M3.6 1.8l11.4 10.2L3.6 22.2c-.3-.2-.6-.6-.6-1.1V2.9c0-.5.3-.9.6-1.1z" fill="#00e5ff"/>
+              <path d="M15 12L3.6 1.8c.2-.1.4-.2.7-.1l12.8 7.3L15 12z" fill="#00e676"/>
+              <path d="M15 12l2.1 3-12.8 7.3c-.3.1-.5 0-.7-.1L15 12z" fill="#ff1744"/>
+              <path d="M19.8 10.7l-2.7-1.7L15 12l2.1 3 2.7-1.7c.8-.5.8-1.7 0-2.2l-.0-.4z" fill="#ffea00"/>
+            </svg>
+            <div class="play-store-text">
+              <span class="play-store-sub">GET IT FROM</span>
+              <span class="play-store-title">Google Play</span>
+            </div>
+          </a>
+
+          <a href="downloads/RuhiBrowser_Android.apk" class="btn-secondary" style="height: 52px; padding: 0 22px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;" download>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Direct APK (5.4 MB)</span>
+          </a>
+        </div>
+        <p class="hero-version-tag">For Android 6.0 (Marshmallow) and higher • Featherlight 5.4 MB package</p>
+
+        <div class="phone-mockup-wrapper" style="margin-top: 36px;">
+          <div class="phone-device-frame" style="margin: 0 auto;">
+            <div class="phone-top-sensors">
+              <div class="phone-camera-lens"></div>
+              <div class="phone-speaker"></div>
+            </div>
+            <div class="phone-screen-container">
+              <img src="assets/mobile-screenshot.jpeg" alt="RUHI Browser Android App Screenshot" class="phone-screen-img" loading="eager">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== macOS HERO ==================== -->
+      <div class="platform-only-mac">
+        <h1 class="hero-title">
+          The native Mac browser built with <span class="gradient-text">Apple WebKit &amp; zero battery drain.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Engineered natively in Swift and Apple WebKit for macOS Monterey, Ventura, Sonoma &amp; Sequoia. Universal Binary optimized for Apple Silicon (M1–M4) and Intel Macs with Apple Keychain security and native content blocking.
+        </p>
+        <div class="hero-actions" style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; align-items: center;">
+          <a href="https://github.com/ruhidev321/ruhi-browser/releases" target="_blank" rel="noopener noreferrer" class="btn-primary" style="height: 52px; padding: 0 24px; font-weight: 600; display: inline-flex; align-items: center; gap: 10px;">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.64 1.35-.56.65-1.06 1.71-.92 2.73 1.01.08 2.03-.49 2.64-1.23z"/>
+            </svg>
+            <span>Download for Mac (.dmg)</span>
+          </a>
+
+          <a href="#download" class="btn-secondary" style="height: 52px; padding: 0 20px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
+            <span>Universal Binary (ARM64 &amp; x64)</span>
+          </a>
+        </div>
+        <p class="hero-version-tag">For macOS 12 (Monterey) and higher • Universal Binary (Apple Silicon M1–M4 &amp; Intel)</p>
+
+        <div class="browser-mockup-wrapper">
+          <div class="browser-screenshot-card" style="box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12); border-radius: 14px; overflow: hidden;">
+            <img src="assets/mac-screenshot.png" alt="RUHI Browser for macOS Native WebKit" class="browser-screenshot-img" loading="eager">
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- Features Grid Section -->
+  <!-- ==================== FEATURES SECTION ==================== -->
   <section class="features-section" id="features">
     <div class="container">
       <div class="section-header">
@@ -95,7 +192,8 @@
         <p class="section-subtitle">No bloated telemetry, no hidden miners, no clutter. Just pure browsing power.</p>
       </div>
 
-      <div class="features-grid">
+      <!-- Windows Real Features -->
+      <div class="features-grid platform-only-windows">
         <div class="feature-card">
           <div class="feature-icon-bubble">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
@@ -124,18 +222,8 @@
               <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
           </div>
-          <h3 class="feature-title">100% On-Device Privacy</h3>
-          <p class="feature-desc">Zero telemetry tracking. Your passwords are encrypted with Windows DPAPI hardware encryption, and your history and bookmarks never leave your local PC.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon-bubble">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2l2.4 5 5.6.8-4 4 1 5.6-5-2.7-5 2.7 1-5.6-4-4 5.6-.8z"></path>
-            </svg>
-          </div>
-          <h3 class="feature-title">RUHI AI Assistant</h3>
-          <p class="feature-desc">Integrated intelligent AI assistant helps you summarize articles, translate foreign languages in 1-click, and solve complex problems without leaving your active tab.</p>
+          <h3 class="feature-title">100% On-Device DPAPI Vault</h3>
+          <p class="feature-desc">Zero telemetry tracking. Your passwords are encrypted with Windows DPAPI hardware-level encryption, and your history and bookmarks never leave your local PC.</p>
         </div>
 
         <div class="feature-card">
@@ -147,8 +235,19 @@
               <line x1="16" y1="17" x2="8" y2="17"></line>
             </svg>
           </div>
-          <h3 class="feature-title">PDF Tools &amp; Annotator</h3>
+          <h3 class="feature-title">Built-in PDF Editor &amp; Pen Tool</h3>
           <p class="feature-desc">Read, draw, annotate, highlight text, and save changes directly inside PDF documents without needing external costly PDF reader software.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="18" rx="2" ry="2"></rect>
+              <line x1="12" y1="3" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title">Dual-View Split Screen</h3>
+          <p class="feature-desc">Multitask effortlessly by placing two web pages side-by-side in a single window. Compare documents, reference tutorials, and work twice as fast.</p>
         </div>
 
         <div class="feature-card">
@@ -163,10 +262,147 @@
           <p class="feature-desc">Protect your network connection with built-in WireGuard protocol management. Export and activate high-speed encrypted tunnels with ease.</p>
         </div>
       </div>
+
+      <!-- Android Real Features -->
+      <div class="features-grid platform-only-android">
+        <div class="feature-card">
+          <div class="feature-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+              <line x1="16" y1="8" x2="2" y2="22"></line>
+              <line x1="17.5" y1="15" x2="9" y2="15"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title">Ultra-Lightweight (~5.4 MB)</h3>
+          <p class="feature-desc">Featherlight package installs in under 3 seconds. Uses minimal phone storage and runs smoothly even on budget Android devices with 2GB RAM.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Pitch-Black AMOLED Dark Mode</h3>
+          <p class="feature-desc">Engineered with true pure #000000 charcoal black pixels. Pixels turn completely off on OLED/AMOLED screens, saving up to 40% battery life.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <polyline points="9 12 11 14 15 10"></polyline>
+            </svg>
+          </div>
+          <h3 class="feature-title">Smart AdBlock &amp; Data Saver</h3>
+          <p class="feature-desc">Blocks invasive mobile popups, autoplay video banners, and analytics trackers. Pages load up to 3x faster while saving cellular 4G/5G data.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Android Keystore Security Vault</h3>
+          <p class="feature-desc">Passwords and credentials are protected with hardware-backed Android Keystore and EncryptedSharedPreferences. Zero data uploaded to cloud.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title">One-Handed Bottom Omnibox</h3>
+          <p class="feature-desc">Ergonomic bottom address bar and navigation toolbar designed specifically for comfortable one-thumb reach on modern tall mobile screens.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">WireGuard Mobile VPN</h3>
+          <p class="feature-desc">Protect your cellular and public Wi-Fi connections with integrated high-speed WireGuard protocol encryption right inside the browser.</p>
+        </div>
+      </div>
+
+      <!-- macOS Real Features -->
+      <div class="features-grid platform-only-mac">
+        <div class="feature-card">
+          <div class="feature-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.64 1.35-.56.65-1.06 1.71-.92 2.73 1.01.08 2.03-.49 2.64-1.23z"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">100% Apple Native (Swift &amp; WebKit)</h3>
+          <p class="feature-desc">Zero Electron overhead. Starts in milliseconds, scrolls at smooth 120Hz ProMotion, and uses minimal RAM with zero MacBook fan noise.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </div>
+          <h3 class="feature-title">Universal Binary (M1–M4 &amp; Intel)</h3>
+          <p class="feature-desc">Native 64-bit ARM64 compilation for Apple Silicon M1, M2, M3, M4 chips, plus full native compatibility with Intel Macs.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Apple Keychain Secure Enclave</h3>
+          <p class="feature-desc">Passwords and credentials are stored locally with Apple Keychain hardware security, protected with Touch ID biometric authentication.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <polyline points="9 12 11 14 15 10"></polyline>
+            </svg>
+          </div>
+          <h3 class="feature-title">WebKit ContentRuleList AdBlock</h3>
+          <p class="feature-desc">Uses Apple's native Content Blocking API compiled directly into WebKit rules for zero-CPU ad, tracker, and script elimination.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title">macOS Native Menu &amp; Hotkeys</h3>
+          <p class="feature-desc">Full integration with the macOS system menu bar, dock, and standard Mac keyboard shortcuts (Cmd+T, Cmd+W, Cmd+Shift+N, Cmd+J, Cmd+,).</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-bubble">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Zero Battery Drain</h3>
+          <p class="feature-desc">Whisper-quiet, thermal-efficient operation designed specifically to extend MacBook all-day battery life with zero idle wakeups.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Privacy Comparison Section -->
+  <!-- ==================== PRIVACY COMPARISON SECTION ==================== -->
   <section class="comparison-section" id="privacy">
     <div class="container">
       <div class="section-header">
@@ -175,12 +411,13 @@
         <p class="section-subtitle">See why thousands of users are switching to an independent, respectful browser.</p>
       </div>
 
-      <div class="comparison-table-wrapper">
+      <!-- Windows Comparison Table -->
+      <div class="comparison-table-wrapper platform-only-windows">
         <table class="comparison-table">
           <thead>
             <tr>
               <th>Feature / Metric</th>
-              <th class="highlight">RUHI Browser</th>
+              <th class="highlight">RUHI Browser (Windows)</th>
               <th>Google Chrome</th>
               <th>Microsoft Edge</th>
             </tr>
@@ -199,22 +436,132 @@
               <td><span class="cross-icon">✕ Basic</span></td>
             </tr>
             <tr>
-              <td>Local Hardware Password Vault (DPAPI)</td>
-              <td class="highlight"><span class="check-icon">✓ Yes (Local only)</span></td>
-              <td>Syncs to Cloud</td>
-              <td>Syncs to Cloud</td>
-            </tr>
-            <tr>
-              <td>Clean, Distraction-Free Layout</td>
-              <td class="highlight"><span class="check-icon">✓ Simple &amp; Fast</span></td>
-              <td>Cluttered Feed</td>
-              <td>Cluttered News &amp; Ads</td>
+              <td>Local Password Vault</td>
+              <td class="highlight"><span class="check-icon">✓ Windows DPAPI (Hardware local)</span></td>
+              <td>Syncs to Google Cloud</td>
+              <td>Syncs to Microsoft Cloud</td>
             </tr>
             <tr>
               <td>Integrated PDF Editor &amp; Pen Tool</td>
-              <td class="highlight"><span class="check-icon">✓ Full Editor</span></td>
+              <td class="highlight"><span class="check-icon">✓ Full Editor &amp; Ink</span></td>
               <td>Basic Viewer Only</td>
               <td>Basic Viewer Only</td>
+            </tr>
+            <tr>
+              <td>Dual-View Split Screen</td>
+              <td class="highlight"><span class="check-icon">✓ Built-in Side-by-Side</span></td>
+              <td><span class="cross-icon">✕ Not Available</span></td>
+              <td>Side Pane Only</td>
+            </tr>
+            <tr>
+              <td>RAM &amp; Background Resource Drain</td>
+              <td class="highlight"><span class="check-icon">✓ Snappy &amp; Low</span></td>
+              <td><span class="cross-icon">✕ High Memory Drain</span></td>
+              <td>Moderate</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Android Comparison Table -->
+      <div class="comparison-table-wrapper platform-only-android">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature / Metric</th>
+              <th class="highlight">RUHI Mobile (Android)</th>
+              <th>Google Chrome Mobile</th>
+              <th>Samsung Internet</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>App Download Package Size</td>
+              <td class="highlight"><span class="check-icon">✓ Only ~5.4 MB (Featherlight)</span></td>
+              <td><span class="cross-icon">✕ 150+ MB (Heavy)</span></td>
+              <td><span class="cross-icon">✕ 120+ MB</span></td>
+            </tr>
+            <tr>
+              <td>Background Telemetry &amp; Location Tracking</td>
+              <td class="highlight"><span class="check-icon">✓ Zero (100% Disabled)</span></td>
+              <td><span class="cross-icon">✕ Continuous Profiling</span></td>
+              <td><span class="cross-icon">✕ Analytics Enabled</span></td>
+            </tr>
+            <tr>
+              <td>Pure Pitch-Black AMOLED Dark Mode</td>
+              <td class="highlight"><span class="check-icon">✓ True #000000 Black (Battery Saver)</span></td>
+              <td>Dark Gray / Washed</td>
+              <td>Standard Gray</td>
+            </tr>
+            <tr>
+              <td>Built-in AdBlock &amp; Mobile Data Saver</td>
+              <td class="highlight"><span class="check-icon">✓ Enabled by Default (Saves 3x Data)</span></td>
+              <td><span class="cross-icon">✕ No AdBlocker</span></td>
+              <td>Requires Add-on</td>
+            </tr>
+            <tr>
+              <td>One-Handed Bottom Omnibox</td>
+              <td class="highlight"><span class="check-icon">✓ Ergonomic Thumb Reach</span></td>
+              <td>Top Bar Only</td>
+              <td>Bottom Bar</td>
+            </tr>
+            <tr>
+              <td>Background Battery Drain</td>
+              <td class="highlight"><span class="check-icon">✓ Zero Idle Drain</span></td>
+              <td>Background Sync Drain</td>
+              <td>Moderate Drain</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- macOS Comparison Table -->
+      <div class="comparison-table-wrapper platform-only-mac">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature / Metric</th>
+              <th class="highlight">RUHI Browser (macOS)</th>
+              <th>Apple Safari</th>
+              <th>Google Chrome (Mac)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Remote Telemetry &amp; User Profiling</td>
+              <td class="highlight"><span class="check-icon">✓ Zero (100% Disabled)</span></td>
+              <td>Apple Analytics Enabled</td>
+              <td><span class="cross-icon">✕ Extensive Google Tracking</span></td>
+            </tr>
+            <tr>
+              <td>Engine &amp; Performance</td>
+              <td class="highlight"><span class="check-icon">✓ Native Swift &amp; WebKit</span></td>
+              <td>Native WebKit</td>
+              <td>Chromium (High RAM/Fan Spin)</td>
+            </tr>
+            <tr>
+              <td>Ad &amp; Tracker Blocker</td>
+              <td class="highlight"><span class="check-icon">✓ Native WebKit ContentRuleList</span></td>
+              <td>Basic Tracker Report</td>
+              <td><span class="cross-icon">✕ Manifest V3 Restrictions</span></td>
+            </tr>
+            <tr>
+              <td>Password Security Vault</td>
+              <td class="highlight"><span class="check-icon">✓ Local Apple Keychain (Touch ID)</span></td>
+              <td>iCloud Keychain Sync</td>
+              <td>Google Account Cloud Sync</td>
+            </tr>
+            <tr>
+              <td>Universal Binary (M1–M4 &amp; Intel)</td>
+              <td class="highlight"><span class="check-icon">✓ Universal Native (ARM64 &amp; x64)</span></td>
+              <td>Universal Native</td>
+              <td>Heavy Multi-Architecture</td>
+            </tr>
+            <tr>
+              <td>MacBook Battery Life Impact</td>
+              <td class="highlight"><span class="check-icon">✓ Whisper Quiet &amp; Zero Drain</span></td>
+              <td>Low Battery Drain</td>
+              <td><span class="cross-icon">✕ Heavy Battery Drain</span></td>
             </tr>
           </tbody>
         </table>
@@ -222,11 +569,75 @@
     </div>
   </section>
 
-  <!-- Android Mobile Showcase Section -->
-  <section class="mobile-showcase-section" id="android">
+  <!-- ==================== SHOWCASE SECTION ==================== -->
+  <section class="mobile-showcase-section" id="showcase">
     <div class="container">
-      <div class="mobile-showcase-grid">
-        <!-- Left: Perks and download -->
+
+      <!-- Windows Showcase -->
+      <div class="mobile-showcase-grid platform-only-windows">
+        <div>
+          <div class="section-label">Windows Desktop Experience</div>
+          <h2 class="section-title">Designed exclusively for Windows 11 &amp; 10</h2>
+          <p class="section-subtitle">Clean Fluent aesthetics with Mica glass, native dark mode, and zero background clutter.</p>
+
+          <div class="mobile-perks-list">
+            <div class="mobile-perk-item">
+              <div class="mobile-perk-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+              </div>
+              <div class="mobile-perk-content">
+                <h4>Fluent Mica &amp; Dark Theme</h4>
+                <p>Blends seamlessly with your Windows desktop wallpaper and system color scheme.</p>
+              </div>
+            </div>
+
+            <div class="mobile-perk-item">
+              <div class="mobile-perk-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+              </div>
+              <div class="mobile-perk-content">
+                <h4>Integrated PDF Annotator</h4>
+                <p>Draw, highlight text, and save PDF forms without opening external software.</p>
+              </div>
+            </div>
+
+            <div class="mobile-perk-item">
+              <div class="mobile-perk-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <div class="mobile-perk-content">
+                <h4>Windows DPAPI Hardware Encryption</h4>
+                <p>Saved passwords never leave your machine; encrypted with your Windows user master key.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-top: 24px;">
+            <a href="downloads/RuhiBrowserSetup.exe" class="btn-primary" download>
+              Download Windows Installer (.exe)
+            </a>
+          </div>
+        </div>
+
+        <div class="browser-mockup-wrapper">
+          <div class="browser-screenshot-card">
+            <img src="assets/desktop-screenshot.png" alt="RUHI Browser Windows Desktop UI" class="browser-screenshot-img" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <!-- Android Showcase -->
+      <div class="mobile-showcase-grid platform-only-android">
         <div>
           <div class="section-label">Mobile Experience</div>
           <h2 class="section-title">RUHI Browser for Android</h2>
@@ -286,7 +697,7 @@
             </div>
           </div>
 
-          <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center;">
+          <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-top: 24px;">
             <a href="https://play.google.com/store/apps/details?id=com.ruhi.browser" target="_blank" rel="noopener noreferrer" class="btn-play-store">
               <svg class="play-store-icon" viewBox="0 0 24 24" fill="none">
                 <path d="M3.6 1.8l11.4 10.2L3.6 22.2c-.3-.2-.6-.6-.6-1.1V2.9c0-.5.3-.9.6-1.1z" fill="#00e5ff"/>
@@ -299,42 +710,105 @@
                 <span class="play-store-title">Google Play</span>
               </div>
             </a>
-            <a href="#download" class="btn-secondary">
-              View Windows Version
+            <a href="downloads/RuhiBrowser_Android.apk" class="btn-secondary" download>
+              Direct APK (5.4 MB)
             </a>
           </div>
         </div>
 
-        <!-- Right: Smartphone Device Frame with Real App Screenshot -->
         <div class="phone-mockup-wrapper">
           <div class="phone-device-frame">
-            <!-- Top camera lens & speaker -->
             <div class="phone-top-sensors">
               <div class="phone-camera-lens"></div>
               <div class="phone-speaker"></div>
             </div>
-            <!-- Real Mobile App Screenshot -->
             <div class="phone-screen-container">
               <img src="assets/mobile-screenshot.jpeg" alt="RUHI Browser Android App Screenshot" class="phone-screen-img" loading="lazy">
             </div>
           </div>
         </div>
       </div>
+
+      <!-- macOS Showcase -->
+      <div class="mobile-showcase-grid platform-only-mac" style="direction: rtl;">
+        <div style="direction: ltr;" class="browser-mockup-wrapper">
+          <div class="browser-screenshot-card" style="box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12); border-radius: 14px; overflow: hidden;">
+            <img src="assets/mac-screenshot.png" alt="RUHI Browser for macOS Native WebKit" class="browser-screenshot-img" loading="lazy">
+          </div>
+        </div>
+
+        <div style="direction: ltr;">
+          <div class="section-label">Mac Native Experience</div>
+          <h2 class="section-title">RUHI Browser for macOS</h2>
+          <p class="section-subtitle">Engineered natively in Swift and Apple WebKit for silky-smooth browsing without battery drain.</p>
+
+          <div class="mobile-perks-list">
+            <div class="mobile-perk-item">
+              <div class="mobile-perk-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.64 1.35-.56.65-1.06 1.71-.92 2.73 1.01.08 2.03-.49 2.64-1.23z"/>
+                </svg>
+              </div>
+              <div class="mobile-perk-content">
+                <h4>True Apple Native (Swift &amp; WebKit)</h4>
+                <p>Zero Electron bloat. Starts in milliseconds with minimal RAM and zero thermal throttling on your MacBook.</p>
+              </div>
+            </div>
+
+            <div class="mobile-perk-item">
+              <div class="mobile-perk-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+              </div>
+              <div class="mobile-perk-content">
+                <h4>Universal Binary (Apple Silicon M1–M4 &amp; Intel)</h4>
+                <p>Native 64-bit ARM64 &amp; x86_64 code tuned for Apple's high-efficiency and high-performance CPU cores.</p>
+              </div>
+            </div>
+
+            <div class="mobile-perk-item">
+              <div class="mobile-perk-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <div class="mobile-perk-content">
+                <h4>Apple Keychain Security Vault</h4>
+                <p>Your passwords and sensitive credentials are encrypted using Apple Keychain hardware security, protected by Touch ID.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-top: 24px;">
+            <a href="https://github.com/ruhidev321/ruhi-browser/releases" target="_blank" rel="noopener noreferrer" class="btn-primary" style="height: 50px; padding: 0 24px; font-weight: 600; display: inline-flex; align-items: center; gap: 10px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.64 1.35-.56.65-1.06 1.71-.92 2.73 1.01.08 2.03-.49 2.64-1.23z"/>
+              </svg>
+              <span>Download for Mac (.dmg)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- Download Section (Dual Platform) -->
+  <!-- ==================== DOWNLOAD SECTION ==================== -->
   <section class="download-section" id="download">
     <div class="container">
       <div class="section-header" style="margin-bottom: 40px;">
         <div class="section-label">Get Started Today</div>
         <h2 class="section-title">Download RUHI Browser</h2>
-        <p class="section-subtitle">Choose your platform and enjoy uninterrupted, private web browsing.</p>
+        <p class="section-subtitle platform-only-windows">Get the fast, privacy-first desktop browser for your Windows PC.</p>
+        <p class="section-subtitle platform-only-android">Get the lightweight, battery-saving privacy browser for your Android phone.</p>
+        <p class="section-subtitle platform-only-mac">Get the native Apple WebKit privacy browser for your Mac.</p>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px; max-width: 900px; margin: 0 auto;">
-        <!-- Windows Platform Card -->
-        <div class="download-card" style="padding: 40px 30px;">
+      <div class="download-single-wrapper">
+        <!-- Windows Platform Card ONLY -->
+        <div class="download-card platform-only-windows is-detected" style="padding: 40px 30px; text-align: center;">
           <div class="download-platform-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
@@ -358,15 +832,15 @@
                 <span class="ms-store-title">Microsoft Store</span>
               </div>
             </a>
-            <a href="downloads/RuhiBrowserSetup.exe" class="btn-secondary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 10px 18px;" download>
+            <a href="downloads/RuhiBrowserSetup.exe" class="btn-secondary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 12px 18px;" download>
               Direct Download (.exe)
             </a>
           </div>
           <p style="margin-top: 18px; color: var(--text-muted); font-size: 0.8rem;">Windows 11 / Windows 10 (64-Bit x64)</p>
         </div>
 
-        <!-- Android Platform Card -->
-        <div class="download-card" style="padding: 40px 30px;">
+        <!-- Android Platform Card ONLY -->
+        <div class="download-card platform-only-android is-detected" style="padding: 40px 30px; text-align: center;">
           <div class="download-platform-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
               <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
@@ -389,15 +863,38 @@
                 <span class="play-store-title">Google Play</span>
               </div>
             </a>
+            <a href="downloads/RuhiBrowser_Android.apk" class="btn-secondary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 12px 18px;" download>
+              Direct Download (.apk - 5.4 MB)
+            </a>
           </div>
           <p style="margin-top: 18px; color: var(--text-muted); font-size: 0.8rem;">Android 6.0 (Marshmallow) and higher</p>
+        </div>
+
+        <!-- macOS Platform Card ONLY -->
+        <div class="download-card platform-only-mac is-detected" style="padding: 40px 30px; text-align: center;">
+          <div class="download-platform-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.64 1.35-.56.65-1.06 1.71-.92 2.73 1.01.08 2.03-.49 2.64-1.23z"/>
+            </svg>
+          </div>
+          <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 6px;">RUHI for macOS</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 24px;">Ultra-fast native Apple WebKit engine for Apple Silicon (M1–M4) &amp; Intel with Touch ID Keychain.</p>
+
+          <div style="display: flex; flex-direction: column; gap: 12px; align-items: center;">
+            <a href="https://github.com/ruhidev321/ruhi-browser/releases" target="_blank" rel="noopener noreferrer" class="btn-primary" style="width: 100%; justify-content: center; height: 50px;">
+              Download for Mac (.dmg)
+            </a>
+            <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">
+              Universal Binary (ARM64 &amp; x64)
+            </span>
+          </div>
+          <p style="margin-top: 18px; color: var(--text-muted); font-size: 0.8rem;">macOS 12.0 (Monterey) and higher</p>
         </div>
       </div>
     </div>
   </section>
 
-
-  <!-- Footer -->
+  <!-- ==================== FOOTER ==================== -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
@@ -406,7 +903,9 @@
             <img src="assets/icon.png" alt="Logo" style="width: 24px; height: 24px; border-radius: 6px;">
             RUHI Browser
           </h3>
-          <p>A high-performance, privacy-first web browser designed for pure simplicity, zero telemetry, and maximum security on Windows and Android.</p>
+          <p class="platform-only-windows">A high-performance, privacy-first Windows desktop browser powered by Microsoft WebView2 (Chromium Evergreen) with zero telemetry, DPAPI hardware encryption, and PDF tools.</p>
+          <p class="platform-only-android">An ultra-lightweight 5.4 MB privacy browser for Android featuring AMOLED pure black dark mode, mobile AdBlocker, data saver, and zero background tracking.</p>
+          <p class="platform-only-mac">A native macOS browser crafted in Swift and Apple WebKit with Apple Keychain security, Universal Binary support for Apple Silicon &amp; Intel, and zero battery drain.</p>
         </div>
 
         <div class="footer-col">
@@ -414,7 +913,9 @@
           <ul>
             <li><a href="#features">Features</a></li>
             <li><a href="#privacy">Privacy</a></li>
-            <li><a href="#android">Android</a></li>
+            <li class="platform-only-windows"><a href="#showcase">Desktop View</a></li>
+            <li class="platform-only-android"><a href="#showcase">Mobile View</a></li>
+            <li class="platform-only-mac"><a href="#showcase">Mac Native</a></li>
             <li><a href="#download">Download</a></li>
             <li><a href="faq.html">FAQ</a></li>
             <li><a href="help.html">Help Center</a></li>
