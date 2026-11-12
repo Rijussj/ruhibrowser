@@ -1,0 +1,33 @@
+name: Build and Release macOS App
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+
+jobs:
+  build-mac:
+    name: Build macOS DMG
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build App & DMG
+        working-directory: mac
+        run: |
+          chmod +x build_mac.sh
+          ./build_mac.sh
+
+      - name: Create GitHub Release with DMG
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: RUHI Browser for macOS v1.0.0
+          files: mac/RuhiBrowser_macOS.dmg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
