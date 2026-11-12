@@ -3825,6 +3825,10 @@ namespace RuhiBrowser
                 Owner = this,
                 ClearDataHandler = async (hist, cookies, cache, bookmarks) =>
                 {
+                    if (hist)
+                    {
+                        _ = SyncService.ClearAllHistoryAsync();
+                    }
                     if (bookmarks)
                     {
                         _bookmarks.Clear();
@@ -5125,7 +5129,7 @@ namespace RuhiBrowser
                         DownloadHistoryService.ClearHistory();
                         lock (_downloads) { _downloads.RemoveAll(d => d.IsCompleted || d.IsFailed); }
                         UpdateTopBarDownloadProgress();
-                        if (SyncService.IsLoggedIn) _ = SyncService.ClearAllHistoryAsync();
+                        _ = SyncService.ClearAllHistoryAsync();
                     }
                     if (dlg.ClearBookmarksSelected)
                     {

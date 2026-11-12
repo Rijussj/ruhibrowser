@@ -70,7 +70,7 @@ class HistoryActivity : AppCompatActivity() {
             onHistoryDelete = { item ->
                 repository.deleteItem(item.id)
                 loadHistory()
-                com.ruhi.browser.sync.SyncManager.getInstance(this).deleteHistoryItem(item.url)
+                com.ruhi.browser.sync.SyncManager.getInstance(this).deleteHistoryItem(item.url, item.id)
             }
         )
 

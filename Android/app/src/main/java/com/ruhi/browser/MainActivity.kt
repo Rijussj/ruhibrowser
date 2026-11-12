@@ -1451,6 +1451,7 @@ class MainActivity : AppCompatActivity(),
                 if (clearHistory) {
                     dbExecutor.execute {
                         historyRepository.clearAllHistory()
+                        com.ruhi.browser.sync.SyncManager.getInstance(this@MainActivity).clearAllHistory()
                         runOnUiThread {
                             loadRecentVisits()
                         }

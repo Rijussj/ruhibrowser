@@ -45,6 +45,8 @@ class SettingsPreferences(context: Context) {
         private const val KEY_SYNC_REFRESH_TOKEN = "pref_sync_refresh_token"
         private const val KEY_SYNC_DEVICE_ID = "pref_sync_device_id"
         private const val KEY_SYNC_DEVICE_NAME = "pref_sync_device_name"
+        private const val KEY_LAST_HISTORY_CLEARED_AT = "pref_last_history_cleared_at"
+        private const val KEY_DELETED_HISTORY_URLS = "pref_deleted_history_urls"
 
         const val THEME_SYSTEM = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         const val THEME_LIGHT = AppCompatDelegate.MODE_NIGHT_NO
@@ -210,4 +212,28 @@ class SettingsPreferences(context: Context) {
     var syncDeviceName: String
         get() = prefs.getString(KEY_SYNC_DEVICE_NAME, android.os.Build.MODEL + " (Android)") ?: (android.os.Build.MODEL + " (Android)")
         set(value) = prefs.edit().putString(KEY_SYNC_DEVICE_NAME, value).apply()
+
+    var lastHistoryClearedAt: Long
+        get() = prefs.getLong(KEY_LAST_HISTORY_CLEARED_AT, 0L)
+        set(value) = prefs.edit().putLong(KEY_LAST_HISTORY_CLEARED_AT, value).apply()
+
+    var deletedHistoryUrls: Set<String>
+        get() = prefs.getStringSet(KEY_DELETED_HISTORY_URLS, emptySet()) ?: emptySet()
+        set(value) = prefs.edit().putStringSet(KEY_DELETED_HISTORY_URLS, value).apply()
+
+    fun addDeletedHistoryUrl(url: String) {
+        if (url.isBlank()) return
+        val current = deletedHistoryUrls.toMutableSet()
+        current.add(url.trim().lowercase())
+        if (current.size > 200) {
+            val trimmed = current.toList().takeLast(200).toSet()
+            deletedHistoryUrls = trimmed
+        } else {
+            deletedHistoryUrls = current
+        }
+    }
+
+    fun clearDeletedHistoryUrls() {
+        prefs.edit().remove(KEY_DELETED_HISTORY_URLS).apply()
+    }
 }

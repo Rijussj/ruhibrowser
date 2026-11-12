@@ -38,9 +38,14 @@ namespace RuhiBrowser.Views
         {
             if (sender is Button btn && btn.Tag is string id)
             {
+                var item = _history.Find(h => h.Id == id);
                 _history.RemoveAll(h => h.Id == id);
                 DataManager.SaveHistory(_history);
                 LoadHistory();
+                if (item != null)
+                {
+                    _ = SyncService.DeleteHistoryItemAsync(item.Url, item.Id);
+                }
             }
         }
 
@@ -58,6 +63,7 @@ namespace RuhiBrowser.Views
                 _history.Clear();
                 DataManager.SaveHistory(_history);
                 LoadHistory();
+                _ = SyncService.ClearAllHistoryAsync();
             }
         }
 

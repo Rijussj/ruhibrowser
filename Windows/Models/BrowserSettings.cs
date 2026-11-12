@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace RuhiBrowser.Models
 {
@@ -44,5 +45,7 @@ namespace RuhiBrowser.Models
         public string SyncDeviceId { get; set; } = string.Empty;
         public string SyncDeviceName { get; set; } = string.Empty;
         public DateTime? LastSyncTime { get; set; }
+        public DateTime? LastHistoryClearedAt { get; set; }
+        public List<string> DeletedHistoryUrls { get; set; } = new();
     }
 }

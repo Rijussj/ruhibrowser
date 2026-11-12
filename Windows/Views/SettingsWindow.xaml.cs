@@ -358,6 +358,7 @@ namespace RuhiBrowser.Views
                 if (dlg.ClearHistorySelected)
                 {
                     DataManager.ClearHistory();
+                    _ = SyncService.ClearAllHistoryAsync();
                 }
 
                 if (dlg.ClearBookmarksSelected)

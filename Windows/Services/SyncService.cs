@@ -401,17 +401,27 @@ namespace RuhiBrowser.Services
             if (!IsLoggedIn || localHistory == null || localHistory.Count == 0) return false;
             try
             {
-                // Take latest 50 history entries
-                var list = localHistory.OrderByDescending(h => h.VisitedAt).Take(50).Select(h => new
-                {
-                    id = h.Id,
-                    user_id = _settings.SyncUserId,
-                    url = h.Url,
-                    title = h.Title,
-                    visited_at = h.VisitedAt.ToUniversalTime().ToString("o")
-                }).ToList();
+                var clearedAt = _settings.LastHistoryClearedAt;
+                var deletedUrls = new HashSet<string>(_settings.DeletedHistoryUrls?.Select(u => u.ToLowerInvariant()) ?? Enumerable.Empty<string>());
 
-                var body = JsonSerializer.Serialize(list);
+                var filtered = localHistory
+                    .Where(h => !string.IsNullOrWhiteSpace(h.Url))
+                    .Where(h => !deletedUrls.Contains(h.Url.ToLowerInvariant()))
+                    .Where(h => !clearedAt.HasValue || h.VisitedAt.ToUniversalTime() > clearedAt.Value.ToUniversalTime())
+                    .OrderByDescending(h => h.VisitedAt)
+                    .Take(50)
+                    .Select(h => new
+                    {
+                        id = h.Id,
+                        user_id = _settings.SyncUserId,
+                        url = h.Url,
+                        title = h.Title,
+                        visited_at = h.VisitedAt.ToUniversalTime().ToString("o")
+                    }).ToList();
+
+                if (filtered.Count == 0) return true;
+
+                var body = JsonSerializer.Serialize(filtered);
                 var resp = await SendRequestAsync(() =>
                 {
                     var req = CreateRequest(HttpMethod.Post, "/rest/v1/ruhi_sync_history?on_conflict=id", body);
@@ -426,19 +436,46 @@ namespace RuhiBrowser.Services
             }
         }
 
-        public static async Task<bool> DeleteHistoryItemAsync(string url)
+        public static async Task<bool> DeleteHistoryItemAsync(string url, string? id = null)
         {
-            if (!IsLoggedIn || string.IsNullOrWhiteSpace(url)) return false;
+            if (!string.IsNullOrWhiteSpace(url))
+            {
+                _settings.DeletedHistoryUrls ??= new List<string>();
+                var lower = url.ToLowerInvariant();
+                if (!_settings.DeletedHistoryUrls.Contains(lower))
+                {
+                    _settings.DeletedHistoryUrls.Add(lower);
+                    if (_settings.DeletedHistoryUrls.Count > 200)
+                    {
+                        _settings.DeletedHistoryUrls.RemoveAt(0);
+                    }
+                    DataManager.SaveSettings(_settings);
+                }
+            }
+
+            if (!IsLoggedIn) return false;
             try
             {
-                var resp = await SendRequestAsync(() => CreateRequest(HttpMethod.Delete, $"/rest/v1/ruhi_sync_history?url=eq.{Uri.EscapeDataString(url)}"));
-                return resp.IsSuccessStatusCode;
+                if (!string.IsNullOrWhiteSpace(id))
+                {
+                    _ = await SendRequestAsync(() => CreateRequest(HttpMethod.Delete, $"/rest/v1/ruhi_sync_history?user_id=eq.{_settings.SyncUserId}&id=eq.{Uri.EscapeDataString(id)}"));
+                }
+                if (!string.IsNullOrWhiteSpace(url))
+                {
+                    var resp = await SendRequestAsync(() => CreateRequest(HttpMethod.Delete, $"/rest/v1/ruhi_sync_history?user_id=eq.{_settings.SyncUserId}&url=eq.{Uri.EscapeDataString(url)}"));
+                    return resp.IsSuccessStatusCode;
+                }
+                return true;
             }
             catch { return false; }
         }
 
         public static async Task<bool> ClearAllHistoryAsync()
         {
+            _settings.LastHistoryClearedAt = DateTime.UtcNow;
+            _settings.DeletedHistoryUrls?.Clear();
+            DataManager.SaveSettings(_settings);
+
             if (!IsLoggedIn) return false;
             try
             {
@@ -461,15 +498,37 @@ namespace RuhiBrowser.Services
                 if (items == null) return new List<HistoryItem>();
 
                 var result = new List<HistoryItem>();
+                var clearedAt = _settings.LastHistoryClearedAt;
+                var deletedUrls = new HashSet<string>(_settings.DeletedHistoryUrls?.Select(u => u.ToLowerInvariant()) ?? Enumerable.Empty<string>());
+
                 foreach (var item in items)
                 {
                     if (item == null) continue;
+                    var url = item["url"]?.ToString() ?? string.Empty;
+                    if (string.IsNullOrWhiteSpace(url)) continue;
+
+                    // If user deleted this URL, DO NOT pull it back
+                    if (deletedUrls.Contains(url.ToLowerInvariant())) continue;
+
+                    var visitedStr = item["visited_at"]?.ToString();
+                    if (clearedAt.HasValue && !string.IsNullOrWhiteSpace(visitedStr))
+                    {
+                        if (DateTime.TryParse(visitedStr, out var vDt))
+                        {
+                            if (vDt.ToUniversalTime() <= clearedAt.Value.ToUniversalTime())
+                            {
+                                // Item was visited before user cleared all history -> SKIP
+                                continue;
+                            }
+                        }
+                    }
+
                     result.Add(new HistoryItem
                     {
                         Id = item["id"]?.ToString() ?? Guid.NewGuid().ToString(),
                         Title = item["title"]?.ToString() ?? string.Empty,
-                        Url = item["url"]?.ToString() ?? string.Empty,
-                        VisitedAt = DateTime.TryParse(item["visited_at"]?.ToString(), out var dt) ? dt : DateTime.Now
+                        Url = url,
+                        VisitedAt = DateTime.TryParse(visitedStr, out var dt) ? dt : DateTime.Now
                     });
                 }
                 return result;

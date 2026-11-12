@@ -349,17 +349,27 @@ class SyncManager private constructor(context: Context) {
         }
     }
 
-    fun deleteHistoryItem(url: String) {
-        if (!isLoggedIn || url.isBlank()) return
+    fun deleteHistoryItem(url: String, id: Long? = null) {
+        if (url.isNotBlank()) {
+            preferences.addDeletedHistoryUrl(url)
+        }
+        if (!isLoggedIn) return
         executor.execute {
             try {
-                val encUrl = java.net.URLEncoder.encode(url, "UTF-8")
-                sendRequest("/rest/v1/ruhi_sync_history?url=eq.$encUrl", "DELETE")
+                if (id != null) {
+                    sendRequest("/rest/v1/ruhi_sync_history?user_id=eq.${preferences.syncUserId}&id=eq.android_hist_$id", "DELETE")
+                }
+                if (url.isNotBlank()) {
+                    val encUrl = java.net.URLEncoder.encode(url, "UTF-8")
+                    sendRequest("/rest/v1/ruhi_sync_history?user_id=eq.${preferences.syncUserId}&url=eq.$encUrl", "DELETE")
+                }
             } catch (_: Exception) { }
         }
     }
 
     fun clearAllHistory() {
+        preferences.lastHistoryClearedAt = System.currentTimeMillis()
+        preferences.clearDeletedHistoryUrls()
         if (!isLoggedIn) return
         executor.execute {
             try {
@@ -447,6 +457,12 @@ class SyncManager private constructor(context: Context) {
 
         executor.execute {
             try {
+                val clearedAt = preferences.lastHistoryClearedAt
+                val deletedUrls = preferences.deletedHistoryUrls
+                val sdf = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", java.util.Locale.US).apply {
+                    timeZone = java.util.TimeZone.getTimeZone("UTC")
+                }
+
                 // 1. Pull remote history
                 val pullRes = sendRequest("/rest/v1/ruhi_sync_history?select=*&order=visited_at.desc&limit=100", "GET")
                 if (pullRes.code in 200..299) {
@@ -455,19 +471,40 @@ class SyncManager private constructor(context: Context) {
 
                     for (i in 0 until arr.length()) {
                         val obj = arr.getJSONObject(i)
-                        val url = obj.optString("url", "")
+                        val url = obj.optString("url", "").trim()
                         val title = obj.optString("title", "")
-                        if (url.isNotEmpty() && localList.none { it.url.equals(url, ignoreCase = true) }) {
+                        val visitedStr = obj.optString("visited_at", "")
+
+                        if (url.isEmpty()) continue
+
+                        // If user has explicitly deleted this URL, skip and do not restore
+                        if (deletedUrls.contains(url.lowercase())) continue
+
+                        // If this item was visited BEFORE the user cleared all history, skip
+                        if (clearedAt > 0 && visitedStr.isNotEmpty()) {
+                            try {
+                                val cleanStr = visitedStr.replace("Z", "").split(".")[0]
+                                val itemTime = sdf.parse(cleanStr)?.time ?: 0L
+                                if (itemTime <= clearedAt) continue
+                            } catch (_: Exception) { }
+                        }
+
+                        if (localList.none { it.url.equals(url, ignoreCase = true) }) {
                             historyRepo.recordVisit(url = url, title = title.ifEmpty { url }, isIncognito = false)
                         }
                     }
                 }
 
-                // 2. Push local history
-                val localHistory = historyRepo.getHistory().take(50)
+                // 2. Push local history (exclude any deleted URLs or items before clearedAt)
+                val allLocal = historyRepo.getHistory()
+                val localHistory = allLocal
+                    .filter { !deletedUrls.contains(it.url.trim().lowercase()) }
+                    .filter { clearedAt == 0L || it.visitedAt > clearedAt }
+                    .take(50)
+
                 if (localHistory.isNotEmpty()) {
                     val pushArr = JSONArray()
-                    val sdf = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US).apply {
+                    val sdfIso = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US).apply {
                         timeZone = java.util.TimeZone.getTimeZone("UTC")
                     }
                     for (h in localHistory) {
@@ -476,7 +513,7 @@ class SyncManager private constructor(context: Context) {
                             put("user_id", preferences.syncUserId)
                             put("url", h.url)
                             put("title", h.title)
-                            put("visited_at", sdf.format(java.util.Date(h.visitedAt)))
+                            put("visited_at", sdfIso.format(java.util.Date(h.visitedAt)))
                         })
                     }
 
