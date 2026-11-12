@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Frequently Asked Questions — RUHI Browser</title>
-  <meta name="description" content="Answers to common questions about RUHI Browser for Windows and Android. Learn about privacy features, installation, built-in AdBlock, and performance.">
+  <meta name="description" content="Answers to common questions about RUHI Browser for Windows, Android, and macOS. Learn about privacy features, installation, built-in AdBlock, and performance.">
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <link rel="stylesheet" href="css/styles.css">
   <style>
@@ -38,7 +38,7 @@
       transition: var(--transition);
     }
     .faq-search-input:focus {
-      border-color: var(--opera-red);
+      border-color: var(--theme-green);
       box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
     }
     .faq-search-icon {
@@ -71,7 +71,7 @@
       background: var(--accent-gradient);
       color: #ffffff;
       border-color: transparent;
-      box-shadow: 0 4px 14px var(--glow-red);
+      box-shadow: 0 4px 14px var(--glow-green);
     }
     .faq-page-content {
       max-width: 860px;
@@ -124,15 +124,15 @@
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="index.html#features">Features</a></li>
-        <li><a href="index.html#android">Android</a></li>
-        <li><a href="faq.html" style="color: var(--primary); font-weight: 600;">FAQ</a></li>
+        <li><a href="index.html#download">Download</a></li>
+        <li><a href="faq.html" style="color: var(--theme-green); font-weight: 600;">FAQ</a></li>
         <li><a href="help.html">Help</a></li>
         <li><a href="privacy.html">Privacy Policy</a></li>
         <li><a href="terms.html">Terms</a></li>
       </ul>
       <div class="nav-cta">
-        <a href="https://apps.microsoft.com/detail/9PCV98GBMJ68" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 8px 18px; font-size: 0.9rem;">
-          Get from Store
+        <a href="index.html#download" class="btn-primary" style="padding: 8px 18px; font-size: 0.9rem;">
+          Download RUHI
         </a>
       </div>
     </div>
@@ -148,8 +148,8 @@
         Answers &amp; Guidance
       </div>
       <h1>Frequently Asked Questions</h1>
-      <p class="section-subtitle" style="margin: 0 auto; max-width: 650px;">
-        Everything you need to know about RUHI Browser across Windows and Android platforms.
+      <p class="section-subtitle" style="margin: 0 auto; max-width: 680px;">
+        Everything you need to know about RUHI Browser across Windows, Android, and macOS platforms.
       </p>
 
       <div class="faq-search-box">
@@ -167,6 +167,7 @@
         <button class="faq-tab-btn" data-filter="general">General</button>
         <button class="faq-tab-btn" data-filter="windows">Windows</button>
         <button class="faq-tab-btn" data-filter="android">Android</button>
+        <button class="faq-tab-btn" data-filter="mac">macOS</button>
         <button class="faq-tab-btn" data-filter="privacy">Privacy &amp; Security</button>
         <button class="faq-tab-btn" data-filter="performance">AdBlock &amp; Speed</button>
       </div>
@@ -176,7 +177,7 @@
   <!-- FAQ Accordion List -->
   <main class="faq-page-content">
 
-    <!-- Section 1: General -->
+    <!-- ==================== Section 1: General ==================== -->
     <div class="faq-group" data-category="general">
       <h2 class="faq-category-heading">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -193,7 +194,7 @@
             <span>+</span>
           </div>
           <div class="faq-answer">
-            Yes! RUHI Browser is 100% free with no in-app purchases, paid subscriptions, or paywalled features. All privacy, ad-blocking, and performance tools are fully unlocked for all users on both Windows and Android.
+            Yes! RUHI Browser is 100% free with no in-app purchases, paid subscriptions, or paywalled features. All privacy, ad-blocking, and performance tools are fully unlocked across Windows, Android, and macOS.
           </div>
         </div>
 
@@ -209,11 +210,16 @@
 
         <div class="faq-item">
           <div class="faq-question">
-            <span>What rendering engine powers RUHI Browser?</span>
+            <span>What rendering engine powers RUHI Browser on each platform?</span>
             <span>+</span>
           </div>
           <div class="faq-answer">
-            RUHI Browser is engineered on the industry-standard Chromium rendering core. On Windows, it leverages Microsoft WebView2 runtime with hardware GPU acceleration. On Android, it utilizes high-efficiency Chromium/WebKit mobile rendering.
+            RUHI Browser uses the optimal native engine for each operating system:
+            <ul style="margin-top: 8px; margin-left: 20px; line-height: 1.8;">
+              <li><strong>Windows:</strong> Powered by Microsoft WebView2 (Chromium Evergreen) with hardware GPU acceleration.</li>
+              <li><strong>Android:</strong> Powered by high-efficiency Android System WebView and Kotlin Jetpack architecture.</li>
+              <li><strong>macOS:</strong> 100% Native Apple WebKit and Swift 5.10 Cocoa architecture (zero Electron bloat).</li>
+            </ul>
           </div>
         </div>
 
@@ -223,14 +229,29 @@
             <span>+</span>
           </div>
           <div class="faq-answer">
-            Because RUHI Browser is distributed via official app stores (Microsoft Store on Windows and Google Play Store on Android), new updates and security patches install automatically in the background without needing manual file downloads.
+            Updates are provided through official platform channels:
+            <ul style="margin-top: 8px; margin-left: 20px; line-height: 1.8;">
+              <li><strong>Windows:</strong> Automatically updated via Microsoft Store, or direct installer download.</li>
+              <li><strong>Android:</strong> Automatically updated via Google Play Store, or direct APK download.</li>
+              <li><strong>macOS:</strong> Downloadable as universal `.dmg` release packages directly from our website and GitHub.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can I sync my bookmarks and active tabs across my devices?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Yes! RUHI Browser features integrated Supabase Cloud Sync, allowing you to seamlessly share active tabs and sync bookmarks between your Windows PC, Android smartphone, and Apple Mac.
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- Section 2: Windows Experience -->
+    <!-- ==================== Section 2: Windows Experience ==================== -->
     <div class="faq-group" data-category="windows">
       <h2 class="faq-category-heading">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -258,17 +279,27 @@
             <span>+</span>
           </div>
           <div class="faq-answer">
-            Simply click the <strong>GET IT FROM Microsoft Store</strong> button on our website or open the Windows Microsoft Store app, search for <em>RUHI Browser</em>, and click "Get". Windows handles installation and setup seamlessly.
+            You can download the standalone installer (<strong>RuhiBrowserSetup.exe</strong>) directly from our website, or install it from the <strong>Microsoft Store</strong> with automatic background updates.
           </div>
         </div>
 
         <div class="faq-item">
           <div class="faq-question">
-            <span>Does RUHI Browser support built-in PDF viewing and printing?</span>
+            <span>Does RUHI Browser support built-in PDF editing and annotation?</span>
             <span>+</span>
           </div>
           <div class="faq-answer">
-            Yes. RUHI Browser includes an integrated, lightweight PDF viewer. You can open any PDF document, search inside the document, zoom, and print directly by pressing <kbd>Ctrl</kbd> + <kbd>P</kbd>.
+            Yes! Unlike basic viewers, RUHI Browser includes an integrated PDF editor with a freehand ink pen, highlighter, eraser, and text annotation tools. You can view, mark up, and save changes to PDF files offline without third-party software.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What is the Dual-View Split Screen feature?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Split Screen lets you display two tabs side-by-side inside a single browser window. This is ideal for comparing documents, watching a lecture while taking notes, or researching without juggling multiple windows.
           </div>
         </div>
 
@@ -278,14 +309,14 @@
             <span>+</span>
           </div>
           <div class="faq-answer">
-            Yes. Open <em>Settings &rarr; Bookmarks &rarr; Import Bookmarks</em>, choose your exported HTML bookmarks file from any other web browser, and your bookmarks will be imported instantly.
+            Yes. Open <em>Settings &rarr; Bookmarks &rarr; Import Bookmarks</em>, choose your exported HTML bookmarks file from any other web browser, and your bookmarks will import instantly.
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- Section 3: Android App -->
+    <!-- ==================== Section 3: Android App ==================== -->
     <div class="faq-group" data-category="android">
       <h2 class="faq-category-heading">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -302,7 +333,7 @@
             <span>+</span>
           </div>
           <div class="faq-answer">
-            RUHI Browser for Android requires <strong>Android 6.0 (Marshmallow)</strong> or higher. The app package is ultra-lightweight (under 6 MB) and runs smoothly on both entry-level and flagship devices.
+            RUHI Browser for Android requires <strong>Android 6.0 (Marshmallow)</strong> or higher (up to Android 15+). The package is featherlight (only ~5.4 MB) and runs silky-smooth on both budget and flagship devices.
           </div>
         </div>
 
@@ -312,7 +343,17 @@
             <span>+</span>
           </div>
           <div class="faq-answer">
-            Unlike standard dark modes that use dark gray tones, RUHI Mobile features true pitch-black (hex #000000) styling. On OLED and AMOLED screens, black pixels are completely turned off, drastically saving battery life during browsing sessions.
+            Unlike standard dark modes that use washed-out dark gray tones, RUHI Mobile features true pitch-black (hex #000000) charcoal styling. On OLED and AMOLED screens, black pixels turn completely off, saving up to 40% battery life during reading sessions.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What is the One-Handed Bottom Omnibox?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Modern smartphone screens are tall and hard to navigate with one hand. RUHI Mobile positions the address bar and essential navigation buttons at the bottom of the screen, within comfortable reach of your thumb.
           </div>
         </div>
 
@@ -322,14 +363,105 @@
             <span>+</span>
           </div>
           <div class="faq-answer">
-            No. RUHI Mobile does not start any background telemetry daemons, persistent notification push services, or analytics loggers. When you close the app, it stops consuming CPU and memory immediately.
+            Strictly NO. RUHI Mobile does not start any background telemetry daemons, persistent notification push services, or analytics loggers. When you close the app, it stops consuming CPU and memory immediately.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How do I install RUHI Browser on Android?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            You can download RUHI Browser from the <strong>Google Play Store</strong>, or download the direct APK (<strong>RuhiBrowser_Android.apk</strong>, ~5.4 MB) straight from our website for instant sideloading.
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- Section 4: Privacy & Security -->
+    <!-- ==================== Section 4: macOS Native Experience ==================== -->
+    <div class="faq-group" data-category="mac">
+      <h2 class="faq-category-heading">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.64 1.35-.56.65-1.06 1.71-.92 2.73 1.01.08 2.03-.49 2.64-1.23z"/>
+        </svg>
+        macOS Native Experience
+      </h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Which macOS versions and Mac computers are supported?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            RUHI Browser for Mac supports <strong>macOS 12 (Monterey)</strong>, <strong>macOS 13 (Ventura)</strong>, <strong>macOS 14 (Sonoma)</strong>, and <strong>macOS 15 (Sequoia)</strong>. It is compiled as a Universal Binary with native support for Apple Silicon (M1, M2, M3, M4) and Intel Macs.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How do I install RUHI Browser on a Mac?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Download the <strong>RuhiBrowser_macOS.dmg</strong> disk image from our website. Double-click the DMG file to mount it, drag the <em>RUHI Browser</em> icon into your <em>Applications</em> folder, and launch it from Launchpad or Spotlight.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Is RUHI Browser for Mac built with Electron?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            No! RUHI Browser for Mac is <strong>100% Apple Native</strong>, crafted in Swift 5.10 and SwiftUI using the Apple WebKit Cocoa engine. It contains zero Electron overhead, starts in milliseconds, uses minimal RAM, and runs whisper-quiet without triggering MacBook fan noise.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How does AdBlock work on macOS?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            RUHI for Mac utilizes Apple WebKit's native <strong>ContentRuleList API</strong>. Ad-blocking rules are compiled directly into the WebKit rendering pipeline, blocking ads, trackers, and popup redirects natively with zero JavaScript CPU overhead.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How are passwords protected on macOS?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Passwords and sensitive credentials are encrypted locally using the hardware-backed <strong>Apple Keychain Services</strong> (Secure Enclave). Credentials can be unlocked with your Mac password or biometric <strong>Touch ID</strong>.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What keyboard shortcuts are supported on macOS?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            RUHI for Mac supports standard macOS conventions:
+            <ul style="margin-top: 8px; margin-left: 20px; line-height: 1.8;">
+              <li><kbd>Cmd</kbd> + <kbd>T</kbd>: Open New Tab</li>
+              <li><kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>: Open New Private Window</li>
+              <li><kbd>Cmd</kbd> + <kbd>W</kbd>: Close Active Tab</li>
+              <li><kbd>Cmd</kbd> + <kbd>J</kbd>: Open Downloads Folder in Finder</li>
+              <li><kbd>Cmd</kbd> + <kbd>,</kbd>: Open Browser Settings</li>
+              <li><kbd>Cmd</kbd> + <kbd>R</kbd>: Reload Page</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== Section 5: Privacy & Security ==================== -->
     <div class="faq-group" data-category="privacy">
       <h2 class="faq-category-heading">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -356,7 +488,12 @@
             <span>+</span>
           </div>
           <div class="faq-answer">
-            On Windows, your saved credentials are encrypted using <strong>Windows DPAPI</strong> (Data Protection API) tied cryptographically to your Windows user account and hardware profile. On Android, data is protected by native OS sandboxing and keystore encryption.
+            Passwords are encrypted locally using the strongest hardware security on each operating system:
+            <ul style="margin-top: 8px; margin-left: 20px; line-height: 1.8;">
+              <li><strong>Windows:</strong> Encrypted using Windows DPAPI (Data Protection API) tied to your local user master key.</li>
+              <li><strong>Android:</strong> Encrypted with hardware-backed Android Keystore and EncryptedSharedPreferences.</li>
+              <li><strong>macOS:</strong> Encrypted inside Apple Keychain with Secure Enclave hardware and Touch ID protection.</li>
+            </ul>
           </div>
         </div>
 
@@ -366,7 +503,17 @@
             <span>+</span>
           </div>
           <div class="faq-answer">
-            In Private Mode (open with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>), RUHI Browser runs in a separate, memory-only session. Once you close the private window, all history, session cookies, and temporary site data from that session are wiped completely.
+            In Private Mode, RUHI Browser runs in a separate, memory-only session. Once you close the private window, all history, session cookies, and temporary site data from that session are wiped completely from RAM.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Is WireGuard VPN integrated into RUHI Browser?</span>
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            Yes! RUHI Browser features built-in WireGuard protocol management, allowing you to establish high-speed encrypted tunnels to safeguard your web connection on unsecured public Wi-Fi networks.
           </div>
         </div>
 
@@ -376,14 +523,14 @@
             <span>+</span>
           </div>
           <div class="faq-answer">
-            Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Delete</kbd> on Windows or open <em>Settings &rarr; Privacy &rarr; Clear Data</em> on Android. You can choose to purge cached images, cookies, or history for any timeframe.
+            Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Delete</kbd> on Windows, <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>Delete</kbd> on Mac, or open <em>Settings &rarr; Privacy &rarr; Clear Data</em> on Android. You can choose to purge cached images, cookies, or history for any timeframe.
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- Section 5: AdBlock & Performance -->
+    <!-- ==================== Section 6: AdBlock & Performance ==================== -->
     <div class="faq-group" data-category="performance">
       <h2 class="faq-category-heading">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -419,7 +566,7 @@
             <span>+</span>
           </div>
           <div class="faq-answer">
-            Most commercial browsers bundle gigabytes of telemetry reporters, AI data-harvesting tools, news feeds, and sponsored extensions. RUHI Browser strips away all that bloat, keeping only essential Chromium browsing rendering, local hardware acceleration, and AdBlock.
+            Most commercial browsers bundle gigabytes of telemetry reporters, AI data-harvesting tools, news feeds, and sponsored extensions. RUHI Browser strips away all that bloat, keeping only essential native rendering, local hardware acceleration, and AdBlock. Package sizes are tiny: only 4.3 MB on Windows, 5.4 MB on Android, and 2.0 MB on macOS.
           </div>
         </div>
 
@@ -459,7 +606,7 @@
             <img src="assets/icon.png" alt="Logo" style="width: 24px; height: 24px; border-radius: 6px;">
             RUHI Browser
           </h3>
-          <p>A high-performance, privacy-first web browser designed for pure simplicity, zero telemetry, and maximum security on Windows and Android.</p>
+          <p>A high-performance, privacy-first web browser designed for pure simplicity, zero telemetry, and maximum security on Windows, Android, and macOS.</p>
         </div>
 
         <div class="footer-col">
@@ -467,7 +614,6 @@
           <ul>
             <li><a href="index.html#features">Features</a></li>
             <li><a href="index.html#privacy">Privacy</a></li>
-            <li><a href="index.html#android">Android</a></li>
             <li><a href="index.html#download">Download</a></li>
             <li><a href="faq.html">FAQ</a></li>
             <li><a href="help.html">Help Center</a></li>
