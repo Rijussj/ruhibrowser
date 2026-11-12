@@ -4,67 +4,107 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terms of Service — RUHI Browser</title>
-  <meta name="description" content="Official Terms of Service and End User License Agreement (EULA) for RUHI Browser across Windows and Android platforms.">
+  <meta name="description" content="Official Terms of Service and End User License Agreement (EULA) for RUHI Browser across Windows, macOS, and Android platforms.">
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <link rel="stylesheet" href="css/styles.css">
   <style>
     .legal-content {
-      max-width: 860px;
+      max-width: 880px;
       margin: 60px auto 100px;
-      background: #ffffff;
-      border: 1px solid var(--card-border);
+      background: var(--card-bg, #ffffff);
+      border: 1px solid var(--card-border, #e6e8ee);
       border-radius: 20px;
       padding: 55px 45px;
-      box-shadow: var(--card-shadow);
+      box-shadow: var(--card-shadow, 0 4px 24px rgba(0, 0, 0, 0.06));
     }
     .legal-content h1 {
       font-size: 2.5rem;
       font-weight: 800;
       letter-spacing: -0.02em;
       margin-bottom: 8px;
-      color: #121316;
+      color: var(--text-primary, #121316);
     }
     .legal-date {
-      color: var(--text-muted);
-      font-size: 0.9rem;
+      color: var(--text-muted, #8c93a3);
+      font-size: 0.92rem;
       margin-bottom: 30px;
       padding-bottom: 20px;
-      border-bottom: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border, #e6e8ee);
+      line-height: 1.6;
     }
     .legal-content h2 {
       font-size: 1.35rem;
       font-weight: 700;
-      margin: 36px 0 14px;
-      color: var(--opera-red);
+      margin: 38px 0 14px;
+      color: var(--theme-green, #10b981);
       display: flex;
       align-items: center;
       gap: 10px;
     }
     .legal-content p, .legal-content li {
-      color: var(--text-secondary);
+      color: var(--text-secondary, #5e6472);
       font-size: 1rem;
-      line-height: 1.75;
+      line-height: 1.78;
       margin-bottom: 14px;
     }
     .legal-content ul {
       margin-left: 24px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
     .legal-content strong {
-      color: #121316;
+      color: var(--text-primary, #121316);
+    }
+    .legal-content code {
+      background: var(--bg-tertiary, #edf0f5);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.9em;
+      color: var(--text-primary, #121316);
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .legal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: var(--theme-green-light, #ecfdf5);
+      color: var(--theme-green, #10b981);
+      margin-bottom: 16px;
     }
     .contact-box {
-      background: var(--bg-secondary);
-      border: 1px solid var(--card-border);
+      background: var(--bg-secondary, #f7f8fa);
+      border: 1px solid var(--card-border, #e6e8ee);
       border-radius: 16px;
-      padding: 26px 30px;
-      margin-top: 40px;
+      padding: 28px 32px;
+      margin-top: 45px;
+    }
+    .contact-box a {
+      color: var(--theme-green, #10b981);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition, all 0.2s ease);
+    }
+    .contact-box a:hover {
+      text-decoration: underline;
+      color: var(--theme-green-hover, #059669);
+    }
+    @media (max-width: 768px) {
+      .legal-content {
+        padding: 35px 22px;
+        margin: 30px auto 60px;
+      }
+      .legal-content h1 {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
+  <!-- Navigation -->
   <header class="navbar">
     <div class="container nav-content">
       <a href="index.html" class="nav-brand">
@@ -74,15 +114,15 @@
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="index.html#features">Features</a></li>
-        <li><a href="index.html#android">Android</a></li>
+        <li><a href="index.html#download">Download</a></li>
         <li><a href="faq.html">FAQ</a></li>
         <li><a href="help.html">Help</a></li>
         <li><a href="privacy.html">Privacy Policy</a></li>
-        <li><a href="terms.html" style="color: var(--primary); font-weight: 600;">Terms</a></li>
+        <li><a href="terms.html" style="color: var(--theme-green, #10b981); font-weight: 600;">Terms</a></li>
       </ul>
       <div class="nav-cta">
-        <a href="https://apps.microsoft.com/detail/9PCV98GBMJ68" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 8px 18px; font-size: 0.9rem;">
-          Get from Store
+        <a href="index.html#download" class="btn-primary" style="padding: 8px 18px; font-size: 0.9rem;">
+          Download RUHI
         </a>
       </div>
     </div>
@@ -90,110 +130,119 @@
 
   <main class="container">
     <article class="legal-content">
+      <div class="legal-badge">
+        <span>📜</span> End User License Agreement &amp; Terms
+      </div>
       <h1>RUHI Browser Terms of Service</h1>
       <div class="legal-date">
-        <strong>Last Updated:</strong> October 23, 2026 &bull; <strong>Publisher:</strong> RUHI Applications &bull; <strong>Platforms:</strong> Windows &amp; Android
+        <strong>Last Updated:</strong> November 2026 &bull; 
+        <strong>Publisher:</strong> RUHI Applications (Developer: Saikh Sufian) &bull; 
+        <strong>Supported Platforms:</strong> Windows 10/11 &bull; macOS 12+ (Apple Silicon &amp; Intel) &bull; Android 6.0+
       </div>
 
       <p>
-        These Terms of Service ("Terms") constitute a legally binding agreement between you ("User" or "you") and <strong>RUHI Applications</strong> ("we", "us", or "our") governing your access to and use of the <strong>RUHI Browser</strong> software application across Microsoft Windows, Android, and related web services.
+        These Terms of Service ("Terms") constitute a legally binding agreement between you ("User" or "you") and <strong>RUHI Applications</strong> ("we", "us", or "our") governing your access to and use of the <strong>RUHI Browser</strong> software application across <strong>Microsoft Windows</strong>, <strong>Apple macOS</strong>, and <strong>Google Android</strong>, as well as associated digital services.
       </p>
       <p>
-        By downloading, installing, launching, or using RUHI Browser, you explicitly agree to be bound by these Terms and our <a href="privacy.html" style="color: var(--opera-red); text-decoration: none; font-weight: 600;">Privacy Policy</a>. If you do not agree, do not install or use RUHI Browser.
+        By downloading, installing, launching, copying, or using RUHI Browser, you explicitly agree to be bound by these Terms and our <a href="privacy.html" style="color: var(--theme-green, #10b981); text-decoration: none; font-weight: 600;">Privacy Policy</a>. If you do not agree to these Terms, you must not install, execute, or use the application.
       </p>
 
       <h2>1. End User License Grant (EULA)</h2>
       <p>
-        Subject to your compliance with these Terms, RUHI Applications grants you a personal, revocable, non-exclusive, non-transferable, royalty-free license to install, execute, and use RUHI Browser on your personal computers (Windows 10/11) and mobile devices (Android) for lawful personal or organizational purposes.
+        Subject to your continuous compliance with these Terms, RUHI Applications grants you a personal, revocable, non-exclusive, non-transferable, royalty-free license to install, execute, and run RUHI Browser on your compatible personal computers (Windows 10/11, macOS 12+ Monterey/Ventura/Sonoma/Sequoia) and mobile devices (Android 6.0+) solely for personal, educational, or lawful internal organizational use.
       </p>
 
-      <h2>2. Permitted Use &amp; Restrictions</h2>
+      <h2>2. Permitted Use &amp; Code Restrictions</h2>
       <p>
-        You agree to use RUHI Browser only for purposes permitted by applicable local, national, and international laws. Specifically, you agree NOT to:
+        You agree to use RUHI Browser exclusively for lawful purposes in accordance with all local, national, and international laws. Specifically, you agree NOT to:
       </p>
       <ul>
-        <li>Modify, decompile, reverse-engineer, disassemble, or attempt to derive the proprietary source code of RUHI Browser, except to the extent permitted by applicable open-source licenses or mandatory statutory law.</li>
-        <li>Use the browser to distribute viruses, worms, trojans, ransomware, or malicious payloads.</li>
-        <li>Rent, lease, sub-license, resell, or redistribute binary distributions of RUHI Browser under an unauthorized brand or commercial wrapper without express prior written consent from RUHI Applications.</li>
-        <li>Interfere with, disrupt, or attack the integrity or performance of RUHI Browser services or third-party web servers.</li>
+        <li>Decompile, reverse-engineer, disassemble, or attempt to derive proprietary algorithms or source code of RUHI Browser, except to the explicit extent permitted by mandatory statutory open-source license entitlements.</li>
+        <li>Utilize RUHI Browser to transmit, deploy, or propagate malicious software, computer viruses, worms, spyware, or harmful payloads.</li>
+        <li>Rent, lease, sub-license, repackage, or distribute modified binary packages of RUHI Browser under deceptive branding or commercial wrapper software without express written authorization from RUHI Applications.</li>
+        <li>Interfere with, overload, or execute denial-of-service attacks against RUHI web services, Supabase synchronization endpoints, or third-party web hosts.</li>
       </ul>
 
-      <h2>3. Third-Party Websites &amp; Content Disclaimer</h2>
+      <h2>3. Third-Party Websites &amp; Online Content Disclaimer</h2>
       <p>
-        <strong>RUHI Browser is a client tool for accessing the World Wide Web.</strong>
+        <strong>RUHI Browser is an independent client user-agent for navigating the World Wide Web.</strong>
       </p>
       <p>
-        RUHI Applications has no control over, does not endorse, and assumes <strong>no responsibility or liability</strong> for any third-party websites, hyperlinks, search results, online content, media streams, privacy policies, or practices that you access or interact with through the browser.
+        RUHI Applications has no control over, does not endorse, and assumes <strong>no legal responsibility or liability</strong> for any third-party websites, hyperlinks, search results, web services, multimedia streams, external privacy policies, or business practices accessed through the browser.
       </p>
       <p>
-        You access third-party websites entirely at your own discretion and risk. We strongly recommend that you review the terms of service and privacy policies of any third-party site you visit.
+        You access external web properties entirely at your own risk. We urge you to review the privacy notices and terms of use of any third-party website you visit.
       </p>
 
       <h2>4. Intellectual Property &amp; Open-Source Attributions</h2>
       <p>
-        The RUHI Browser application name, branding, logo, visual interface, custom documentation, and proprietary code are the exclusive intellectual property of <strong>RUHI Applications</strong> (Developed by Saikh Sufian) and are protected by applicable intellectual property and copyright laws.
+        The RUHI Browser application name, branding logos, visual artwork, user interface designs, custom software code, and official documentation are the proprietary intellectual property of <strong>RUHI Applications</strong> (Authored and maintained by Saikh Sufian) and are protected by applicable intellectual property and copyright laws.
       </p>
       <p>
-        RUHI Browser utilizes standard open-source core frameworks:
+        RUHI Browser incorporates and builds upon trusted open-source platform technologies:
       </p>
       <ul>
-        <li><strong>Chromium / Microsoft WebView2 Runtime:</strong> Distributed under BSD and MIT licenses, copyright &copy; The Chromium Authors and Microsoft Corporation.</li>
-        <li><strong>Android Platform Components:</strong> Distributed under the Apache 2.0 License, copyright &copy; The Android Open Source Project (AOSP).</li>
+        <li><strong>Chromium &amp; Microsoft Edge WebView2:</strong> Distributed under BSD and MIT licenses, copyright &copy; The Chromium Authors and Microsoft Corporation.</li>
+        <li><strong>Apple WebKit &amp; Swift Foundation:</strong> Distributed under BSD, LGPL, and Apache 2.0 with Runtime Exceptions, copyright &copy; Apple Inc. and WebKit Contributors.</li>
+        <li><strong>Android Open Source Project (AOSP):</strong> Distributed under the Apache 2.0 License, copyright &copy; The Android Open Source Project.</li>
+        <li><strong>Supabase Client Libraries:</strong> Distributed under the MIT License, copyright &copy; Supabase Inc.</li>
       </ul>
       <p>
-        Nothing in these Terms restricts your rights under applicable open-source software license terms governing those underlying components.
+        Nothing in these Terms limits or restricts your rights under the applicable open-source license agreements for the components listed above.
       </p>
 
-      <h2>5. Integrated Features &amp; AdBlock Disclaimer</h2>
+      <h2>5. Integrated Utilities &amp; Content Filtering Disclaimer</h2>
       <p>
-        RUHI Browser includes productivity and security tools such as an integrated AdBlocker, PDF viewing/annotation tools, and an AI assistant:
+        RUHI Browser incorporates built-in utilities designed to enhance security, productivity, and speed:
       </p>
       <ul>
-        <li><strong>AdBlock Filter:</strong> Ad-blocking is provided as a utility to enhance browsing speed and user privacy. RUHI Applications does not guarantee that 100% of advertisements will be filtered, nor that all external websites will remain functional with ad-blocking enabled. Users may disable the filter for specific domains at their discretion.</li>
-        <li><strong>AI Assistant:</strong> AI-generated summaries and translations are provided for informational convenience. RUHI Applications makes no representation regarding the absolute accuracy or reliability of AI-generated responses.</li>
+        <li><strong>Native AdBlocker:</strong> Ad-blocking functionality (powered by native WebKit ContentRuleList on macOS and network-level request filters on Windows and Android) is provided as a utility to minimize intrusive advertising and trackers. RUHI Applications does not guarantee that 100% of ads will be blocked, nor that all external websites will display correctly with content filters active. Users can selectively toggle AdBlock off for any domain.</li>
+        <li><strong>Optional Cloud Sync:</strong> Optional bookmark and tab synchronization powered by Supabase is provided on an "as-available" basis. While we employ secure HTTPS connections and database isolation, users are advised to maintain independent local backups of critical bookmarks.</li>
+        <li><strong>AI Assistant Features:</strong> Optional AI summaries, explanations, and language translations are provided for informational convenience. RUHI Applications makes no representation regarding the complete factual accuracy or reliability of AI-generated content.</li>
       </ul>
 
       <h2>6. Disclaimer of Warranties</h2>
       <p>
-        <strong>RUHI BROWSER IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED.</strong>
+        <strong>RUHI BROWSER IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE.</strong>
       </p>
       <p>
-        TO THE MAXIMUM EXTENT PERMITTED UNDER APPLICABLE LAW, RUHI APPLICATIONS DISCLAIMS ALL WARRANTIES, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, ACCURACY, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SOFTWARE WILL BE UNINTERRUPTED, BUG-FREE, OR FULLY COMPATIBLE WITH EVERY FUTURE OPERATING SYSTEM UPDATE.
+        TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, RUHI APPLICATIONS DISCLAIMS ALL WARRANTIES, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, ACCURACY, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT RUHI BROWSER WILL OPERATE ERROR-FREE, SECURE FROM ALL POTENTIAL VULNERABILITIES, UNINTERRUPTED, OR COMPATIBLE WITH EVERY FUTURE OS UPDATE OR WEB STANDARD.
       </p>
 
       <h2>7. Limitation of Liability</h2>
       <p>
-        TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL RUHI APPLICATIONS, ITS DEVELOPER (SAIKH SUFIAN), OR AFFILIATES BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES—INCLUDING LOSS OF PROFITS, DATA LOSS, DEVICE CORRUPTION, OR BUSINESS INTERRUPTION—ARISING OUT OF OR IN CONNECTION WITH YOUR USE OR INABILITY TO USE RUHI BROWSER.
+        TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL RUHI APPLICATIONS, ITS LEAD DEVELOPER (SAIKH SUFIAN), OR CONTRIBUTORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES—INCLUDING LOSS OF PROFITS, DATA LOSS, HARDWARE DAMAGE, SYSTEM MALFUNCTION, OR BUSINESS INTERRUPTION—ARISING OUT OF OR IN CONNECTION WITH YOUR USE OR INABILITY TO USE RUHI BROWSER.
       </p>
 
-      <h2>8. Indemnification</h2>
+      <h2>8. User Indemnification</h2>
       <p>
-        You agree to defend, indemnify, and hold harmless RUHI Applications and its developers from and against any claims, damages, liabilities, losses, and legal expenses arising out of or related to your misuse of the browser or violation of these Terms.
+        You agree to defend, indemnify, and hold harmless RUHI Applications, its developer, and affiliates from and against any claims, liabilities, damages, losses, and reasonable legal expenses arising out of or in any way connected with your violation of these Terms, unlawful conduct, or infringement of third-party rights while using the software.
       </p>
 
       <h2>9. Termination</h2>
       <p>
-        This license remains effective until terminated. Your rights under this license terminate automatically without notice if you fail to comply with any of these Terms. Upon termination, you must cease all use and uninstall all copies of RUHI Browser.
+        This license agreement is effective until terminated. Your rights under this license terminate immediately and automatically without notice if you fail to comply with any provision of these Terms. Upon termination, you must cease all use of RUHI Browser and uninstall all copies from your devices.
       </p>
 
       <h2>10. Governing Law &amp; Jurisdiction</h2>
       <p>
-        These Terms shall be governed by, construed, and enforced in accordance with the laws of <strong>India</strong>, without regard to its conflict of law provisions. Any dispute arising out of or relating to these Terms shall be subject to the exclusive jurisdiction of the competent courts located in West Bengal, India.
+        These Terms shall be governed by and construed in accordance with the laws of <strong>India</strong>, without regard to conflict of law principles. Any dispute or claim arising under or in connection with these Terms shall be subject to the exclusive jurisdiction of the competent courts of <strong>West Bengal, India</strong>.
       </p>
 
-      <h2>11. Modifications to Terms</h2>
+      <h2>11. Amendments to Terms</h2>
       <p>
-        RUHI Applications reserves the right to revise or replace these Terms at any time. Continued use of RUHI Browser following any modifications constitutes your formal acceptance of the updated Terms.
+        RUHI Applications reserves the right to modify or revise these Terms at any time. Material updates will be indicated by revising the "Last Updated" date at the top of this document. Continued use of RUHI Browser following the posting of revised Terms confirms your formal acceptance.
       </p>
 
       <div class="contact-box">
-        <h3 style="color: #121316; margin-bottom: 8px; font-size: 1.2rem; font-weight: 700;">Legal &amp; Developer Contact</h3>
+        <h3 style="color: var(--text-primary, #121316); margin-bottom: 8px; font-size: 1.2rem; font-weight: 700;">Legal &amp; Developer Contact</h3>
         <p style="margin-bottom: 0;">
-          If you have questions, legal inquiries, or trademark requests regarding these Terms of Service, please contact:<br><br>
+          For inquiries, licensing requests, or trademark permissions regarding these Terms of Service, please contact:<br><br>
           <strong>Publisher:</strong> RUHI Applications<br>
-          <strong>Developer:</strong> Saikh Sufian<br>
-          <strong>Support Email:</strong> <a href="mailto:myjawla@gmail.com" style="color: var(--opera-red); text-decoration: none; font-weight: 600;">myjawla@gmail.com</a><br>
-          <strong>Official URL:</strong> <a href="https://ruhibrowser.netlify.app/terms" style="color: var(--opera-red); text-decoration: none; font-weight: 600;">https://ruhibrowser.netlify.app/terms</a>
+          <strong>Lead Developer:</strong> Saikh Sufian<br>
+          <strong>Official Support Email:</strong> <a href="mailto:myjawla@gmail.com">myjawla@gmail.com</a><br>
+          <strong>Official Website:</strong> <a href="https://ruhibrowser.netlify.app/terms.html">https://ruhibrowser.netlify.app/terms.html</a><br>
+          <strong>GitHub Repository:</strong> <a href="https://github.com/Rijussj/ruhibrowser" target="_blank" rel="noopener noreferrer">https://github.com/Rijussj/ruhibrowser</a>
         </p>
       </div>
     </article>
@@ -208,7 +257,7 @@
             <img src="assets/icon.png" alt="Logo" style="width: 24px; height: 24px; border-radius: 6px;">
             RUHI Browser
           </h3>
-          <p>A high-performance, privacy-first web browser designed for pure simplicity, zero telemetry, and maximum security on Windows and Android.</p>
+          <p>A high-performance, privacy-first web browser engineered for pure simplicity, zero telemetry, and maximum security across Windows, macOS, and Android.</p>
         </div>
 
         <div class="footer-col">
@@ -216,7 +265,6 @@
           <ul>
             <li><a href="index.html#features">Features</a></li>
             <li><a href="index.html#privacy">Privacy</a></li>
-            <li><a href="index.html#android">Android</a></li>
             <li><a href="index.html#download">Download</a></li>
             <li><a href="faq.html">FAQ</a></li>
             <li><a href="help.html">Help Center</a></li>
