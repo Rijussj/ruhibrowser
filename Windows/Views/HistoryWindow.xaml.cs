@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -29,7 +30,7 @@ namespace RuhiBrowser.Views
 
         private void LoadHistory()
         {
-            _history = DataManager.LoadHistory();
+            _history = DataManager.LoadHistory().OrderByDescending(h => h.VisitedAt).ToList();
             LbHistory.ItemsSource = null;
             LbHistory.ItemsSource = _history;
         }

@@ -1731,7 +1731,11 @@ class MainActivity : AppCompatActivity(),
                         val repo = com.ruhi.browser.data.repository.BookmarkRepository(com.ruhi.browser.data.local.BookmarkDao(dbHelper))
                         sync.syncBookmarks(repo)
                         val histRepo = com.ruhi.browser.data.repository.HistoryRepository(com.ruhi.browser.data.local.HistoryDao(dbHelper))
-                        sync.syncHistory(histRepo)
+                        sync.syncHistory(histRepo) { modified ->
+                            if (modified) {
+                                runOnUiThread { loadRecentVisits() }
+                            }
+                        }
                         sync.updateHeartbeat(tabManager.getTabs().map { it.url })
                     }
                 }
@@ -1760,7 +1764,11 @@ class MainActivity : AppCompatActivity(),
                 val repo = com.ruhi.browser.data.repository.BookmarkRepository(com.ruhi.browser.data.local.BookmarkDao(dbHelper))
                 sync.syncBookmarks(repo)
                 val histRepo = com.ruhi.browser.data.repository.HistoryRepository(com.ruhi.browser.data.local.HistoryDao(dbHelper))
-                sync.syncHistory(histRepo)
+                sync.syncHistory(histRepo) { modified ->
+                    if (modified) {
+                        runOnUiThread { loadRecentVisits() }
+                    }
+                }
                 sync.updateHeartbeat(tabManager.getTabs().map { it.url })
             }
         } catch (_: Exception) { }

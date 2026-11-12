@@ -5531,7 +5531,7 @@ namespace RuhiBrowser
         private void RenderHomeScreenRecentVisits()
         {
             SpRecentVisits.Children.Clear();
-            var history = DataManager.LoadHistory();
+            var history = DataManager.LoadHistory().OrderByDescending(h => h.VisitedAt).ToList();
             var count = 0;
             bool isDark = IsCurrentThemeDark();
             var titleFg = isDark ? Brushes.White : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0F172A"));
@@ -7453,10 +7453,11 @@ namespace RuhiBrowser
                 var toPush = _bookmarks.Where(b => !remoteDeleted.Any(d => d.Equals(b.Url, StringComparison.OrdinalIgnoreCase))).ToList();
                 await SyncService.PushBookmarksAsync(toPush);
 
-                // 3. Push and Pull History
-                var localHist = DataManager.LoadHistory();
-                await SyncService.PushHistoryAsync(localHist);
+                // 3. Apply Remote History Deletions first
+                bool deletionsApplied = await SyncService.CheckRemoteHistoryDeletionsAsync();
 
+                // 3b. Pull and Push History
+                var localHist = DataManager.LoadHistory();
                 var remoteHist = await SyncService.PullHistoryAsync();
                 bool addedHist = false;
                 foreach (var rh in remoteHist)
@@ -7470,6 +7471,14 @@ namespace RuhiBrowser
                 if (addedHist)
                 {
                     DataManager.SaveHistory(localHist);
+                }
+
+                // Push only current active history (after deletions applied)
+                await SyncService.PushHistoryAsync(localHist);
+
+                if (deletionsApplied || addedHist)
+                {
+                    Dispatcher.Invoke(() => RenderHomeScreenRecentVisits());
                 }
 
                 // 3b. Push and Pull Passwords

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using RuhiBrowser.Models;
 
@@ -158,7 +159,8 @@ namespace RuhiBrowser.Services
                 if (File.Exists(HistoryPath))
                 {
                     var json = File.ReadAllText(HistoryPath);
-                    return JsonSerializer.Deserialize<List<HistoryItem>>(json, JsonOptions) ?? new List<HistoryItem>();
+                    var list = JsonSerializer.Deserialize<List<HistoryItem>>(json, JsonOptions) ?? new List<HistoryItem>();
+                    return list.OrderByDescending(h => h.VisitedAt).ToList();
                 }
             }
             catch { }
@@ -186,12 +188,14 @@ namespace RuhiBrowser.Services
             var existing = list.Find(h => string.Equals(h.Url, url, StringComparison.OrdinalIgnoreCase));
             if (existing != null)
             {
+                list.Remove(existing);
                 if (!string.IsNullOrWhiteSpace(title))
                 {
                     existing.Title = title;
                 }
                 existing.VisitedAt = DateTime.Now;
                 existing.VisitCount++;
+                list.Insert(0, existing);
             }
             else
             {
