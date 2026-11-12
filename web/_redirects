@@ -1,4 +1,9 @@
-/faq         /faq.html         200
-/help        /help.html        200
-/privacy     /privacy.html     200
-/terms       /terms.html       200
+/faq                 /faq.html             200
+/help                /help.html            200
+/privacy             /privacy.html         200
+/privacy_policy      /privacy.html         301
+/privacy-policy      /privacy.html         301
+/terms               /terms.html           200
+/terms-of-service    /terms.html           301
+/download            /#download            302
+/*                   /404.html             404

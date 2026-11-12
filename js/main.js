@@ -37,6 +37,28 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Automatic OS Detection & Platform Isolation
   const detectedOS = detectClientOS();
   setPlatformView(detectedOS);
+
+  // 5. Mobile Hamburger Navigation Toggle
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('is-open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('is-open');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+        navLinks.classList.remove('is-open');
+      }
+    });
+  }
 });
 
 // OS Detection Function

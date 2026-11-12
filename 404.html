@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | RUHI Browser</title>
+  <meta name="description" content="The page you are looking for does not exist or has been moved. Explore RUHI Browser for Windows, macOS, and Android.">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .error-container {
+      min-height: calc(100vh - 280px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+    }
+    .error-card {
+      max-width: 640px;
+      width: 100%;
+      text-align: center;
+      background: var(--card-bg, #ffffff);
+      border: 1px solid var(--card-border, #e6e8ee);
+      border-radius: 24px;
+      padding: 60px 40px;
+      box-shadow: var(--card-shadow, 0 4px 24px rgba(0, 0, 0, 0.06));
+    }
+    .error-code {
+      font-size: 6rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      background: var(--accent-gradient, linear-gradient(135deg, #10b981 0%, #059669 100%));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    .error-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text-primary, #121316);
+      margin-bottom: 12px;
+    }
+    .error-desc {
+      color: var(--text-secondary, #5e6472);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .error-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .quick-links {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid var(--card-border, #e6e8ee);
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .quick-links a {
+      color: var(--theme-green, #10b981);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .quick-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="nav-brand">
+        <img src="assets/icon.png" alt="RUHI Browser Logo">
+        <span>RUHI Browser</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="index.html#download">Download</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="help.html">Help</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="index.html#download" class="btn-primary" style="padding: 8px 18px; font-size: 0.9rem;">
+          Download RUHI
+        </a>
+        <button class="nav-mobile-toggle" aria-label="Toggle navigation menu" id="nav-toggle">
+          <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="error-container">
+    <div class="error-card">
+      <div class="error-code">404</div>
+      <h1 class="error-title">Page Not Found</h1>
+      <p class="error-desc">
+        The page you are looking for might have been moved, renamed, or is temporarily unavailable. Let's get you back on track.
+      </p>
+
+      <div class="error-actions">
+        <a href="index.html" class="btn-primary" style="height: 48px; padding: 0 24px; font-weight: 600;">
+          Back to Home
+        </a>
+        <a href="index.html#download" class="btn-secondary" style="height: 48px; padding: 0 22px; font-weight: 600;">
+          Download Browser
+        </a>
+        <a href="help.html" class="btn-secondary" style="height: 48px; padding: 0 22px; font-weight: 600;">
+          Help Center
+        </a>
+      </div>
+
+      <div class="quick-links">
+        <a href="faq.html">Frequently Asked Questions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col-brand">
+          <h3>
+            <img src="assets/icon.png" alt="Logo" style="width: 24px; height: 24px; border-radius: 6px;">
+            RUHI Browser
+          </h3>
+          <p>A high-performance, privacy-first web browser engineered for pure simplicity, zero telemetry, and maximum security across Windows, macOS, and Android.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#privacy">Privacy</a></li>
+            <li><a href="index.html#download">Download</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="help.html">Help Center</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal &amp; Policy</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="help.html">Help &amp; Support</a></li>
+            <li><a href="mailto:myjawla@gmail.com">Contact Developer</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year">2026</span> RUHI Applications. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

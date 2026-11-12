@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ruhibrowser.netlify.app/sitemap.xml

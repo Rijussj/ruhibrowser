@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Help &amp; Support Center — RUHI Browser</title>
   <meta name="description" content="Official RUHI Browser Help &amp; Support Center. Find guides on installation, tab management, built-in AdBlock, privacy tools, and troubleshooting for Windows &amp; Android.">
+    <link rel="canonical" href="https://ruhibrowser.netlify.app/help.html">
+  <meta name="theme-color" content="#10b981">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ruhibrowser.netlify.app/help.html">
+  <meta property="og:title" content="Help — RUHI Browser">
+  <meta property="og:image" content="https://ruhibrowser.netlify.app/assets/icon.png">
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <link rel="stylesheet" href="css/styles.css">
   <style>
@@ -38,7 +44,7 @@
       transition: var(--transition);
     }
     .help-search-input:focus {
-      border-color: var(--opera-red);
+      border-color: var(--theme-green);
       box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
     }
     .help-search-icon {
@@ -213,6 +219,13 @@
         <a href="index.html#download" class="btn-primary" style="padding: 8px 18px; font-size: 0.9rem;">
           Download RUHI
         </a>
+        <button class="nav-mobile-toggle" aria-label="Toggle navigation menu" id="nav-toggle">
+          <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
@@ -518,7 +531,7 @@
 
     <!-- 6. Direct Developer Support -->
     <section id="contact" class="support-contact-box">
-      <div style="margin-bottom: 16px; color: var(--opera-red);">
+      <div style="margin-bottom: 16px; color: var(--theme-green);">
         <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
           <polyline points="22,6 12,13 2,6"></polyline>
