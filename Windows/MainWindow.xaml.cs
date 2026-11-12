@@ -7340,17 +7340,46 @@ namespace RuhiBrowser
             }
         }
 
+        private DispatcherTimer? _tabNotificationTimer;
+        private string? _pendingReceivedTabUrl;
+
         private void OnTabReceivedFromOtherDevice(SentTab sentTab)
         {
             Dispatcher.Invoke(() =>
             {
+                _pendingReceivedTabUrl = sentTab.Url;
                 CreateNewTab(sentTab.Url);
-                MessageBox.Show(this,
-                    $"📱 Tab received from linked phone / device!\n\nTitle: {sentTab.Title}\nURL: {sentTab.Url}",
-                    "Tab Received from Phone",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
+
+                TxtNotificationTitle.Text = string.IsNullOrWhiteSpace(sentTab.Title) ? sentTab.Url : sentTab.Title;
+                TxtNotificationUrl.Text = sentTab.Url;
+                NotificationTabReceived.Visibility = Visibility.Visible;
+
+                _tabNotificationTimer?.Stop();
+                _tabNotificationTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(8) };
+                _tabNotificationTimer.Tick += (s, e) =>
+                {
+                    _tabNotificationTimer.Stop();
+                    NotificationTabReceived.Visibility = Visibility.Collapsed;
+                };
+                _tabNotificationTimer.Start();
             });
+        }
+
+        private void OnDismissTabNotificationClicked(object sender, RoutedEventArgs e)
+        {
+            _tabNotificationTimer?.Stop();
+            NotificationTabReceived.Visibility = Visibility.Collapsed;
+        }
+
+        private void OnOpenReceivedTabClicked(object sender, RoutedEventArgs e)
+        {
+            _tabNotificationTimer?.Stop();
+            NotificationTabReceived.Visibility = Visibility.Collapsed;
+            if (!string.IsNullOrWhiteSpace(_pendingReceivedTabUrl))
+            {
+                var tab = _tabs.Find(t => t.Url == _pendingReceivedTabUrl);
+                if (tab != null) SwitchToTab(tab);
+            }
         }
 
         private void UpdateSyncButtonUI()
